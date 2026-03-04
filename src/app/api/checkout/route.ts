@@ -41,21 +41,53 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { advisorId, advisorName, scheduledAt, durationMinutes, price } =
-      body as {
-        advisorId: string;
-        advisorName: string;
-        scheduledAt: string;
-        durationMinutes: number;
-        price: number; // in cents
-      };
+    const { advisorId, scheduledAt, durationMinutes } = body as {
+      advisorId: string;
+      scheduledAt: string;
+      durationMinutes: number;
+    };
 
-    if (!advisorId || !scheduledAt || !durationMinutes || !price) {
+    if (!advisorId || !scheduledAt || !durationMinutes) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
+
+    // Validate duration
+    const allowedDurations = [30, 60, 90];
+    if (!allowedDurations.includes(durationMinutes)) {
+      return NextResponse.json(
+        { error: "Duration must be 30, 60, or 90 minutes" },
+        { status: 400 }
+      );
+    }
+
+    // Validate scheduled date is in the future
+    const scheduledDate = new Date(scheduledAt);
+    if (isNaN(scheduledDate.getTime()) || scheduledDate.getTime() < Date.now()) {
+      return NextResponse.json(
+        { error: "Scheduled date must be valid and in the future" },
+        { status: 400 }
+      );
+    }
+
+    // Validate advisor exists and is available, and calculate price server-side
+    const { data: advisor } = await supabase
+      .from("advisors")
+      .select("id, name, rate, availability_status")
+      .eq("id", advisorId)
+      .single();
+
+    if (!advisor) {
+      return NextResponse.json(
+        { error: "Advisor not found" },
+        { status: 404 }
+      );
+    }
+
+    const advisorName = advisor.name;
+    const price = Math.round((advisor.rate * durationMinutes) / 60);
 
     // Look up or create Stripe customer
     const { data: profile } = await supabase
@@ -83,7 +115,6 @@ export async function POST(request: Request) {
     }
 
     // Build cancel URL that preserves booking params
-    const scheduledDate = new Date(scheduledAt);
     const dateStr = scheduledAt.split("T")[0];
     const timeStr = `${String(scheduledDate.getHours()).padStart(2, "0")}:${String(scheduledDate.getMinutes()).padStart(2, "0")}`;
     const cancelUrl = `${siteUrl}/portal/advisor/${advisorId}?dur=${durationMinutes}&date=${dateStr}&time=${encodeURIComponent(timeStr)}`;
@@ -133,7 +164,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: `Failed to create checkout session: ${message}` },
+      { error: "Failed to create checkout session. Please try again." },
       { status: 500 }
     );
   }

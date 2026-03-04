@@ -140,6 +140,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="text-wd-text text-xl bg-transparent border-none p-1"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? "×" : "☰"}
         </button>

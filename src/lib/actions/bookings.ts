@@ -43,6 +43,20 @@ export async function cancelBooking(bookingId: string) {
   } = await supabase.auth.getUser();
   if (!user) return { error: "Not authenticated" };
 
+  // Verify booking exists, belongs to user, and is cancellable
+  const { data: booking } = await supabase
+    .from("bookings")
+    .select("id, status")
+    .eq("id", bookingId)
+    .eq("user_id", user.id)
+    .single();
+
+  if (!booking) return { error: "Booking not found" };
+
+  if (booking.status === "completed" || booking.status === "cancelled") {
+    return { error: `Cannot cancel a ${booking.status} booking` };
+  }
+
   const { error } = await supabase
     .from("bookings")
     .update({ status: "cancelled" })

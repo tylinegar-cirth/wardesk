@@ -134,10 +134,8 @@ export default function AdvisorDetailPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           advisorId: advisor.id,
-          advisorName: advisor.name,
           scheduledAt,
           durationMinutes: selectedDuration,
-          price: price * 100, // cents
         }),
       });
 
@@ -171,10 +169,8 @@ export default function AdvisorDetailPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           advisorId: advisor.id,
-          advisorName: advisor.name,
           scheduledAt,
           durationMinutes: selectedDuration,
-          price: price * 100, // cents
           companyName: companyName.trim(),
           poNumber: poNumber.trim() || undefined,
         }),

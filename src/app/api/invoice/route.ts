@@ -55,23 +55,56 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { advisorId, advisorName, scheduledAt, durationMinutes, price, companyName, poNumber } =
+    const { advisorId, scheduledAt, durationMinutes, companyName, poNumber } =
       body as {
         advisorId: string;
-        advisorName: string;
         scheduledAt: string;
         durationMinutes: number;
-        price: number; // in cents
         companyName: string;
         poNumber?: string;
       };
 
-    if (!advisorId || !scheduledAt || !durationMinutes || !price || !companyName) {
+    if (!advisorId || !scheduledAt || !durationMinutes || !companyName) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
+
+    // Validate duration
+    const allowedDurations = [30, 60, 90];
+    if (!allowedDurations.includes(durationMinutes)) {
+      return NextResponse.json(
+        { error: "Duration must be 30, 60, or 90 minutes" },
+        { status: 400 }
+      );
+    }
+
+    // Validate scheduled date is in the future
+    const parsedDate = new Date(scheduledAt);
+    if (isNaN(parsedDate.getTime()) || parsedDate.getTime() < Date.now()) {
+      return NextResponse.json(
+        { error: "Scheduled date must be valid and in the future" },
+        { status: 400 }
+      );
+    }
+
+    // Validate advisor exists and calculate price server-side
+    const { data: advisor } = await supabase
+      .from("advisors")
+      .select("id, name, rate, availability_status")
+      .eq("id", advisorId)
+      .single();
+
+    if (!advisor) {
+      return NextResponse.json(
+        { error: "Advisor not found" },
+        { status: 404 }
+      );
+    }
+
+    const advisorName = advisor.name;
+    const price = Math.round((advisor.rate * durationMinutes) / 60);
 
     // Look up or create Stripe customer
     const { data: profile } = await supabase
@@ -194,7 +227,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: `Failed to create invoice: ${message}` },
+      { error: "Failed to create invoice. Please try again." },
       { status: 500 }
     );
   }

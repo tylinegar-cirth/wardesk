@@ -83,6 +83,7 @@ export default function StudioNav() {
           <button
             className="md:hidden bg-transparent border-none text-wd-text text-[22px] p-1"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
             ☰
           </button>
