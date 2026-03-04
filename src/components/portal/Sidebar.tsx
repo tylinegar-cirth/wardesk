@@ -47,8 +47,8 @@ export default function Sidebar({ userName }: { userName: string | null }) {
             onClick={() => setMobileOpen(false)}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 font-mono text-[11px] tracking-[0.05em] uppercase transition-all duration-200 ${
               isActive(item.href)
-                ? "bg-wd-gold-glow text-wd-text border-l-2 border-wd-gold"
-                : "text-wd-muted hover:text-wd-sub hover:bg-white/[0.03]"
+                ? "bg-wd-gold-glow text-wd-gold border-l-2 border-wd-gold"
+                : "text-wd-sub hover:text-wd-text hover:bg-white/[0.04]"
             }`}
           >
             <span className="text-sm">{item.icon}</span>
@@ -65,7 +65,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
         <form action={signOut}>
           <button
             type="submit"
-            className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-sub transition-colors bg-transparent border-none p-0 cursor-pointer"
+            className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-sub hover:text-wd-text transition-colors bg-transparent border-none p-0 cursor-pointer"
           >
             Sign out
           </button>

@@ -82,7 +82,7 @@ export default function AdvisorsPage() {
             className={`font-mono text-[10px] tracking-[0.1em] uppercase px-4 py-2 rounded-full border transition-all duration-200 ${
               filter === cat.id
                 ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                : "bg-transparent text-wd-muted border-wd-border hover:text-wd-sub hover:border-wd-sub/30"
+                : "bg-transparent text-wd-sub border-wd-border hover:text-wd-text hover:border-wd-sub/30"
             }`}
           >
             {cat.name}
@@ -102,7 +102,7 @@ export default function AdvisorsPage() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16">
-          <p className="font-sans text-sm text-wd-muted">
+          <p className="font-sans text-sm text-wd-sub">
             No advisors match your filters.
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function AdvisorsPage() {
             <Link
               key={advisor.id}
               href={`/portal/advisor/${advisor.id}`}
-              className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-gold/30 transition-all duration-300 group"
+              className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-gold/30 hover:-translate-y-0.5 transition-all duration-300 group"
             >
               <div className="flex items-start gap-3 mb-4">
                 {advisor.image_url && (
@@ -134,7 +134,7 @@ export default function AdvisorsPage() {
                       }`}
                     />
                   </div>
-                  <p className="font-mono text-[10px] text-wd-muted truncate">
+                  <p className="font-mono text-[10px] text-wd-sub truncate">
                     {advisor.title}
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export default function AdvisorsPage() {
                 {advisor.focus.slice(0, 2).map((f) => (
                   <span
                     key={f}
-                    className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-muted bg-white/[0.04] px-2 py-0.5 rounded"
+                    className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-white/[0.05] px-2 py-0.5 rounded"
                   >
                     {f}
                   </span>
@@ -164,7 +164,7 @@ export default function AdvisorsPage() {
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="font-mono text-[10px] text-wd-muted">
+                <span className="font-mono text-[10px] text-wd-sub">
                   {advisor.branch}
                 </span>
                 <span className="font-mono text-[11px] text-wd-gold">

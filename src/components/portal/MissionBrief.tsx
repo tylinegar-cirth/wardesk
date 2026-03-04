@@ -32,7 +32,7 @@ export default function MissionBrief() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!mission.trim() || mission.trim().length < 10) return;
+    if (!mission.trim() || mission.trim().length < 2) return;
 
     setLoading(true);
     setError(null);
@@ -70,7 +70,7 @@ export default function MissionBrief() {
             <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold">
               Mission Brief
             </p>
-            <p className="font-sans text-xs text-wd-muted">
+            <p className="font-sans text-xs text-wd-sub">
               AI-powered advisor matching
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function MissionBrief() {
         />
         <button
           type="submit"
-          disabled={loading || mission.trim().length < 10}
+          disabled={loading || mission.trim().length < 2}
           className="mt-3 w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-40 disabled:translate-y-0 disabled:cursor-not-allowed"
         >
           {loading ? (
@@ -158,7 +158,7 @@ export default function MissionBrief() {
                     )}
                   </div>
                   {rec.advisor && (
-                    <p className="font-mono text-[10px] text-wd-muted mb-1.5 truncate">
+                    <p className="font-mono text-[10px] text-wd-sub mb-1.5 truncate">
                       {rec.advisor.title}
                     </p>
                   )}

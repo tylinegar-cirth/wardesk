@@ -167,7 +167,7 @@ export default function AdvisorDetailPage() {
   if (!advisor) {
     return (
       <div className="p-6 md:p-10 text-center">
-        <p className="font-sans text-sm text-wd-muted">Advisor not found.</p>
+        <p className="font-sans text-sm text-wd-sub">Advisor not found.</p>
         <Link
           href="/portal/advisors"
           className="font-mono text-[10px] text-wd-gold mt-3 inline-block"
@@ -234,15 +234,17 @@ export default function AdvisorDetailPage() {
           )}
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="bg-wd-card border border-wd-border rounded-lg p-4 text-center">
-              <p className="font-serif text-xl text-wd-text">
-                {advisor.years_service}
-              </p>
-              <p className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted">
-                Years
-              </p>
-            </div>
+          <div className={`grid gap-4 mb-6 ${advisor.years_service > 0 ? "grid-cols-3" : "grid-cols-2"}`}>
+            {advisor.years_service > 0 && (
+              <div className="bg-wd-card border border-wd-border rounded-lg p-4 text-center">
+                <p className="font-serif text-xl text-wd-text">
+                  {advisor.years_service}
+                </p>
+                <p className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted">
+                  Years
+                </p>
+              </div>
+            )}
             <div className="bg-wd-card border border-wd-border rounded-lg p-4 text-center">
               <p className="font-serif text-xl text-wd-text">
                 {advisor.clearance}
@@ -263,7 +265,7 @@ export default function AdvisorDetailPage() {
 
           {/* Focus areas */}
           <div className="mb-6">
-            <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
+            <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-sub mb-3">
               Focus areas
             </p>
             <div className="flex flex-wrap gap-2">

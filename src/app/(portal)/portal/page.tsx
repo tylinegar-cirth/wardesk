@@ -92,7 +92,7 @@ export default async function DashboardPage() {
 
       {/* Upcoming Sessions */}
       <section className="mb-10">
-        <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-muted mb-4">
+        <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-sub mb-4">
           Upcoming Sessions
         </h2>
         {upcomingSessions && upcomingSessions.length > 0 ? (
@@ -100,7 +100,7 @@ export default async function DashboardPage() {
             {upcomingSessions.map((session) => (
               <div
                 key={session.id}
-                className="bg-wd-card border border-wd-border rounded-[14px] p-5 flex items-center gap-4"
+                className="bg-wd-card border border-wd-border rounded-[14px] p-5 flex items-center gap-4 hover:border-wd-border-hov transition-colors"
               >
                 {session.advisor?.image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -114,7 +114,7 @@ export default async function DashboardPage() {
                   <p className="font-sans text-sm text-wd-text truncate">
                     {session.advisor?.name}
                   </p>
-                  <p className="font-mono text-[10px] text-wd-muted">
+                  <p className="font-mono text-[10px] text-wd-sub">
                     {new Date(session.scheduled_at).toLocaleDateString("en-US", {
                       weekday: "short",
                       month: "short",
@@ -133,13 +133,18 @@ export default async function DashboardPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-wd-card border border-wd-border rounded-[14px] p-8 text-center">
-            <p className="font-sans text-sm text-wd-muted mb-3">
-              No upcoming sessions
+          <div className="bg-wd-card border border-wd-border rounded-[14px] p-10 text-center">
+            <div className="w-12 h-12 rounded-full bg-white/[0.04] mx-auto mb-4 flex items-center justify-center">
+              <svg className="w-5 h-5 text-wd-sub" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+            </div>
+            <p className="font-sans text-sm text-wd-sub mb-4">
+              No upcoming sessions yet
             </p>
             <Link
               href="/portal/advisors"
-              className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-gold hover:text-wd-text transition-colors"
+              className="inline-block font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-5 bg-wd-gold/10 text-wd-gold border border-wd-gold/20 rounded-lg hover:bg-wd-gold/20 transition-all"
             >
               Browse advisors &rarr;
             </Link>
@@ -150,14 +155,14 @@ export default async function DashboardPage() {
       {/* Active Retainers */}
       {retainers && retainers.length > 0 && (
         <section className="mb-10">
-          <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-muted mb-4">
+          <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-sub mb-4">
             Active Retainers
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {retainers.map((retainer) => (
               <div
                 key={retainer.id}
-                className="bg-wd-card border border-wd-border rounded-[14px] p-5"
+                className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-border-hov transition-colors"
               >
                 <div className="flex items-center gap-3 mb-3">
                   {retainer.advisor?.image_url && (
@@ -174,14 +179,14 @@ export default async function DashboardPage() {
                     </p>
                     <p
                       className={`font-mono text-[9px] tracking-[0.1em] uppercase ${
-                        tierColors[retainer.tier] || "text-wd-muted"
+                        tierColors[retainer.tier] || "text-wd-sub"
                       }`}
                     >
                       {retainer.tier} tier
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-between text-wd-muted font-mono text-[10px]">
+                <div className="flex justify-between text-wd-sub font-mono text-[10px]">
                   <span>{retainer.hours_per_month}h / month</span>
                   <span>${(retainer.monthly_price / 100).toLocaleString()}/mo</span>
                 </div>
@@ -195,7 +200,7 @@ export default async function DashboardPage() {
       {recommendedAdvisors && recommendedAdvisors.length > 0 && (
         <section className="mb-10">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-muted">
+            <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-sub">
               Recommended Advisors
             </h2>
             <Link
@@ -210,7 +215,7 @@ export default async function DashboardPage() {
               <Link
                 key={advisor.id}
                 href={`/portal/advisor/${advisor.id}`}
-                className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-gold/30 transition-colors group"
+                className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-gold/30 hover:-translate-y-0.5 transition-all duration-300 group"
               >
                 <div className="flex items-center gap-3 mb-3">
                   {advisor.image_url && (
@@ -218,14 +223,14 @@ export default async function DashboardPage() {
                     <img
                       src={advisor.image_url}
                       alt=""
-                      className="w-11 h-11 rounded-full object-cover"
+                      className="w-11 h-11 rounded-full object-cover ring-2 ring-white/[0.06] group-hover:ring-wd-gold/30 transition-all"
                     />
                   )}
                   <div className="min-w-0">
                     <p className="font-sans text-sm text-wd-text group-hover:text-wd-gold transition-colors truncate">
                       {advisor.name}
                     </p>
-                    <p className="font-mono text-[10px] text-wd-muted truncate">
+                    <p className="font-mono text-[10px] text-wd-sub truncate">
                       {advisor.title}
                     </p>
                   </div>
@@ -234,7 +239,7 @@ export default async function DashboardPage() {
                   {advisor.focus.slice(0, 2).map((f: string) => (
                     <span
                       key={f}
-                      className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-muted bg-white/[0.04] px-2 py-0.5 rounded"
+                      className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-white/[0.04] px-2 py-0.5 rounded"
                     >
                       {f}
                     </span>
@@ -249,14 +254,14 @@ export default async function DashboardPage() {
       {/* Recent Completed */}
       {recentSessions && recentSessions.length > 0 && (
         <section>
-          <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-muted mb-4">
+          <h2 className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-sub mb-4">
             Recent Sessions
           </h2>
           <div className="space-y-3">
             {recentSessions.map((session) => (
               <div
                 key={session.id}
-                className="bg-wd-card border border-wd-border rounded-[14px] p-5 flex items-center gap-4"
+                className="bg-wd-card border border-wd-border rounded-[14px] p-5 flex items-center gap-4 hover:border-wd-border-hov transition-colors"
               >
                 {session.advisor?.image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -270,7 +275,7 @@ export default async function DashboardPage() {
                   <p className="font-sans text-sm text-wd-text truncate">
                     {session.advisor?.name}
                   </p>
-                  <p className="font-mono text-[10px] text-wd-muted">
+                  <p className="font-mono text-[10px] text-wd-sub">
                     {new Date(session.scheduled_at).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
