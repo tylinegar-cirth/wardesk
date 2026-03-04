@@ -5,6 +5,7 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navLinks = [
+  { label: "Advisory", href: "/" },
   { label: "Services", href: "#services" },
   { label: "Ecosystem", href: "#ecosystem" },
   { label: "Team", href: "#team" },
@@ -53,15 +54,25 @@ export default function StudioNav() {
           </span>
         </Link>
         <nav className="flex gap-7 items-center">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.label}
+                href={link.href}
+                className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <ThemeToggle />
           <Link
             href="/portal/studio"
@@ -80,16 +91,27 @@ export default function StudioNav() {
 
       {menuOpen && (
         <div className="fixed top-[60px] left-0 right-0 z-[99] bg-wd-bg/95 backdrop-blur-[24px] border-b border-wd-border p-5 px-6 flex flex-col gap-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </div>
       )}
     </>

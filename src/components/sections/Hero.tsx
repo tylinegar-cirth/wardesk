@@ -81,10 +81,10 @@ export default function Hero() {
               Browse advisors
             </a>
             <a
-              href="#show"
+              href="/studio"
               className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98] inline-block"
             >
-              Watch the show
+              Visit Studio →
             </a>
           </div>
         </Reveal>
