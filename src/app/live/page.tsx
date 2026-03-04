@@ -14,7 +14,7 @@ export default function LivePage() {
       </Link>
 
       {/* Heading */}
-      <h1 className="font-mono text-[clamp(36px,10vw,96px)] font-bold tracking-[0.3em] uppercase text-wd-text mb-6 leading-[1.1]">
+      <h1 className="font-mono text-[clamp(24px,5vw,48px)] font-bold tracking-[0.3em] uppercase text-wd-text mb-6 leading-[1.1]">
         War Desk <span className="text-wd-gold">Live</span>
       </h1>
       <p className="font-serif text-[clamp(16px,2vw,20px)] text-wd-sub italic mb-4 leading-[1.4]">
