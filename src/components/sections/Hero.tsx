@@ -39,7 +39,7 @@ export default function Hero() {
           playsInline
           disablePictureInPicture
           className="w-full h-full object-cover pointer-events-none"
-          src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_auto/cfe48a59-5f4b-4e0e-9a44-39375e474302_o9glix.mp4"
+          src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/cfe48a59-5f4b-4e0e-9a44-39375e474302_o9glix.mp4"
         />
         {/* Gradient overlay */}
         <div
