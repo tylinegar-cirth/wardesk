@@ -14,16 +14,15 @@ export default function LivePage() {
       </Link>
 
       {/* Heading */}
-      <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold mb-4">
-        War Desk Live
-      </div>
-      <h1 className="font-serif text-[clamp(32px,5vw,56px)] text-wd-text mb-6 leading-[1.1]">
-        The conversation the industry<br className="hidden sm:block" /> actually needs.
+      <h1 className="font-mono text-[clamp(36px,10vw,96px)] font-bold tracking-[0.3em] uppercase text-wd-text mb-6 leading-[1.1]">
+        War Desk <span className="text-wd-gold">Live</span>
       </h1>
-      <p className="font-sans text-[15px] text-wd-sub leading-[1.7] max-w-[480px] mb-10">
+      <p className="font-serif text-[clamp(16px,2vw,20px)] text-wd-sub italic mb-4 leading-[1.4]">
+        The conversation the industry actually needs.
+      </p>
+      <p className="font-sans text-[13px] text-wd-muted leading-[1.7] max-w-[400px] mb-10">
         Every week, a senior defense leader sits down with a founder building
-        the future. No scripts. No PR handlers. The signal you can&apos;t get
-        anywhere else.
+        the future. No scripts. No PR handlers.
       </p>
 
       {/* Coming soon badge */}
