@@ -4,13 +4,20 @@ import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 import { studioCompanies, sectors } from "@/data/studio-companies";
 
+// 2 rows × 3 columns = 6 cards before expand
+const INITIAL_COUNT = 6;
+
 export default function StudioEcosystem() {
   const [activeSector, setActiveSector] = useState("All Companies");
+  const [expanded, setExpanded] = useState(false);
 
   const filtered =
     activeSector === "All Companies"
       ? studioCompanies
       : studioCompanies.filter((c) => c.sector === activeSector);
+
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
+  const hasMore = filtered.length > INITIAL_COUNT;
 
   return (
     <section
@@ -22,11 +29,10 @@ export default function StudioEcosystem() {
           The Sector
         </div>
         <h2 className="font-serif text-[clamp(28px,3.8vw,42px)] font-normal text-wd-text leading-[1.1] mb-3">
-          Companies We Serve
+          Companies On Our Radar
         </h2>
         <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px] mb-8">
-          We work with the companies defining the future of defense and national
-          security.
+          The companies defining the future of defense and national security.
         </p>
       </Reveal>
 
@@ -41,7 +47,10 @@ export default function StudioEcosystem() {
             return (
               <button
                 key={sector}
-                onClick={() => setActiveSector(sector)}
+                onClick={() => {
+                  setActiveSector(sector);
+                  setExpanded(false);
+                }}
                 className={`font-mono text-[10px] tracking-[0.05em] uppercase py-2 px-3.5 rounded-lg border transition-all duration-200 ${
                   activeSector === sector
                     ? "border-wd-gold bg-wd-gold-glow text-wd-gold"
@@ -58,7 +67,7 @@ export default function StudioEcosystem() {
 
       {/* Company grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((company, i) => (
+        {visible.map((company, i) => (
           <Reveal key={company.id} delay={0.02 * Math.min(i, 6)}>
             <div className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-border-hov transition-colors h-full">
               <div className="flex items-center gap-3 mb-3">
@@ -133,6 +142,40 @@ export default function StudioEcosystem() {
           </Reveal>
         ))}
       </div>
+
+      {/* Expand / Collapse */}
+      {hasMore && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="font-mono text-[11px] tracking-[0.1em] uppercase py-3 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]"
+          >
+            {expanded
+              ? "Show less"
+              : `Show all ${filtered.length} companies ↓`}
+          </button>
+        </div>
+      )}
+
+      {/* Add your company */}
+      <Reveal delay={0.1}>
+        <div className="mt-8 bg-wd-card border border-dashed border-wd-border rounded-[14px] p-6 flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <p className="font-sans text-sm text-wd-text mb-1">
+              Not on the list?
+            </p>
+            <p className="font-sans text-xs text-wd-sub">
+              If you&apos;re building in defense, aerospace, or hard tech — we want to know about you.
+            </p>
+          </div>
+          <a
+            href="#contact"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-6 bg-wd-gold/10 text-wd-gold border border-wd-gold/20 rounded-lg hover:bg-wd-gold/20 transition-all"
+          >
+            Add your company &rarr;
+          </a>
+        </div>
+      </Reveal>
     </section>
   );
 }
