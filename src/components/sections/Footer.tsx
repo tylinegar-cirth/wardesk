@@ -1,0 +1,52 @@
+"use client";
+
+const footerCols = [
+  { t: "Platform", links: ["Advisors", "Book a briefing", "Enterprise"] },
+  { t: "Media", links: ["The Show", "Newsletter"] },
+  { t: "Studio", links: ["Services", "Contact"] },
+];
+
+export default function Footer() {
+  return (
+    <footer className="py-12 px-[clamp(20px,5vw,72px)] pb-8 max-w-[1240px] mx-auto border-t border-wd-border mt-4">
+      <div className="flex justify-between flex-wrap gap-8 mb-10">
+        <div>
+          <div className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-wd-text mb-2 flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
+              alt=""
+              className="h-8 w-auto"
+              style={{ mixBlendMode: "screen" }}
+            />
+            War Desk
+          </div>
+          <p className="font-sans text-xs text-wd-muted leading-relaxed">
+            El Segundo, California
+          </p>
+        </div>
+        <div className="flex gap-[clamp(24px,4vw,48px)] flex-wrap">
+          {footerCols.map((col, i) => (
+            <div key={i}>
+              <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-2.5">
+                {col.t}
+              </div>
+              {col.links.map((l, j) => (
+                <a
+                  key={j}
+                  href="#"
+                  className="block font-sans text-[13px] text-wd-sub mb-2 transition-colors duration-200 hover:text-wd-text"
+                >
+                  {l}
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="font-mono text-[10px] text-wd-muted border-t border-wd-border pt-4">
+        © 2026 War Desk
+      </div>
+    </footer>
+  );
+}
