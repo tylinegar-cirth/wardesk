@@ -30,7 +30,7 @@ export async function updateSession(request: NextRequest) {
   // Demo mode bypass — skip auth for portal routes
   if (
     request.cookies.get("wd-demo")?.value === "1" &&
-    pathname.startsWith("/portal")
+    (pathname.startsWith("/portal") || pathname.startsWith("/studio-portal"))
   ) {
     return supabaseResponse;
   }
@@ -42,6 +42,7 @@ export async function updateSession(request: NextRequest) {
   // Redirect unauthenticated users from protected routes
   const isProtected =
     pathname.startsWith("/portal") ||
+    pathname.startsWith("/studio-portal") ||
     pathname.startsWith("/advisor") ||
     pathname.startsWith("/admin");
 
@@ -117,7 +118,7 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    if (pathname.startsWith("/portal") && role !== "user" && role !== "admin") {
+    if ((pathname.startsWith("/portal") || pathname.startsWith("/studio-portal")) && role !== "user" && role !== "admin") {
       const url = request.nextUrl.clone();
       url.pathname = role === "advisor" ? "/advisor" : "/admin";
       return NextResponse.redirect(url);

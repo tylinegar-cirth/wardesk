@@ -79,7 +79,7 @@ export default function StudioDashboard() {
             Active Projects
           </h2>
           <Link
-            href="/portal/studio/projects"
+            href="/studio-portal/projects"
             className="font-mono text-[10px] tracking-[0.05em] text-wd-gold hover:text-wd-text transition-colors"
           >
             View all &rarr;
@@ -91,7 +91,7 @@ export default function StudioDashboard() {
             return (
               <Link
                 key={project.id}
-                href="/portal/studio/projects"
+                href="/studio-portal/projects"
                 className="bg-wd-card border border-wd-border rounded-[14px] p-6 hover:border-wd-border-hov transition-all group"
               >
                 <div className="flex items-start justify-between mb-3">

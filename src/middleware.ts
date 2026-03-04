@@ -8,6 +8,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/portal/:path*",
+    "/studio-portal/:path*",
     "/advisor/:path*",
     "/admin/:path*",
     "/auth/:path*",

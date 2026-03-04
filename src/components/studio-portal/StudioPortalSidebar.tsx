@@ -7,19 +7,18 @@ import { signOut } from "@/lib/auth/actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navItems = [
-  { label: "Dashboard", href: "/portal", icon: "◆" },
-  { label: "Advisors", href: "/portal/advisors", icon: "◈" },
-  { label: "Sessions", href: "/portal/sessions", icon: "◇" },
-  { label: "Billing", href: "/portal/billing", icon: "□" },
+  { label: "Dashboard", href: "/studio-portal", icon: "◆" },
+  { label: "Projects", href: "/studio-portal/projects", icon: "▣" },
+  { label: "Assets", href: "/studio-portal/assets", icon: "◧" },
+  { label: "Calendar", href: "/studio-portal/calendar", icon: "◇" },
 ];
 
-
-export default function Sidebar({ userName }: { userName: string | null }) {
+export default function StudioPortalSidebar({ userName }: { userName: string | null }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === "/portal") {
+    if (href === "/studio-portal") {
       return pathname === href;
     }
     return pathname.startsWith(href);
@@ -30,7 +29,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
       {/* Logo */}
       <div className="px-6 pt-6 pb-8">
         <Link
-          href="/"
+          href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -39,7 +38,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
             alt=""
             className="h-[84px] w-auto -my-4 dark:invert"
           />
-          War Desk
+          <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
       </div>
 
@@ -61,15 +60,15 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           </Link>
         ))}
 
-        {/* Cross-navigation to studio */}
+        {/* Cross-navigation to advisory */}
         <div className="my-4 mx-3">
           <div className="h-px bg-wd-border" />
           <Link
-            href="/studio-portal"
+            href="/portal"
             onClick={() => setMobileOpen(false)}
             className="font-mono text-[8px] tracking-[0.3em] uppercase text-wd-muted hover:text-wd-gold transition-colors mt-3 mb-1 px-0 block"
           >
-            Studio Portal ↗
+            Advisory Portal ↗
           </Link>
         </div>
       </nav>
@@ -104,7 +103,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
       {/* Mobile header bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 h-14 bg-wd-surface border-b border-wd-border flex items-center justify-between px-4">
         <Link
-          href="/"
+          href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -113,7 +112,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
             alt=""
             className="h-[72px] w-auto -my-3 dark:invert"
           />
-          War Desk
+          <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}

@@ -29,7 +29,7 @@ export default function Nav() {
           <img
             src="/logo.png"
             alt=""
-            className="h-[90px] w-auto -my-4 dark:invert"
+            className="h-[90px] w-auto -mt-[12px] -mb-[18px] dark:invert"
           />
           War Desk
         </Link>
@@ -37,9 +37,9 @@ export default function Nav() {
           <a href="#advisors" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
             Advisors
           </a>
-          <a href="#show" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
-            Show
-          </a>
+          <Link href="/live" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
+            Live
+          </Link>
           <Link href="/studio" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
             Studio
           </Link>
@@ -71,9 +71,9 @@ export default function Nav() {
           <a href="#advisors" onClick={() => setMenuOpen(false)} className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase">
             Advisors
           </a>
-          <a href="#show" onClick={() => setMenuOpen(false)} className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase">
-            Show
-          </a>
+          <Link href="/live" onClick={() => setMenuOpen(false)} className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase">
+            Live
+          </Link>
           <Link href="/studio" onClick={() => setMenuOpen(false)} className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase">
             Studio
           </Link>

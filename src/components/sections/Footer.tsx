@@ -9,7 +9,7 @@ const footerCols = [
     { label: "Enterprise", href: "#enterprise" },
   ]},
   { t: "Media", links: [
-    { label: "The Show", href: "#show" },
+    { label: "War Desk Live", href: "/live" },
     { label: "Newsletter", href: "#" },
   ]},
   { t: "Studio", links: [

@@ -7,7 +7,7 @@ const fourStars = advisors.filter((a) => a.stars >= 4);
 
 export default function ShowSection() {
   return (
-    <section id="show" className="py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto relative">
+    <section id="live" className="py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto relative">
       {/* Divider */}
       <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,var(--wd-divider),transparent)" }} />
 
@@ -15,7 +15,7 @@ export default function ShowSection() {
         <div>
           <Reveal>
             <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
-              The War Desk — Weekly
+              War Desk Live
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -67,10 +67,7 @@ export default function ShowSection() {
             {/* Glass overlay */}
             <div className="relative z-[2] text-center py-7 px-10 bg-wd-bg/55 backdrop-blur-[24px] saturate-150 border border-wd-overlay/[0.08] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(var(--wd-overlay),0.06)] animate-wd-float">
               <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold mb-2.5">
-                The War Desk
-              </div>
-              <div className="font-serif text-[22px] text-wd-text italic">
-                Weekly
+                War Desk Live
               </div>
             </div>
           </div>
