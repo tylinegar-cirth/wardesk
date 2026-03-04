@@ -2,6 +2,36 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+
+// Helper: build redirect URL for booking flow
+async function buildBookingRedirect(
+  supabase: SupabaseClient,
+  formData: FormData
+): Promise<string | null> {
+  const advisorName = formData.get("booking_advisor") as string;
+  if (!advisorName) return null;
+
+  // Look up the advisor by name in the database
+  const { data: advisorRecord } = await supabase
+    .from("advisors")
+    .select("id")
+    .eq("name", advisorName)
+    .single();
+
+  if (!advisorRecord) return null;
+
+  const params = new URLSearchParams();
+  const dur = formData.get("booking_dur") as string;
+  const date = formData.get("booking_date") as string;
+  const time = formData.get("booking_time") as string;
+  if (dur) params.set("dur", dur);
+  if (date) params.set("date", date);
+  if (time) params.set("time", time);
+
+  const query = params.toString();
+  return `/portal/advisor/${advisorRecord.id}${query ? `?${query}` : ""}`;
+}
 
 export async function login(formData: FormData) {
   const supabase = createClient();
@@ -21,6 +51,13 @@ export async function login(formData: FormData) {
       .select("role")
       .eq("id", user.id)
       .single();
+
+    // Check for booking params — redirect to advisor page with pre-populated booking
+    const bookingAdvisor = formData.get("booking_advisor") as string | null;
+    if (bookingAdvisor && (!profile?.role || profile.role === "user")) {
+      const bookingRedirect = await buildBookingRedirect(supabase, formData);
+      if (bookingRedirect) redirect(bookingRedirect);
+    }
 
     switch (profile?.role) {
       case "advisor":
@@ -45,6 +82,18 @@ export async function signup(formData: FormData) {
     },
   });
   if (error) return { error: error.message };
+
+  // Check for booking params — redirect to advisor page after setup
+  const bookingAdvisor = formData.get("booking_advisor") as string | null;
+  if (bookingAdvisor) {
+    const bookingRedirect = await buildBookingRedirect(supabase, formData);
+    if (bookingRedirect) {
+      // New users go to setup first, but store booking intent in the redirect
+      // We'll redirect them straight to the advisor page since setup is optional
+      redirect(bookingRedirect);
+    }
+  }
+
   redirect("/portal/setup");
 }
 

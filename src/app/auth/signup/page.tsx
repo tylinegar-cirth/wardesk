@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { signup } from "@/lib/auth/actions";
 
-export default function SignupPage() {
+function SignupForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+
+  // Booking params passed from marketing site
+  const bookingAdvisor = searchParams.get("booking_advisor");
+  const bookingDur = searchParams.get("booking_dur");
+  const bookingDate = searchParams.get("booking_date");
+  const bookingTime = searchParams.get("booking_time");
+  const hasBooking = !!bookingAdvisor;
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -37,6 +46,13 @@ export default function SignupPage() {
 
       {/* Card */}
       <div className="w-full max-w-[400px] bg-wd-card border border-wd-border rounded-2xl p-8 shadow-[0_8px_48px_rgba(0,0,0,0.4)]">
+        {hasBooking && (
+          <div className="mb-6 p-3 bg-wd-gold-glow border border-wd-gold/20 rounded-lg">
+            <p className="font-sans text-sm text-wd-gold">
+              Create an account to confirm your booking with {bookingAdvisor}
+            </p>
+          </div>
+        )}
         <h1 className="font-serif text-2xl text-wd-text mb-1">
           Create account
         </h1>
@@ -45,6 +61,15 @@ export default function SignupPage() {
         </p>
 
         <form action={handleSubmit} className="space-y-4">
+          {/* Preserve booking params through auth flow */}
+          {hasBooking && (
+            <>
+              <input type="hidden" name="booking_advisor" value={bookingAdvisor || ""} />
+              <input type="hidden" name="booking_dur" value={bookingDur || ""} />
+              <input type="hidden" name="booking_date" value={bookingDate || ""} />
+              <input type="hidden" name="booking_time" value={bookingTime || ""} />
+            </>
+          )}
           <div>
             <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
               Full name
@@ -102,7 +127,7 @@ export default function SignupPage() {
           <p className="font-sans text-sm text-wd-muted">
             Already have an account?{" "}
             <Link
-              href="/auth/login"
+              href={hasBooking ? `/auth/login?booking_advisor=${encodeURIComponent(bookingAdvisor || "")}&booking_dur=${bookingDur || ""}&booking_date=${bookingDate || ""}&booking_time=${encodeURIComponent(bookingTime || "")}` : "/auth/login"}
               className="text-wd-gold hover:text-wd-text transition-colors"
             >
               Sign in
@@ -111,5 +136,13 @@ export default function SignupPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense>
+      <SignupForm />
+    </Suspense>
   );
 }

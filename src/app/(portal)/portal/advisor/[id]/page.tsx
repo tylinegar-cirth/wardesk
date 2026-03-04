@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { createBooking } from "@/lib/actions/bookings";
 import type { DbAdvisor, DbAvailability } from "@/lib/types/database";
 
 const durations = [
@@ -19,11 +18,11 @@ const timeSlots = [
   "15:00", "15:30", "16:00", "16:30",
 ];
 
-type Step = "profile" | "booking" | "confirm";
+type Step = "profile" | "booking";
 
 export default function AdvisorDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [advisor, setAdvisor] = useState<DbAdvisor | null>(null);
   const [availability, setAvailability] = useState<DbAvailability[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +34,15 @@ export default function AdvisorDetailPage() {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
+
+  // Track whether we've pre-populated from URL params
+  const prePopulated = useRef(false);
+
+  // Check for pre-populated booking params from URL (marketing site handoff)
+  const paramDur = searchParams.get("dur");
+  const paramDate = searchParams.get("date");
+  const paramTime = searchParams.get("time");
+  const hasBookingParams = !!(paramDur || paramDate || paramTime);
 
   useEffect(() => {
     async function load() {
@@ -49,6 +57,37 @@ export default function AdvisorDetailPage() {
     }
     load();
   }, [id]);
+
+  // Pre-populate booking form from URL params (runs once after data loads)
+  useEffect(() => {
+    if (prePopulated.current || loading) return;
+    if (!hasBookingParams) return;
+
+    prePopulated.current = true;
+
+    // Set duration
+    if (paramDur) {
+      const dur = parseInt(paramDur);
+      if (dur === 30 || dur === 60 || dur === 90) {
+        setSelectedDuration(dur);
+      }
+    }
+
+    // Set date — find matching date in the next 14 days
+    if (paramDate) {
+      setSelectedDate(paramDate);
+    }
+
+    // Set time — convert from marketing format if needed (e.g., "09:00")
+    if (paramTime) {
+      // Ensure format is "HH:MM"
+      const time = paramTime.includes(":") ? paramTime : `${paramTime.slice(0, 2)}:${paramTime.slice(2)}`;
+      setSelectedTime(time);
+    }
+
+    // Skip directly to booking step since we have pre-populated data
+    setStep("booking");
+  }, [loading, hasBookingParams, paramDur, paramDate, paramTime]);
 
   // Generate next 14 days for calendar
   const calendarDays = useCallback(() => {
@@ -86,18 +125,30 @@ export default function AdvisorDetailPage() {
       `${selectedDate}T${selectedTime}:00`
     ).toISOString();
 
-    const result = await createBooking({
-      advisorId: advisor.id,
-      scheduledAt,
-      durationMinutes: selectedDuration,
-      price: price * 100, // cents
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          advisorId: advisor.id,
+          advisorName: advisor.name,
+          scheduledAt,
+          durationMinutes: selectedDuration,
+          price: price * 100, // cents
+        }),
+      });
 
-    if (result.error) {
-      setBookingError(result.error);
-      setSubmitting(false);
-    } else {
-      setStep("confirm");
+      const data = await res.json();
+
+      if (data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url;
+      } else {
+        setBookingError(data.error || "Failed to create checkout session");
+        setSubmitting(false);
+      }
+    } catch {
+      setBookingError("Something went wrong. Please try again.");
       setSubmitting(false);
     }
   }
@@ -135,6 +186,15 @@ export default function AdvisorDetailPage() {
       >
         &larr; All advisors
       </Link>
+
+      {/* Pre-populated booking notice */}
+      {hasBookingParams && step === "booking" && (
+        <div className="mb-6 p-3 bg-wd-gold-glow border border-wd-gold/20 rounded-lg">
+          <p className="font-sans text-sm text-wd-gold">
+            Your booking details have been pre-loaded. Review and confirm below.
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8">
         {/* Left: Profile */}
@@ -221,35 +281,9 @@ export default function AdvisorDetailPage() {
 
         {/* Right: Booking panel */}
         <div className="bg-wd-card border border-wd-border rounded-[14px] p-6 h-fit sticky top-6">
-          {step === "confirm" ? (
-            <div className="text-center py-6">
-              <div className="w-14 h-14 rounded-full bg-wd-gold-glow mx-auto mb-5 flex items-center justify-center text-2xl text-wd-gold">
-                &#10003;
-              </div>
-              <p className="font-serif text-xl text-wd-text mb-2">
-                Session booked
-              </p>
-              <p className="font-sans text-sm text-wd-sub mb-6">
-                {selectedDuration} minutes with {advisor.name} on{" "}
-                {new Date(selectedDate).toLocaleDateString("en-US", {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                })}{" "}
-                at {selectedTime}
-              </p>
-              <button
-                onClick={() => router.push("/portal/sessions")}
-                className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3 bg-wd-gold text-wd-bg border-none font-bold rounded-lg"
-              >
-                View sessions
-              </button>
-            </div>
-          ) : (
-            <>
-              <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-5">
-                Book a session
-              </p>
+            <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-5">
+              Book a session
+            </p>
 
               {/* Duration */}
               <div className="mb-5">
@@ -345,12 +379,10 @@ export default function AdvisorDetailPage() {
                     disabled={submitting}
                     className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
                   >
-                    {submitting ? "Booking..." : "Confirm booking"}
+                    {submitting ? "Redirecting to payment..." : "Proceed to payment"}
                   </button>
                 </div>
               )}
-            </>
-          )}
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ export interface DbBooking {
   advisor_id: string;
   duration_minutes: 30 | 60 | 90;
   scheduled_at: string;
-  status: "confirmed" | "completed" | "cancelled" | "no-show";
+  status: "pending_payment" | "confirmed" | "completed" | "cancelled" | "no-show";
   price: number;
   stripe_payment_id: string | null;
   meeting_link: string | null;

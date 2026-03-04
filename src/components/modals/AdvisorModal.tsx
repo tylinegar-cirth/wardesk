@@ -331,7 +331,22 @@ export default function AdvisorModal({
                     </div>
                   </div>
                   <button
-                    onClick={() => setStep("confirm")}
+                    onClick={() => {
+                      // Redirect to signup with booking details preserved
+                      const dateStr = selDate
+                        ? `${selDate.getFullYear()}-${String(selDate.getMonth() + 1).padStart(2, "0")}-${String(selDate.getDate()).padStart(2, "0")}`
+                        : "";
+                      const timeStr = selTime
+                        ? `${selTime.slice(0, 2)}:${selTime.slice(2)}`
+                        : "";
+                      const params = new URLSearchParams({
+                        booking_advisor: advisor.name,
+                        booking_dur: String(dur),
+                        booking_date: dateStr,
+                        booking_time: timeStr,
+                      });
+                      window.location.href = `/auth/signup?${params.toString()}`;
+                    }}
                     className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)]"
                   >
                     Confirm →
@@ -341,26 +356,7 @@ export default function AdvisorModal({
             </div>
           )}
 
-          {/* Confirm step */}
-          {step === "confirm" && (
-            <div className="py-14 px-8 text-center">
-              <div className="w-14 h-14 rounded-full bg-wd-gold-glow mx-auto mb-5 flex items-center justify-center text-2xl text-wd-gold">
-                ✓
-              </div>
-              <div className="font-serif text-[28px] text-wd-text mb-2">
-                Confirmed.
-              </div>
-              <p className="font-sans text-sm text-wd-sub mb-7">
-                Secure briefing link within 24 hours.
-              </p>
-              <button
-                onClick={onClose}
-                className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-white/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 backdrop-blur-[8px] hover:bg-white/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px"
-              >
-                Close
-              </button>
-            </div>
-          )}
+          {/* Confirm step removed — users redirected to auth */}
         </motion.div>
       </motion.div>
     </AnimatePresence>

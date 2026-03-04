@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { login, sendMagicLink } from "@/lib/auth/actions";
 
 const tabs = [
@@ -9,12 +10,20 @@ const tabs = [
   { key: "advisor", label: "Advisor" },
 ] as const;
 
-export default function LoginPage() {
+function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [magicLinkMode, setMagicLinkMode] = useState(false);
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"client" | "advisor">("client");
+  const searchParams = useSearchParams();
+
+  // Booking params passed from marketing site
+  const bookingAdvisor = searchParams.get("booking_advisor");
+  const bookingDur = searchParams.get("booking_dur");
+  const bookingDate = searchParams.get("booking_date");
+  const bookingTime = searchParams.get("booking_time");
+  const hasBooking = !!bookingAdvisor;
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -77,6 +86,13 @@ export default function LoginPage() {
         </div>
 
         <div className="p-8">
+          {hasBooking && (
+            <div className="mb-6 p-3 bg-wd-gold-glow border border-wd-gold/20 rounded-lg">
+              <p className="font-sans text-sm text-wd-gold">
+                Sign in to confirm your booking with {bookingAdvisor}
+              </p>
+            </div>
+          )}
           <h1 className="font-serif text-2xl text-wd-text mb-1">Sign in</h1>
           <p className="font-sans text-sm text-wd-sub mb-8">
             {activeTab === "client"
@@ -98,6 +114,15 @@ export default function LoginPage() {
             </div>
           ) : (
             <form action={handleSubmit} className="space-y-4">
+              {/* Preserve booking params through auth flow */}
+              {hasBooking && (
+                <>
+                  <input type="hidden" name="booking_advisor" value={bookingAdvisor || ""} />
+                  <input type="hidden" name="booking_dur" value={bookingDur || ""} />
+                  <input type="hidden" name="booking_date" value={bookingDate || ""} />
+                  <input type="hidden" name="booking_time" value={bookingTime || ""} />
+                </>
+              )}
               <div>
                 <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
                   Email
@@ -161,7 +186,7 @@ export default function LoginPage() {
             <p className="font-sans text-sm text-wd-muted">
               No account?{" "}
               <Link
-                href="/auth/signup"
+                href={hasBooking ? `/auth/signup?booking_advisor=${encodeURIComponent(bookingAdvisor || "")}&booking_dur=${bookingDur || ""}&booking_date=${bookingDate || ""}&booking_time=${encodeURIComponent(bookingTime || "")}` : "/auth/signup"}
                 className="text-wd-gold hover:text-wd-text transition-colors"
               >
                 Create one
@@ -171,5 +196,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

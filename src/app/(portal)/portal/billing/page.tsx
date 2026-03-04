@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import StatusBadge from "@/components/shared/StatusBadge";
+import ManageBillingButton from "@/components/portal/ManageBillingButton";
 
 export default async function BillingPage() {
   const supabase = createClient();
@@ -8,6 +9,15 @@ export default async function BillingPage() {
   } = await supabase.auth.getUser();
 
   if (!user) return null;
+
+  // Check for Stripe customer
+  const { data: profile } = await supabase
+    .from("users")
+    .select("stripe_customer_id")
+    .eq("id", user.id)
+    .single();
+
+  const hasStripeAccount = !!profile?.stripe_customer_id;
 
   // Active retainers
   const { data: retainers } = await supabase
@@ -34,13 +44,16 @@ export default async function BillingPage() {
   return (
     <div className="p-6 md:p-10 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-2">
-          Billing
-        </p>
-        <h1 className="font-serif text-3xl text-wd-text">
-          Payments &amp; subscriptions
-        </h1>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-2">
+            Billing
+          </p>
+          <h1 className="font-serif text-3xl text-wd-text">
+            Payments &amp; subscriptions
+          </h1>
+        </div>
+        {hasStripeAccount && <ManageBillingButton />}
       </div>
 
       {/* Active subscriptions */}

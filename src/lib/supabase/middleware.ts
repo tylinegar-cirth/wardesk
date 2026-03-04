@@ -58,6 +58,31 @@ export async function updateSession(request: NextRequest) {
     // Redirect authenticated users away from auth pages to their portal
     if (pathname.startsWith("/auth")) {
       const url = request.nextUrl.clone();
+
+      // Check for booking params — redirect to advisor booking page directly
+      const bookingAdvisor = request.nextUrl.searchParams.get("booking_advisor");
+      if (bookingAdvisor && (role === "user" || !role)) {
+        // Look up advisor by name to get database ID
+        const { data: advisorRecord } = await supabase
+          .from("advisors")
+          .select("id")
+          .eq("name", bookingAdvisor)
+          .single();
+
+        if (advisorRecord) {
+          url.pathname = `/portal/advisor/${advisorRecord.id}`;
+          // Preserve booking params (dur, date, time) but remove advisor name
+          const dur = request.nextUrl.searchParams.get("booking_dur");
+          const date = request.nextUrl.searchParams.get("booking_date");
+          const time = request.nextUrl.searchParams.get("booking_time");
+          url.search = "";
+          if (dur) url.searchParams.set("dur", dur);
+          if (date) url.searchParams.set("date", date);
+          if (time) url.searchParams.set("time", time);
+          return NextResponse.redirect(url);
+        }
+      }
+
       switch (role) {
         case "advisor":
           url.pathname = "/advisor";

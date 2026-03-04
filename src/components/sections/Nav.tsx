@@ -44,9 +44,9 @@ export default function Nav() {
           </a>
           <Link
             href="/auth/login"
-            className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-white/[0.06] text-wd-text font-bold rounded-md border border-wd-border transition-all duration-250 hover:bg-white/[0.12] hover:border-wd-border-hov hover:-translate-y-px hidden md:block"
           >
-            Client Login
+            Login
           </Link>
           <a
             href="#advisors"
@@ -80,7 +80,7 @@ export default function Nav() {
             onClick={() => setMenuOpen(false)}
             className="font-mono text-[13px] text-wd-gold tracking-[0.1em] uppercase"
           >
-            Client Login
+            Login
           </Link>
         </div>
       )}

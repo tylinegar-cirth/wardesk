@@ -1,4 +1,5 @@
 const statusStyles: Record<string, string> = {
+  pending_payment: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   confirmed: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   completed: "bg-wd-gold-glow text-wd-gold border-wd-gold/20",
   cancelled: "bg-red-500/10 text-red-400 border-red-500/20",
