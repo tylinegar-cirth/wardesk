@@ -8,6 +8,7 @@ const team = [
   {
     name: "Ty Linegar",
     role: "Co-Founder & Executive Producer",
+    image: "/team-ty.jpg",
     bio: "A decade producing campaigns for the world\u2019s biggest brands. Good work, great clients \u2014 but Ty wanted to apply the craft to something with more weight. War Desk Studio exists to serve the companies actually pushing Western capability forward: defense, aerospace, space, energy, autonomy. The work that matters. Based in Los Angeles.",
     hasArticle: true,
     linkedin: "#",
@@ -15,16 +16,10 @@ const team = [
   {
     name: "Sean Gilfillan",
     role: "Co-Founder & Partner",
+    image: "/team-sean.jpg",
     bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing (VC/M&A) and Viasat\u2019s $1B government division. Founded BaseFEST, the largest music festival on military bases. 12 years Army, 15 months in Iraq. Sean\u2019s been on both sides \u2014 building campaigns for defense giants and buying what defense startups sell. Now helping hard tech founders tell stories that land.",
     hasArticle: false,
     linkedin: "https://www.linkedin.com/in/seangilfillan/",
-  },
-  {
-    name: "GRITCULT",
-    role: "Strategist & Copywriter",
-    bio: "Sharp strategy meets sharper copy. GRITCULT brings the words that cut through noise and the thinking that makes them land. When defense tech needs to speak human, this is who writes the script.",
-    hasArticle: false,
-    twitter: "https://x.com/GRITCULT",
   },
 ];
 
@@ -55,16 +50,13 @@ export default function StudioTeam() {
           {team.map((member, i) => (
             <Reveal key={member.name} delay={0.07 * i}>
               <div className="bg-wd-card border border-wd-border rounded-[14px] p-6 md:p-8 flex gap-6 items-start max-[640px]:flex-col hover:border-wd-border-hov transition-colors">
-                {/* Photo placeholder */}
-                <div className="w-16 h-16 rounded-full bg-wd-overlay/[0.06] flex items-center justify-center flex-shrink-0">
-                  <span className="font-mono text-sm text-wd-muted">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .slice(0, 2)}
-                  </span>
-                </div>
+                {/* Headshot */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+                />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-serif text-xl text-wd-text mb-0.5">
                     {member.name}
@@ -84,16 +76,6 @@ export default function StudioTeam() {
                         className="font-mono text-[10px] tracking-[0.05em] text-wd-muted hover:text-wd-text transition-colors"
                       >
                         LinkedIn &rarr;
-                      </a>
-                    )}
-                    {member.twitter && (
-                      <a
-                        href={member.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono text-[10px] tracking-[0.05em] text-wd-muted hover:text-wd-text transition-colors"
-                      >
-                        X &rarr;
                       </a>
                     )}
                     {member.hasArticle && (
