@@ -70,9 +70,13 @@ export default function Sidebar({ userName }: { userName: string | null }) {
         {/* Studio section */}
         <div className="my-4 mx-3">
           <div className="h-px bg-wd-border" />
-          <div className="font-mono text-[8px] tracking-[0.3em] uppercase text-wd-muted mt-3 mb-1 px-0">
-            Studio
-          </div>
+          <Link
+            href="/studio"
+            onClick={() => setMobileOpen(false)}
+            className="font-mono text-[8px] tracking-[0.3em] uppercase text-wd-muted hover:text-wd-gold transition-colors mt-3 mb-1 px-0 block"
+          >
+            Studio ↗
+          </Link>
         </div>
 
         {studioNavItems.map((item) => (
