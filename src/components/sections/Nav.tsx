@@ -42,6 +42,12 @@ export default function Nav() {
           <a href="#studio" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
             Studio
           </a>
+          <Link
+            href="/auth/login"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+          >
+            Client Login
+          </Link>
           <a
             href="#advisors"
             className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-gold text-wd-bg font-bold rounded-md transition-all duration-250 shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)] hover:-translate-y-px max-[480px]:text-[9px] max-[480px]:py-[7px] max-[480px]:px-4 max-[480px]:rounded-[5px]"
@@ -69,6 +75,13 @@ export default function Nav() {
               {l}
             </a>
           ))}
+          <Link
+            href="/auth/login"
+            onClick={() => setMenuOpen(false)}
+            className="font-mono text-[13px] text-wd-gold tracking-[0.1em] uppercase"
+          >
+            Client Login
+          </Link>
         </div>
       )}
     </>
