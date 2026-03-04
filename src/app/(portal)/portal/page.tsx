@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import StatusBadge from "@/components/shared/StatusBadge";
+import MissionBrief from "@/components/portal/MissionBrief";
 
 export default async function DashboardPage() {
   const supabase = createClient();
@@ -74,6 +75,11 @@ export default async function DashboardPage() {
           </Link>
         )}
       </div>
+
+      {/* Mission Brief — AI Advisor Matching */}
+      <section className="mb-10">
+        <MissionBrief />
+      </section>
 
       {/* Upcoming Sessions */}
       <section className="mb-10">
