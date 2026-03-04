@@ -12,6 +12,7 @@ export interface DbAdvisor {
   image_url: string | null;
   years_service: number;
   availability_status: "available" | "limited" | "unavailable";
+  user_id?: string | null;
   created_at: string;
 }
 
@@ -40,6 +41,7 @@ export interface DbBooking {
   created_at: string;
   // Joined fields
   advisor?: DbAdvisor;
+  user?: DbUser;
 }
 
 export interface DbRetainedSubscription {

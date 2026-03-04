@@ -10,6 +10,28 @@ export async function login(formData: FormData) {
     password: formData.get("password") as string,
   });
   if (error) return { error: error.message };
+
+  // Fetch user role to redirect to correct portal
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    const { data: profile } = await supabase
+      .from("users")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    switch (profile?.role) {
+      case "advisor":
+        redirect("/advisor");
+      case "admin":
+        redirect("/admin");
+      default:
+        redirect("/portal");
+    }
+  }
+
   redirect("/portal");
 }
 
