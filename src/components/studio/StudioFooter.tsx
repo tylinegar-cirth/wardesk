@@ -11,7 +11,7 @@ export default function StudioFooter() {
           <img
             src="/logo.png"
             alt=""
-            className="h-[48px] w-auto -my-2 dark:invert"
+            className="h-[72px] w-auto -my-4 dark:invert"
           />
           <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-wd-text">
             War Desk <span className="text-wd-gold">Studio</span>

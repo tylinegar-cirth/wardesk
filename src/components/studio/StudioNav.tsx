@@ -47,7 +47,7 @@ export default function StudioNav() {
           <img
             src="/logo.png"
             alt=""
-            className="h-[60px] w-auto -my-3 dark:invert"
+            className="h-[90px] w-auto -my-4 dark:invert"
           />
           <span>
             War Desk <span className="text-wd-gold">Studio</span>
