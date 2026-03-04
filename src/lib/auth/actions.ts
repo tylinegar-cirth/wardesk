@@ -74,27 +74,28 @@ export async function login(formData: FormData) {
 
 export async function signup(formData: FormData) {
   const supabase = createClient();
+
+  // Build the post-confirmation redirect path
+  let redirectAfterConfirm = "/portal/setup";
+  const bookingAdvisor = formData.get("booking_advisor") as string | null;
+
+  if (bookingAdvisor) {
+    const bookingRedirect = await buildBookingRedirect(supabase, formData);
+    if (bookingRedirect) redirectAfterConfirm = bookingRedirect;
+  }
+
   const { error } = await supabase.auth.signUp({
     email: formData.get("email") as string,
     password: formData.get("password") as string,
     options: {
       data: { name: formData.get("name") as string },
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?redirect=${encodeURIComponent(redirectAfterConfirm)}`,
     },
   });
   if (error) return { error: error.message };
 
-  // Check for booking params — redirect to advisor page after setup
-  const bookingAdvisor = formData.get("booking_advisor") as string | null;
-  if (bookingAdvisor) {
-    const bookingRedirect = await buildBookingRedirect(supabase, formData);
-    if (bookingRedirect) {
-      // New users go to setup first, but store booking intent in the redirect
-      // We'll redirect them straight to the advisor page since setup is optional
-      redirect(bookingRedirect);
-    }
-  }
-
-  redirect("/portal/setup");
+  // Don't redirect — return success so the UI shows "check your email"
+  return { success: true };
 }
 
 export async function signOut() {
