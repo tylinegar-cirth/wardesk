@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -123,18 +124,24 @@ export async function updateProfile(formData: FormData) {
   } = await supabase.auth.getUser();
   if (!user) return { error: "Not authenticated" };
 
+  const focusAreasRaw = formData.get("focus_areas") as string;
+
+  // Use upsert to handle case where public.users row may not exist yet
   const { error } = await supabase
     .from("users")
-    .update({
+    .upsert({
+      id: user.id,
+      email: user.email!,
       name: formData.get("name") as string,
+      title: formData.get("title") as string || null,
       company: formData.get("company") as string,
-      focus_areas: (formData.get("focus_areas") as string)
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
-    })
-    .eq("id", user.id);
+      focus_areas: focusAreasRaw
+        ? focusAreasRaw.split(",").map((s) => s.trim()).filter(Boolean)
+        : [],
+    });
 
   if (error) return { error: error.message };
+
+  revalidatePath("/portal");
   redirect("/portal");
 }

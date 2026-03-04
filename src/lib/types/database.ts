@@ -20,6 +20,7 @@ export interface DbUser {
   id: string;
   email: string;
   name: string | null;
+  title: string | null;
   company: string | null;
   role: "user" | "advisor" | "admin";
   focus_areas: string[];

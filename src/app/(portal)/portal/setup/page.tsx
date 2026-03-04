@@ -1,33 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { updateProfile } from "@/lib/auth/actions";
 
-const focusOptions = [
+const suggestedFocus = [
   "Defense Policy",
-  "Acquisition",
-  "Logistics",
-  "Indo-Pacific",
+  "Acquisition & Procurement",
+  "Logistics & Sustainment",
+  "Indo-Pacific Strategy",
+  "European Security",
+  "Middle East & Africa",
   "Cyber Operations",
   "Space Operations",
   "Special Operations",
-  "Intelligence",
-  "Nuclear Policy",
-  "NATO/Coalition",
+  "Intelligence & SIGINT",
+  "Nuclear Policy & Deterrence",
+  "NATO & Coalition Ops",
   "Army Modernization",
   "Naval Strategy",
+  "Air & Missile Defense",
+  "Autonomous Systems & AI",
+  "Electronic Warfare",
+  "JADC2 / C4ISR",
+  "Defense Industrial Base",
+  "Budget & PPBE Process",
+  "International Arms Sales (FMS)",
+  "Hypersonics",
+  "Counter-terrorism",
+  "Homeland Security",
 ];
 
 export default function SetupPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedFocus, setSelectedFocus] = useState<string[]>([]);
+  const [customTag, setCustomTag] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  function toggleFocus(area: string) {
-    setSelectedFocus((prev) =>
-      prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area]
-    );
+  function addTag(tag: string) {
+    const trimmed = tag.trim();
+    if (trimmed && !selectedFocus.includes(trimmed)) {
+      setSelectedFocus((prev) => [...prev, trimmed]);
+    }
+    setCustomTag("");
   }
+
+  function removeTag(tag: string) {
+    setSelectedFocus((prev) => prev.filter((t) => t !== tag));
+  }
+
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (customTag.trim()) addTag(customTag);
+    } else if (e.key === "Backspace" && !customTag && selectedFocus.length > 0) {
+      setSelectedFocus((prev) => prev.slice(0, -1));
+    }
+  }
+
+  // Filter suggestions based on what's typed and not already selected
+  const filteredSuggestions = suggestedFocus.filter(
+    (s) =>
+      !selectedFocus.includes(s) &&
+      (!customTag || s.toLowerCase().includes(customTag.toLowerCase()))
+  );
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -70,6 +106,19 @@ export default function SetupPage() {
             />
           </div>
 
+          {/* Title / Position */}
+          <div>
+            <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
+              Title / Position
+            </label>
+            <input
+              name="title"
+              type="text"
+              className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+              placeholder="VP of Strategy, Founder, Program Manager..."
+            />
+          </div>
+
           {/* Company */}
           <div>
             <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
@@ -83,30 +132,73 @@ export default function SetupPage() {
             />
           </div>
 
-          {/* Focus areas */}
+          {/* Focus areas — tag input with suggestions */}
           <div>
-            <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-3">
+            <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
               Focus areas
             </label>
             <p className="font-sans text-xs text-wd-muted mb-3">
-              Select areas you&apos;re interested in to get better advisor
-              recommendations.
+              Select from suggestions or type your own. Press Enter to add.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {focusOptions.map((area) => (
-                <button
-                  key={area}
-                  type="button"
-                  onClick={() => toggleFocus(area)}
-                  className={`font-mono text-[9px] tracking-[0.05em] uppercase px-3 py-1.5 rounded-full border transition-all ${
-                    selectedFocus.includes(area)
-                      ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                      : "bg-transparent text-wd-muted border-wd-border hover:text-wd-sub hover:border-wd-sub/30"
-                  }`}
-                >
-                  {area}
-                </button>
-              ))}
+
+            {/* Selected tags */}
+            {selectedFocus.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-3">
+                {selectedFocus.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-[0.05em] uppercase px-3 py-1.5 rounded-full bg-wd-gold-glow text-wd-gold border border-wd-gold/30"
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => removeTag(tag)}
+                      className="text-wd-gold/60 hover:text-wd-gold transition-colors bg-transparent border-none cursor-pointer text-sm leading-none"
+                    >
+                      &times;
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* Text input for custom tags */}
+            <div className="relative">
+              <input
+                type="text"
+                value={customTag}
+                onChange={(e) => {
+                  setCustomTag(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => {
+                  // Delay to allow clicking suggestions
+                  setTimeout(() => setShowSuggestions(false), 200);
+                }}
+                onKeyDown={handleKeyDown}
+                className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                placeholder="Type a focus area or select below..."
+              />
+
+              {/* Dropdown suggestions */}
+              {showSuggestions && filteredSuggestions.length > 0 && (
+                <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-wd-card border border-wd-border rounded-lg max-h-48 overflow-y-auto shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                  {filteredSuggestions.map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        addTag(suggestion);
+                      }}
+                      className="w-full text-left px-4 py-2.5 font-sans text-sm text-wd-sub hover:text-wd-text hover:bg-white/[0.04] transition-colors bg-transparent border-none cursor-pointer"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

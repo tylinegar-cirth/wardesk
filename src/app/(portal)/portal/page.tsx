@@ -37,10 +37,10 @@ export default async function DashboardPage() {
     .order("scheduled_at", { ascending: false })
     .limit(3);
 
-  // Fetch recommended advisors (based on user focus areas)
+  // Fetch user profile
   const { data: profile } = await supabase
     .from("users")
-    .select("focus_areas")
+    .select("name, focus_areas")
     .eq("id", user.id)
     .single();
 
@@ -64,14 +64,23 @@ export default async function DashboardPage() {
           Dashboard
         </p>
         <h1 className="font-serif text-3xl text-wd-text">
-          Welcome back{profile?.focus_areas?.length ? "" : " — complete your profile"}
+          {profile?.focus_areas?.length
+            ? `Welcome back${profile?.name ? `, ${profile.name.split(" ")[0]}` : ""}`
+            : profile?.name
+            ? `Welcome, ${profile.name.split(" ")[0]}`
+            : "Welcome"}
         </h1>
+        {!profile?.focus_areas?.length && (
+          <p className="font-sans text-sm text-wd-sub mt-2 mb-1">
+            Complete your profile to get personalized advisor recommendations.
+          </p>
+        )}
         {!profile?.focus_areas?.length && (
           <Link
             href="/portal/setup"
-            className="inline-block mt-3 font-mono text-[10px] tracking-[0.1em] uppercase text-wd-gold hover:text-wd-text transition-colors"
+            className="inline-block mt-2 font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-5 bg-wd-gold text-wd-bg font-bold rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)]"
           >
-            Set up your profile &rarr;
+            Complete profile
           </Link>
         )}
       </div>
