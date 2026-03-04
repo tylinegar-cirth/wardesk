@@ -123,7 +123,7 @@ export default function MissionBrief() {
             <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold">
               Mission Brief
             </p>
-            <p className="font-sans text-xs text-wd-sub">
+            <p className="font-sans text-xs text-wd-text/70">
               AI-powered advisor matching
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function MissionBrief() {
           value={mission}
           onChange={(e) => setMission(e.target.value)}
           placeholder="Describe your goals, challenges, or what you need help with. For example: &quot;We're building an autonomous logistics system and need help navigating Army acquisition channels and SOCOM procurement...&quot;"
-          className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-28 placeholder:text-wd-muted/40"
+          className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-28 placeholder:text-wd-sub"
           disabled={loading}
         />
         {loading ? (
@@ -152,7 +152,7 @@ export default function MissionBrief() {
             <p className="font-mono text-[10px] tracking-[0.05em] text-wd-gold text-center transition-opacity duration-300">
               {loadingStages[stageIndex].text}
             </p>
-            <p className="font-mono text-[9px] tracking-[0.05em] text-wd-muted text-center mt-1">
+            <p className="font-mono text-[9px] tracking-[0.05em] text-wd-sub text-center mt-1">
               This can take up to 30 seconds
             </p>
           </div>
