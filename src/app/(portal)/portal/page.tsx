@@ -1,54 +1,79 @@
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import StatusBadge from "@/components/shared/StatusBadge";
 import MissionBrief from "@/components/portal/MissionBrief";
+import {
+  demoProfile,
+  demoUpcomingSessions,
+  demoRetainers,
+  demoRecentSessions,
+  demoRecommendedAdvisors,
+} from "@/data/demo-advisory-mock";
 
 export default async function DashboardPage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const isDemo = cookies().get("wd-demo")?.value === "1";
 
-  if (!user) return null;
+  let upcomingSessions: typeof demoUpcomingSessions | null = null;
+  let retainers: typeof demoRetainers | null = null;
+  let recentSessions: typeof demoRecentSessions | null = null;
+  let profile: typeof demoProfile | null = null;
+  let recommendedAdvisors: typeof demoRecommendedAdvisors | null = null;
 
-  // Fetch upcoming sessions
-  const { data: upcomingSessions } = await supabase
-    .from("bookings")
-    .select("*, advisor:advisors(*)")
-    .eq("user_id", user.id)
-    .eq("status", "confirmed")
-    .gte("scheduled_at", new Date().toISOString())
-    .order("scheduled_at", { ascending: true })
-    .limit(5);
+  if (isDemo) {
+    upcomingSessions = demoUpcomingSessions;
+    retainers = demoRetainers;
+    recentSessions = demoRecentSessions;
+    profile = demoProfile;
+    recommendedAdvisors = demoRecommendedAdvisors;
+  } else {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  // Fetch active retainers
-  const { data: retainers } = await supabase
-    .from("retained_subscriptions")
-    .select("*, advisor:advisors(*)")
-    .eq("user_id", user.id)
-    .eq("status", "active");
+    if (!user) return null;
 
-  // Fetch recent completed sessions
-  const { data: recentSessions } = await supabase
-    .from("bookings")
-    .select("*, advisor:advisors(*)")
-    .eq("user_id", user.id)
-    .eq("status", "completed")
-    .order("scheduled_at", { ascending: false })
-    .limit(3);
+    const { data: s1 } = await supabase
+      .from("bookings")
+      .select("*, advisor:advisors(*)")
+      .eq("user_id", user.id)
+      .eq("status", "confirmed")
+      .gte("scheduled_at", new Date().toISOString())
+      .order("scheduled_at", { ascending: true })
+      .limit(5);
+    upcomingSessions = s1 as typeof demoUpcomingSessions | null;
 
-  // Fetch user profile
-  const { data: profile } = await supabase
-    .from("users")
-    .select("name, focus_areas")
-    .eq("id", user.id)
-    .single();
+    const { data: r1 } = await supabase
+      .from("retained_subscriptions")
+      .select("*, advisor:advisors(*)")
+      .eq("user_id", user.id)
+      .eq("status", "active");
+    retainers = r1 as typeof demoRetainers | null;
 
-  const { data: recommendedAdvisors } = await supabase
-    .from("advisors")
-    .select("*")
-    .eq("availability_status", "available")
-    .limit(3);
+    const { data: s2 } = await supabase
+      .from("bookings")
+      .select("*, advisor:advisors(*)")
+      .eq("user_id", user.id)
+      .eq("status", "completed")
+      .order("scheduled_at", { ascending: false })
+      .limit(3);
+    recentSessions = s2 as typeof demoRecentSessions | null;
+
+    const { data: p1 } = await supabase
+      .from("users")
+      .select("name, focus_areas")
+      .eq("id", user.id)
+      .single();
+    profile = p1;
+
+    const { data: a1 } = await supabase
+      .from("advisors")
+      .select("*")
+      .eq("availability_status", "available")
+      .limit(3);
+    recommendedAdvisors = a1 as typeof demoRecommendedAdvisors | null;
+  }
 
   const tierColors: Record<string, string> = {
     signal: "text-wd-sub",

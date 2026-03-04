@@ -25,11 +25,19 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
+  const pathname = request.nextUrl.pathname;
+
+  // Demo mode bypass — skip auth for portal routes
+  if (
+    request.cookies.get("wd-demo")?.value === "1" &&
+    pathname.startsWith("/portal")
+  ) {
+    return supabaseResponse;
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const pathname = request.nextUrl.pathname;
 
   // Redirect unauthenticated users from protected routes
   const isProtected =

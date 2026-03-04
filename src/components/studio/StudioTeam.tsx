@@ -41,8 +41,7 @@ export default function StudioTeam() {
           </h2>
           <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[600px] mb-10">
             We&apos;ve spent careers mastering the craft. Now we&apos;re
-            pointing it at the companies advancing Western capability — because
-            this is the work that actually excites us.
+            pointing it at the companies advancing Western capability.
           </p>
         </Reveal>
 

@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { cancelBooking, updateBookingNotes } from "@/lib/actions/bookings";
 import StatusBadge from "@/components/shared/StatusBadge";
 import type { DbBooking } from "@/lib/types/database";
+import { demoAllUpcoming, demoAllPast } from "@/data/demo-advisory-mock";
 
 type Tab = "upcoming" | "past";
 
@@ -18,6 +19,16 @@ export default function SessionsPage() {
   useEffect(() => {
     async function load() {
       setLoading(true);
+
+      // Demo mode — use mock data
+      if (document.cookie.includes("wd-demo=1")) {
+        setSessions(
+          (tab === "upcoming" ? demoAllUpcoming : demoAllPast) as unknown as DbBooking[]
+        );
+        setLoading(false);
+        return;
+      }
+
       const supabase = createClient();
       const {
         data: { user },

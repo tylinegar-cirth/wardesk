@@ -1,39 +1,54 @@
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import StatusBadge from "@/components/shared/StatusBadge";
 import ManageBillingButton from "@/components/portal/ManageBillingButton";
+import { demoBillingRetainers, demoPayments } from "@/data/demo-advisory-mock";
 
 export default async function BillingPage() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const isDemo = cookies().get("wd-demo")?.value === "1";
 
-  if (!user) return null;
+  let hasStripeAccount = false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let retainers: any[] | null = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let payments: any[] | null = null;
 
-  // Check for Stripe customer
-  const { data: profile } = await supabase
-    .from("users")
-    .select("stripe_customer_id")
-    .eq("id", user.id)
-    .single();
+  if (isDemo) {
+    hasStripeAccount = true;
+    retainers = demoBillingRetainers;
+    payments = demoPayments;
+  } else {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const hasStripeAccount = !!profile?.stripe_customer_id;
+    if (!user) return null;
 
-  // Active retainers
-  const { data: retainers } = await supabase
-    .from("retained_subscriptions")
-    .select("*, advisor:advisors(*)")
-    .eq("user_id", user.id)
-    .in("status", ["active", "paused"]);
+    const { data: profile } = await supabase
+      .from("users")
+      .select("stripe_customer_id")
+      .eq("id", user.id)
+      .single();
 
-  // Payment history from bookings
-  const { data: payments } = await supabase
-    .from("bookings")
-    .select("*, advisor:advisors(name, image_url)")
-    .eq("user_id", user.id)
-    .in("status", ["pending_payment", "confirmed", "completed"])
-    .order("created_at", { ascending: false })
-    .limit(20);
+    hasStripeAccount = !!profile?.stripe_customer_id;
+
+    const { data: r1 } = await supabase
+      .from("retained_subscriptions")
+      .select("*, advisor:advisors(*)")
+      .eq("user_id", user.id)
+      .in("status", ["active", "paused"]);
+    retainers = r1;
+
+    const { data: p1 } = await supabase
+      .from("bookings")
+      .select("*, advisor:advisors(name, image_url)")
+      .eq("user_id", user.id)
+      .in("status", ["pending_payment", "confirmed", "completed"])
+      .order("created_at", { ascending: false })
+      .limit(20);
+    payments = p1;
+  }
 
   const tierColors: Record<string, string> = {
     signal: "text-wd-sub",
@@ -53,7 +68,7 @@ export default async function BillingPage() {
             Payments &amp; subscriptions
           </h1>
         </div>
-        {hasStripeAccount && <ManageBillingButton />}
+        {hasStripeAccount && !isDemo && <ManageBillingButton />}
       </div>
 
       {/* Active subscriptions */}

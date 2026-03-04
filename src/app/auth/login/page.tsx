@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { login, sendMagicLink } from "@/lib/auth/actions";
+import { enterDemo } from "@/lib/auth/demo-actions";
 
 const tabs = [
   { key: "client", label: "Client" },
@@ -16,6 +17,9 @@ function LoginForm() {
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"client" | "advisor">("client");
+  const [showDemo, setShowDemo] = useState(false);
+  const [demoError, setDemoError] = useState<string | null>(null);
+  const [demoLoading, setDemoLoading] = useState(false);
   const searchParams = useSearchParams();
 
   // Booking params passed from marketing site
@@ -193,6 +197,52 @@ function LoginForm() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Demo Access */}
+      <div className="mt-6 text-center">
+        {!showDemo ? (
+          <button
+            onClick={() => setShowDemo(true)}
+            className="font-mono text-[10px] tracking-[0.05em] text-wd-muted hover:text-wd-sub transition-colors bg-transparent border-none"
+          >
+            Demo access &rarr;
+          </button>
+        ) : (
+          <form
+            action={async (formData) => {
+              setDemoLoading(true);
+              setDemoError(null);
+              const result = await enterDemo(formData);
+              if (result?.error) {
+                setDemoError(result.error);
+              }
+              setDemoLoading(false);
+            }}
+            className="w-full max-w-[400px] mx-auto"
+          >
+            <div className="flex gap-2">
+              <input
+                name="code"
+                type="text"
+                required
+                autoFocus
+                className="flex-1 bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-[11px] tracking-[0.05em] uppercase px-4 py-2.5 focus:border-wd-gold/50 outline-none transition-colors placeholder:normal-case placeholder:tracking-normal"
+                placeholder="Enter demo code"
+              />
+              <button
+                type="submit"
+                disabled={demoLoading}
+                className="font-mono text-[10px] tracking-[0.1em] uppercase px-5 py-2.5 bg-wd-overlay/[0.06] text-wd-sub border border-wd-border rounded-lg hover:bg-wd-overlay/[0.12] hover:text-wd-text transition-all disabled:opacity-50"
+              >
+                {demoLoading ? "..." : "Enter"}
+              </button>
+            </div>
+            {demoError && (
+              <p className="font-sans text-sm text-red-400 mt-2">{demoError}</p>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );
