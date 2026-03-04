@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navItems = [
   { label: "Dashboard", href: "/portal", icon: "◆" },
@@ -31,7 +32,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           <img
             src="/logo.png"
             alt=""
-            className="h-9 w-auto dark:invert"
+            className="h-14 w-auto -my-2 dark:invert"
           />
           War Desk
         </Link>
@@ -58,8 +59,11 @@ export default function Sidebar({ userName }: { userName: string | null }) {
 
       {/* User + signout */}
       <div className="px-4 pb-4 border-t border-wd-border pt-4">
-        <div className="font-sans text-sm text-wd-text mb-1 truncate">
-          {userName || "User"}
+        <div className="flex items-center justify-between mb-1">
+          <div className="font-sans text-sm text-wd-text truncate">
+            {userName || "User"}
+          </div>
+          <ThemeToggle />
         </div>
         <form action={signOut}>
           <button
@@ -90,7 +94,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           <img
             src="/logo.png"
             alt=""
-            className="h-8 w-auto dark:invert"
+            className="h-12 w-auto -my-1 dark:invert"
           />
           War Desk
         </Link>

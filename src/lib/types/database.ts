@@ -37,6 +37,7 @@ export interface DbBooking {
   status: "pending_payment" | "confirmed" | "completed" | "cancelled" | "no-show";
   price: number;
   stripe_payment_id: string | null;
+  stripe_invoice_id: string | null;
   meeting_link: string | null;
   notes: string | null;
   created_at: string;

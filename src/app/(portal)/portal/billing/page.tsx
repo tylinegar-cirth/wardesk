@@ -31,7 +31,7 @@ export default async function BillingPage() {
     .from("bookings")
     .select("*, advisor:advisors(name, image_url)")
     .eq("user_id", user.id)
-    .in("status", ["confirmed", "completed"])
+    .in("status", ["pending_payment", "confirmed", "completed"])
     .order("created_at", { ascending: false })
     .limit(20);
 

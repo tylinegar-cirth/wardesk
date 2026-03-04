@@ -84,5 +84,50 @@ export async function POST(request: Request) {
     );
   }
 
+  if (event.type === "invoice.paid") {
+    const invoice = event.data.object;
+    const metadata = invoice.metadata;
+
+    if (!metadata?.advisorId || !metadata?.userId) {
+      // Not one of our advisory invoices — ignore
+      return NextResponse.json({ received: true });
+    }
+
+    const supabase = createServiceClient();
+
+    // Find the booking by stripe_invoice_id and update to confirmed
+    const { error } = await supabase
+      .from("bookings")
+      .update({
+        status: "confirmed",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        stripe_payment_id: (invoice as any).payment_intent as string || null,
+      })
+      .eq("stripe_invoice_id", invoice.id);
+
+    if (error) {
+      console.error("Failed to confirm invoiced booking:", error);
+      return NextResponse.json(
+        { error: "Failed to confirm booking" },
+        { status: 500 }
+      );
+    }
+
+    console.log(
+      `Invoice paid — booking confirmed for user ${metadata.userId} with advisor ${metadata.advisorId}`
+    );
+  }
+
+  if (event.type === "invoice.payment_failed") {
+    const invoice = event.data.object;
+    const metadata = invoice.metadata;
+
+    if (metadata?.advisorId && metadata?.userId) {
+      console.error(
+        `Invoice payment failed for user ${metadata.userId}, advisor ${metadata.advisorId}, invoice ${invoice.id}`
+      );
+    }
+  }
+
   return NextResponse.json({ received: true });
 }

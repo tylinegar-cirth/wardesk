@@ -43,6 +43,7 @@ export default function SetupPage() {
       setSelectedFocus((prev) => [...prev, trimmed]);
     }
     setCustomTag("");
+    setShowSuggestions(false);
   }
 
   function removeTag(tag: string) {
@@ -183,8 +184,8 @@ export default function SetupPage() {
 
               {/* Dropdown suggestions */}
               {showSuggestions && filteredSuggestions.length > 0 && (
-                <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-wd-card border border-wd-border rounded-lg max-h-48 overflow-y-auto shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-                  {filteredSuggestions.map((suggestion) => (
+                <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-wd-card border border-wd-border rounded-lg max-h-40 overflow-y-auto shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                  {filteredSuggestions.slice(0, 6).map((suggestion) => (
                     <button
                       key={suggestion}
                       type="button"
@@ -197,6 +198,16 @@ export default function SetupPage() {
                       {suggestion}
                     </button>
                   ))}
+                  <button
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      setShowSuggestions(false);
+                    }}
+                    className="w-full text-center px-4 py-2 font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text border-t border-wd-border bg-transparent cursor-pointer transition-colors"
+                  >
+                    Close suggestions
+                  </button>
                 </div>
               )}
             </div>
