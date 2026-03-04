@@ -272,7 +272,7 @@ export default function AdvisorDetailPage() {
               {advisor.focus.map((f) => (
                 <span
                   key={f}
-                  className="font-mono text-[9px] tracking-[0.05em] uppercase text-wd-sub bg-white/[0.04] border border-wd-border px-3 py-1.5 rounded-full"
+                  className="font-mono text-[9px] tracking-[0.05em] uppercase text-wd-sub bg-wd-overlay/[0.04] border border-wd-border px-3 py-1.5 rounded-full"
                 >
                   {f}
                 </span>

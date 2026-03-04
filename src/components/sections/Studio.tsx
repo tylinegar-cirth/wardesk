@@ -6,7 +6,7 @@ export default function Studio() {
   return (
     <div className="relative">
       {/* Divider */}
-      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)" }} />
+      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,var(--wd-divider),transparent)" }} />
       <Reveal>
         <section
           id="studio"
@@ -21,7 +21,7 @@ export default function Studio() {
               hard tech companies.
             </p>
           </div>
-          <button className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-white/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-white/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]">
+          <button className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]">
             Visit studio →
           </button>
         </section>

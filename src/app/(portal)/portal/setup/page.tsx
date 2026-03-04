@@ -101,7 +101,7 @@ export default function SetupPage() {
               name="name"
               type="text"
               required
-              className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+              className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
               placeholder="Jane Smith"
             />
           </div>
@@ -114,7 +114,7 @@ export default function SetupPage() {
             <input
               name="title"
               type="text"
-              className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+              className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
               placeholder="VP of Strategy, Founder, Program Manager..."
             />
           </div>
@@ -127,7 +127,7 @@ export default function SetupPage() {
             <input
               name="company"
               type="text"
-              className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+              className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
               placeholder="Your company name"
             />
           </div>
@@ -177,7 +177,7 @@ export default function SetupPage() {
                   setTimeout(() => setShowSuggestions(false), 200);
                 }}
                 onKeyDown={handleKeyDown}
-                className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                 placeholder="Type a focus area or select below..."
               />
 
@@ -192,7 +192,7 @@ export default function SetupPage() {
                         e.preventDefault();
                         addTag(suggestion);
                       }}
-                      className="w-full text-left px-4 py-2.5 font-sans text-sm text-wd-sub hover:text-wd-text hover:bg-white/[0.04] transition-colors bg-transparent border-none cursor-pointer"
+                      className="w-full text-left px-4 py-2.5 font-sans text-sm text-wd-sub hover:text-wd-text hover:bg-wd-overlay/[0.04] transition-colors bg-transparent border-none cursor-pointer"
                     >
                       {suggestion}
                     </button>

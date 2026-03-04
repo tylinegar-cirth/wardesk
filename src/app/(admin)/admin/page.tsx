@@ -158,7 +158,7 @@ export default async function AdminOverview() {
                           ? "text-red-400 bg-red-500/10"
                           : u.role === "advisor"
                           ? "text-wd-gold bg-wd-gold-glow"
-                          : "text-wd-muted bg-white/[0.05]"
+                          : "text-wd-muted bg-wd-overlay/[0.05]"
                       }`}
                     >
                       {u.role}

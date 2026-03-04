@@ -46,7 +46,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg,rgba(8,8,10,0.3) 0%,rgba(8,8,10,0.1) 40%,rgba(8,8,10,0.7) 70%,rgba(8,8,10,1) 100%)",
+              "linear-gradient(180deg,rgba(var(--wd-bg),0.3) 0%,rgba(var(--wd-bg),0.1) 40%,rgba(var(--wd-bg),0.7) 70%,rgba(var(--wd-bg),1) 100%)",
           }}
         />
       </div>
@@ -66,7 +66,7 @@ export default function Hero() {
           </h1>
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-white/75 leading-[1.65] max-w-[520px] mb-9">
+          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-wd-text/75 leading-[1.65] max-w-[520px] mb-9">
             Direct access to the people who shaped American defense policy.
             Four-star commanders, Pentagon principals, intelligence executives.
             On your timeline.
@@ -82,7 +82,7 @@ export default function Hero() {
             </a>
             <a
               href="#show"
-              className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-white/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-white/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98] inline-block"
+              className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98] inline-block"
             >
               Watch the show
             </a>
@@ -95,7 +95,7 @@ export default function Hero() {
         <div
           className="w-px h-8"
           style={{
-            background: "linear-gradient(transparent, #52525B)",
+            background: "linear-gradient(transparent, rgb(var(--wd-muted)))",
           }}
         />
       </div>

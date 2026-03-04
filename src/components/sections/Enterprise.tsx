@@ -5,7 +5,7 @@ import Reveal from "@/components/ui/Reveal";
 export default function Enterprise() {
   return (
     <Reveal>
-      <section className="mx-[clamp(16px,4vw,72px)] p-[clamp(40px,5vw,72px)] bg-gradient-to-br from-[rgba(22,22,26,0.8)] to-[rgba(16,16,20,0.4)] border border-wd-border rounded-3xl grid grid-cols-[2fr_1fr] gap-12 items-center shadow-[0_8px_48px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-[8px] max-[1024px]:grid-cols-1 max-[768px]:mx-4 max-[768px]:grid-cols-1 max-[768px]:rounded-2xl">
+      <section className="mx-[clamp(16px,4vw,72px)] p-[clamp(40px,5vw,72px)] bg-wd-surface border border-wd-border rounded-3xl grid grid-cols-[2fr_1fr] gap-12 items-center shadow-wd-card backdrop-blur-[8px] max-[1024px]:grid-cols-1 max-[768px]:mx-4 max-[768px]:grid-cols-1 max-[768px]:rounded-2xl">
         <div>
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
             Enterprise

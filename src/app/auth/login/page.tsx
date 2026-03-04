@@ -56,14 +56,13 @@ function LoginForm() {
         <img
           src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
           alt=""
-          className="h-7 w-auto"
-          style={{ mixBlendMode: "screen" }}
+          className="h-7 w-auto dark:mix-blend-screen"
         />
         War Desk
       </Link>
 
       {/* Card */}
-      <div className="w-full max-w-[400px] bg-wd-card border border-wd-border rounded-2xl shadow-[0_8px_48px_rgba(0,0,0,0.4)] overflow-hidden">
+      <div className="w-full max-w-[400px] bg-wd-card border border-wd-border rounded-2xl shadow-wd-card overflow-hidden">
         {/* Tabs */}
         <div className="flex border-b border-wd-border">
           {tabs.map((tab) => (
@@ -131,7 +130,7 @@ function LoginForm() {
                   name="email"
                   type="email"
                   required
-                  className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                   placeholder="you@company.com"
                 />
               </div>
@@ -145,7 +144,7 @@ function LoginForm() {
                     name="password"
                     type="password"
                     required
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                     placeholder="••••••••"
                   />
                 </div>

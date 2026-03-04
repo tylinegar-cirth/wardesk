@@ -23,7 +23,7 @@ export default function ManageBillingButton() {
     <button
       onClick={handleClick}
       disabled={loading}
-      className="font-mono text-[10px] tracking-[0.1em] uppercase px-5 py-2.5 bg-white/[0.04] text-wd-sub border border-wd-border rounded-lg hover:border-wd-gold/30 hover:text-wd-gold transition-all disabled:opacity-50"
+      className="font-mono text-[10px] tracking-[0.1em] uppercase px-5 py-2.5 bg-wd-overlay/[0.04] text-wd-sub border border-wd-border rounded-lg hover:border-wd-gold/30 hover:text-wd-gold transition-all disabled:opacity-50"
     >
       {loading ? "Opening..." : "Manage billing"}
     </button>

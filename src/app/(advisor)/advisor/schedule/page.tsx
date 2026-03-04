@@ -233,7 +233,7 @@ export default function AdvisorSchedulePage() {
                       copy[i] = { ...copy[i], start_time: e.target.value };
                       setSlots(copy);
                     }}
-                    className="bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-xs px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-xs px-3 py-2 focus:border-wd-gold/50 outline-none"
                   >
                     {TIME_OPTIONS.map((t) => (
                       <option key={t} value={t}>
@@ -249,7 +249,7 @@ export default function AdvisorSchedulePage() {
                       copy[i] = { ...copy[i], end_time: e.target.value };
                       setSlots(copy);
                     }}
-                    className="bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-xs px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-xs px-3 py-2 focus:border-wd-gold/50 outline-none"
                   >
                     {TIME_OPTIONS.map((t) => (
                       <option key={t} value={t}>
@@ -288,7 +288,7 @@ export default function AdvisorSchedulePage() {
               type="date"
               value={newBlockedDate}
               onChange={(e) => setNewBlockedDate(e.target.value)}
-              className="bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+              className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
             />
           </div>
           <div className="flex-1 min-w-[160px]">
@@ -300,13 +300,13 @@ export default function AdvisorSchedulePage() {
               value={newBlockedReason}
               onChange={(e) => setNewBlockedReason(e.target.value)}
               placeholder="e.g. Conference travel"
-              className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+              className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
             />
           </div>
           <button
             onClick={handleAddBlockedDate}
             disabled={addingBlocked || !newBlockedDate}
-            className="font-mono text-[10px] tracking-[0.1em] uppercase py-2 px-5 bg-white/[0.05] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-white/[0.08] disabled:opacity-50"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-2 px-5 bg-wd-overlay/[0.05] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-wd-overlay/[0.08] disabled:opacity-50"
           >
             {addingBlocked ? "..." : "Add"}
           </button>

@@ -185,7 +185,7 @@ export default function AdvisorSessionsPage() {
                           value={linkValue}
                           onChange={(e) => setLinkValue(e.target.value)}
                           placeholder="https://zoom.us/j/..."
-                          className="bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-xs px-3 py-1.5 focus:border-wd-gold/50 outline-none w-64"
+                          className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-xs px-3 py-1.5 focus:border-wd-gold/50 outline-none w-64"
                         />
                         <button
                           onClick={() => handleSaveLink(session.id)}
@@ -210,7 +210,7 @@ export default function AdvisorSessionsPage() {
                             setEditingLink(session.id);
                             setLinkValue(session.meeting_link || "");
                           }}
-                          className="font-mono text-[9px] tracking-[0.05em] uppercase py-1.5 px-3 bg-white/[0.05] text-wd-text border border-wd-border rounded-md hover:bg-white/[0.08] transition-colors"
+                          className="font-mono text-[9px] tracking-[0.05em] uppercase py-1.5 px-3 bg-wd-overlay/[0.05] text-wd-text border border-wd-border rounded-md hover:bg-wd-overlay/[0.08] transition-colors"
                         >
                           {session.meeting_link
                             ? "Edit Link"

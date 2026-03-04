@@ -41,14 +41,14 @@ export default function FeaturedAdvisors({
               <img
                 src={a.image}
                 alt={a.name}
-                className="w-full h-full object-cover grayscale-[50%] brightness-[0.85] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105"
+                className="w-full h-full object-cover dark:grayscale-[50%] dark:brightness-[0.85] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:!grayscale-0 group-hover:!brightness-100 group-hover:scale-105"
               />
               {/* Info overlay */}
               <div
                 className="absolute bottom-0 left-0 right-0 py-7 px-6 z-[2]"
                 style={{
                   background:
-                    "linear-gradient(transparent, rgba(8,8,10,0.95) 50%)",
+                    "linear-gradient(transparent, rgba(var(--wd-bg),0.95) 50%)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -65,7 +65,7 @@ export default function FeaturedAdvisors({
                 </div>
               </div>
               {/* Border overlay */}
-              <div className="absolute inset-0 rounded-2xl border border-white/[0.04] pointer-events-none transition-[border-color] duration-300 group-hover:border-white/10" />
+              <div className="absolute inset-0 rounded-2xl border border-wd-overlay/[0.04] pointer-events-none transition-[border-color] duration-300 group-hover:border-wd-overlay/10" />
               {/* Gold edge */}
               <div
                 className="absolute bottom-0 left-0 right-0 h-[3px] z-[3] rounded-b-2xl scale-x-0 transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"

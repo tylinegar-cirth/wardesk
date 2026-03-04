@@ -31,8 +31,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           <img
             src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
             alt=""
-            className="h-6 w-auto"
-            style={{ mixBlendMode: "screen" }}
+            className="h-6 w-auto dark:mix-blend-screen"
           />
           War Desk
         </Link>
@@ -48,7 +47,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 font-mono text-[11px] tracking-[0.05em] uppercase transition-all duration-200 ${
               isActive(item.href)
                 ? "bg-wd-gold-glow text-wd-gold border-l-2 border-wd-gold"
-                : "text-wd-sub hover:text-wd-text hover:bg-white/[0.04]"
+                : "text-wd-sub hover:text-wd-text hover:bg-wd-overlay/[0.04]"
             }`}
           >
             <span className="text-sm">{item.icon}</span>
@@ -91,8 +90,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           <img
             src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
             alt=""
-            className="h-5 w-auto"
-            style={{ mixBlendMode: "screen" }}
+            className="h-5 w-auto dark:mix-blend-screen"
           />
           War Desk
         </Link>

@@ -80,7 +80,7 @@ export default function AdvisorModal({
           exit={{ opacity: 0, y: 24, scale: 0.97 }}
           transition={{ duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
           onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-[720px] max-h-[90vh] bg-wd-surface border border-wd-border rounded-[20px] overflow-auto shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.04)] max-[768px]:rounded-2xl"
+          className="w-full max-w-[720px] max-h-[90vh] bg-wd-surface border border-wd-border rounded-[20px] overflow-auto shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(var(--wd-overlay),0.04)] max-[768px]:rounded-2xl"
         >
           {/* Header */}
           <div className="flex border-b border-wd-border max-[768px]:flex-col">
@@ -91,7 +91,7 @@ export default function AdvisorModal({
             <div className="py-7 px-8 flex-1 relative min-w-0">
               <button
                 onClick={onClose}
-                className="absolute top-3 right-4 bg-white/5 border border-wd-border rounded-[10px] w-[34px] h-[34px] text-wd-muted text-base flex items-center justify-center transition-all duration-200 hover:bg-white/10 hover:text-wd-text hover:scale-105"
+                className="absolute top-3 right-4 bg-wd-overlay/5 border border-wd-border rounded-[10px] w-[34px] h-[34px] text-wd-muted text-base flex items-center justify-center transition-all duration-200 hover:bg-wd-overlay/10 hover:text-wd-text hover:scale-105"
               >
                 ×
               </button>
@@ -129,7 +129,7 @@ export default function AdvisorModal({
                 {advisor.focus.map((f, i) => (
                   <span
                     key={i}
-                    className="font-mono text-[9px] tracking-[0.08em] uppercase py-[5px] px-3 border border-wd-border text-wd-muted rounded-md bg-white/[0.02]"
+                    className="font-mono text-[9px] tracking-[0.08em] uppercase py-[5px] px-3 border border-wd-border text-wd-muted rounded-md bg-wd-overlay/[0.02]"
                   >
                     {f}
                   </span>
@@ -165,7 +165,7 @@ export default function AdvisorModal({
                     ].map((s, i) => (
                       <div
                         key={i}
-                        className="py-3.5 px-[18px] bg-white/[0.02] rounded-[10px] border border-wd-border"
+                        className="py-3.5 px-[18px] bg-wd-overlay/[0.02] rounded-[10px] border border-wd-border"
                       >
                         <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted">
                           {s.l}
@@ -195,7 +195,7 @@ export default function AdvisorModal({
                       className={`p-[22px] border rounded-[14px] cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                         selTier === i
                           ? "border-wd-gold bg-wd-gold-glow shadow-[0_0_32px_rgba(212,168,67,0.15)]"
-                          : "border-wd-border bg-white/[0.01] hover:border-wd-border-hov hover:bg-white/[0.03] hover:-translate-y-0.5"
+                          : "border-wd-border bg-wd-overlay/[0.01] hover:border-wd-border-hov hover:bg-wd-overlay/[0.03] hover:-translate-y-0.5"
                       }`}
                     >
                       <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-gold mb-1.5">
@@ -240,7 +240,7 @@ export default function AdvisorModal({
                     className={`font-mono text-[10px] py-2 px-4 border rounded-lg transition-all duration-200 ${
                       dur === d
                         ? "border-wd-gold bg-wd-gold-glow text-wd-text"
-                        : "border-wd-border bg-white/[0.02] text-wd-muted hover:border-wd-border-hov hover:text-wd-sub"
+                        : "border-wd-border bg-wd-overlay/[0.02] text-wd-muted hover:border-wd-border-hov hover:text-wd-sub"
                     }`}
                   >
                     {d} min
@@ -251,7 +251,7 @@ export default function AdvisorModal({
               {/* Month nav */}
               <div className="flex justify-between items-center mb-3.5">
                 <button
-                  className="bg-white/[0.04] border border-wd-border text-wd-muted text-base py-1.5 px-3.5 rounded-lg transition-all duration-200 hover:bg-white/[0.08] hover:text-wd-text"
+                  className="bg-wd-overlay/[0.04] border border-wd-border text-wd-muted text-base py-1.5 px-3.5 rounded-lg transition-all duration-200 hover:bg-wd-overlay/[0.08] hover:text-wd-text"
                   onClick={() => setMo(new Date(mo.getFullYear(), mo.getMonth() - 1))}
                 >
                   ←
@@ -260,7 +260,7 @@ export default function AdvisorModal({
                   {months[mo.getMonth()]} {mo.getFullYear()}
                 </span>
                 <button
-                  className="bg-white/[0.04] border border-wd-border text-wd-muted text-base py-1.5 px-3.5 rounded-lg transition-all duration-200 hover:bg-white/[0.08] hover:text-wd-text"
+                  className="bg-wd-overlay/[0.04] border border-wd-border text-wd-muted text-base py-1.5 px-3.5 rounded-lg transition-all duration-200 hover:bg-wd-overlay/[0.08] hover:text-wd-text"
                   onClick={() => setMo(new Date(mo.getFullYear(), mo.getMonth() + 1))}
                 >
                   →
@@ -287,7 +287,7 @@ export default function AdvisorModal({
                         ? "bg-wd-gold text-wd-bg"
                         : !d || !isAvailable(d)
                         ? "text-wd-muted cursor-default"
-                        : "text-wd-text hover:bg-white/5"
+                        : "text-wd-text hover:bg-wd-overlay/5"
                     }`}
                   >
                     {d ? d.getDate() : ""}
@@ -309,7 +309,7 @@ export default function AdvisorModal({
                         className={`font-mono text-[10px] py-2 px-4 border rounded-lg transition-all duration-200 ${
                           selTime === s
                             ? "border-wd-gold bg-wd-gold-glow text-wd-text"
-                            : "border-wd-border bg-white/[0.02] text-wd-muted hover:border-wd-border-hov hover:text-wd-sub"
+                            : "border-wd-border bg-wd-overlay/[0.02] text-wd-muted hover:border-wd-border-hov hover:text-wd-sub"
                         }`}
                       >
                         {formatTime(s)}
@@ -321,7 +321,7 @@ export default function AdvisorModal({
 
               {/* Confirm bar */}
               {selDate && selTime && (
-                <div className="p-[22px] bg-white/[0.02] border border-wd-border rounded-[14px] flex justify-between items-center flex-wrap gap-4">
+                <div className="p-[22px] bg-wd-overlay/[0.02] border border-wd-border rounded-[14px] flex justify-between items-center flex-wrap gap-4">
                   <div>
                     <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1">
                       Total

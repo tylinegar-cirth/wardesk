@@ -16,8 +16,7 @@ export default function Footer() {
             <img
               src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
               alt=""
-              className="h-8 w-auto"
-              style={{ mixBlendMode: "screen" }}
+              className="h-8 w-auto dark:mix-blend-screen"
             />
             War Desk
           </div>

@@ -44,14 +44,13 @@ function SignupForm() {
         <img
           src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
           alt=""
-          className="h-7 w-auto"
-          style={{ mixBlendMode: "screen" }}
+          className="h-7 w-auto dark:mix-blend-screen"
         />
         War Desk
       </Link>
 
       {/* Card */}
-      <div className="w-full max-w-[400px] bg-wd-card border border-wd-border rounded-2xl p-8 shadow-[0_8px_48px_rgba(0,0,0,0.4)]">
+      <div className="w-full max-w-[400px] bg-wd-card border border-wd-border rounded-2xl p-8 shadow-wd-card">
         {emailSent ? (
           <div className="text-center py-4">
             <div className="w-16 h-16 rounded-full bg-wd-gold-glow mx-auto mb-6 flex items-center justify-center">
@@ -120,7 +119,7 @@ function SignupForm() {
                   name="name"
                   type="text"
                   required
-                  className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                   placeholder="Jane Smith"
                 />
               </div>
@@ -133,7 +132,7 @@ function SignupForm() {
                   name="email"
                   type="email"
                   required
-                  className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                   placeholder="you@company.com"
                 />
               </div>
@@ -147,7 +146,7 @@ function SignupForm() {
                   type="password"
                   required
                   minLength={6}
-                  className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
                   placeholder="••••••••"
                 />
               </div>

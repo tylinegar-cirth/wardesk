@@ -50,7 +50,7 @@ export default function AdvisorGrid({
             className={`font-mono text-[10px] tracking-[0.05em] py-[9px] px-[18px] border-none rounded-lg transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               filter === cat.id
                 ? "bg-wd-text text-wd-bg shadow-[0_2px_12px_rgba(255,255,255,0.1)]"
-                : "bg-white/[0.03] text-wd-muted hover:bg-white/[0.06] hover:text-wd-sub"
+                : "bg-wd-overlay/[0.03] text-wd-muted hover:bg-wd-overlay/[0.06] hover:text-wd-sub"
             }`}
           >
             {cat.name}
@@ -72,10 +72,10 @@ export default function AdvisorGrid({
                 <img
                   src={a.image}
                   alt={a.name}
-                  className="w-full h-full object-cover grayscale brightness-[0.8] transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover dark:grayscale dark:brightness-[0.8] transition-all duration-600 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:!grayscale-0 group-hover:!brightness-100 group-hover:scale-[1.04]"
                 />
                 {/* Border overlay */}
-                <div className="absolute inset-0 rounded-[14px] border border-white/[0.04] pointer-events-none transition-[border-color] duration-300 group-hover:border-white/[0.08] max-[480px]:rounded-[10px]" />
+                <div className="absolute inset-0 rounded-[14px] border border-wd-overlay/[0.04] pointer-events-none transition-[border-color] duration-300 group-hover:border-wd-overlay/[0.08] max-[480px]:rounded-[10px]" />
                 {/* Gold edge */}
                 <div className="absolute bottom-0 left-1.5 right-1.5 h-0.5 bg-wd-gold rounded-sm scale-x-0 origin-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_12px_rgba(212,168,67,0.15)] group-hover:scale-x-100" />
                 {/* Stars badge */}
@@ -106,7 +106,7 @@ export default function AdvisorGrid({
           <div className="text-center mt-12">
             <button
               onClick={() => setShowAll(true)}
-              className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-white/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-white/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]"
+              className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]"
             >
               View all {filtered.length} advisors
             </button>

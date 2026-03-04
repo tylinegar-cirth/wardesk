@@ -69,7 +69,7 @@ export default function AdvisorsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by name, title, or focus area..."
-          className="w-full max-w-md bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/50"
+          className="w-full max-w-md bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/50"
         />
       </div>
 
@@ -156,7 +156,7 @@ export default function AdvisorsPage() {
                 {advisor.focus.slice(0, 2).map((f) => (
                   <span
                     key={f}
-                    className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-white/[0.05] px-2 py-0.5 rounded"
+                    className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-wd-overlay/[0.05] px-2 py-0.5 rounded"
                   >
                     {f}
                   </span>

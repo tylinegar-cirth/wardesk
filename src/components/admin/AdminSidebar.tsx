@@ -37,8 +37,7 @@ export default function AdminSidebar({
           <img
             src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
             alt=""
-            className="h-6 w-auto"
-            style={{ mixBlendMode: "screen" }}
+            className="h-6 w-auto dark:mix-blend-screen"
           />
           War Desk
         </Link>
@@ -57,7 +56,7 @@ export default function AdminSidebar({
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 font-mono text-[11px] tracking-[0.05em] uppercase transition-all duration-200 ${
               isActive(item.href)
                 ? "bg-wd-gold-glow text-wd-text border-l-2 border-wd-gold"
-                : "text-wd-muted hover:text-wd-sub hover:bg-white/[0.03]"
+                : "text-wd-muted hover:text-wd-sub hover:bg-wd-overlay/[0.03]"
             }`}
           >
             <span className="text-sm">{item.icon}</span>
@@ -100,8 +99,7 @@ export default function AdminSidebar({
           <img
             src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
             alt=""
-            className="h-5 w-auto"
-            style={{ mixBlendMode: "screen" }}
+            className="h-5 w-auto dark:mix-blend-screen"
           />
           War Desk
         </Link>

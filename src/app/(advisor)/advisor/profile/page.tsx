@@ -149,7 +149,7 @@ export default function AdvisorProfilePage() {
             <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
               Name
             </label>
-            <div className="bg-white/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
+            <div className="bg-wd-overlay/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
               {name}
             </div>
             <p className="font-mono text-[8px] text-wd-muted mt-1">
@@ -160,7 +160,7 @@ export default function AdvisorProfilePage() {
             <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
               Branch
             </label>
-            <div className="bg-white/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
+            <div className="bg-wd-overlay/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
               {branch}
             </div>
           </div>
@@ -199,7 +199,7 @@ export default function AdvisorProfilePage() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+            className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
           />
         </div>
 
@@ -212,7 +212,7 @@ export default function AdvisorProfilePage() {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={5}
-            className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none"
+            className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none"
             placeholder="Tell clients about your experience and expertise..."
           />
         </div>
@@ -252,7 +252,7 @@ export default function AdvisorProfilePage() {
                 e.target.value as "available" | "limited" | "unavailable"
               )
             }
-            className="bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+            className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
           >
             <option value="available">Available</option>
             <option value="limited">Limited</option>
@@ -265,7 +265,7 @@ export default function AdvisorProfilePage() {
           <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted block mb-2">
             Hourly Rate
           </label>
-          <div className="bg-white/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
+          <div className="bg-wd-overlay/[0.02] border border-wd-border rounded-lg text-wd-sub font-sans text-sm px-4 py-3">
             ${rate}/hr
           </div>
           <p className="font-mono text-[8px] text-wd-muted mt-1">
@@ -283,7 +283,7 @@ export default function AdvisorProfilePage() {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://..."
-            className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+            className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
           />
           {imageUrl && (
             <div className="mt-3">

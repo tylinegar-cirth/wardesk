@@ -153,7 +153,7 @@ export default function AdminBookingsPage() {
                 return (
                   <tr
                     key={booking.id}
-                    className="border-b border-wd-border/50 hover:bg-white/[0.02] transition-colors"
+                    className="border-b border-wd-border/50 hover:bg-wd-overlay/[0.02] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <p className="font-mono text-xs text-wd-text">

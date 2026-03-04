@@ -4,9 +4,78 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
 
+/* ── Theme Variables ─────────────────────────────────────────── */
+
+/* Light mode (default when .dark is absent) */
+:root {
+  --wd-bg: 250 250 249;
+  --wd-surface: 245 245 240;
+  --wd-card: 255 255 255;
+  --wd-text: 26 26 26;
+  --wd-sub: 107 107 107;
+  --wd-muted: 153 153 153;
+  --wd-gold: 212 168 67;
+
+  /* Full-value tokens (these use their own alpha) */
+  --wd-border: rgba(0,0,0,0.06);
+  --wd-border-hov: rgba(0,0,0,0.12);
+  --wd-gold-glow: rgba(212,168,67,0.08);
+
+  /* Subtle overlay color: black in light, white in dark */
+  --wd-overlay: 0 0 0;
+
+  /* Divider gradient */
+  --wd-divider: rgba(0,0,0,0.06);
+
+  /* Card shadows (replace borders as depth in light mode) */
+  --wd-card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --wd-card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+
+  /* Nav background */
+  --wd-nav-bg: rgba(250,250,249,0.85);
+  --wd-nav-shadow: 0 1px 3px rgba(0,0,0,0.06);
+
+  /* Gold hover (slightly darker in light) */
+  --wd-gold-hover: #C49A3A;
+}
+
+/* Dark mode */
+.dark {
+  --wd-bg: 8 8 10;
+  --wd-surface: 17 17 20;
+  --wd-card: 22 22 26;
+  --wd-text: 244 244 245;
+  --wd-sub: 161 161 170;
+  --wd-muted: 82 82 91;
+  --wd-gold: 212 168 67;
+
+  --wd-border: rgba(255,255,255,0.06);
+  --wd-border-hov: rgba(255,255,255,0.12);
+  --wd-gold-glow: rgba(212,168,67,0.15);
+
+  --wd-overlay: 255 255 255;
+
+  --wd-divider: rgba(255,255,255,0.06);
+
+  --wd-card-shadow: none;
+  --wd-card-shadow-hover: none;
+
+  --wd-nav-bg: rgba(8,8,10,0.72);
+  --wd-nav-shadow: 0 4px 30px rgba(0,0,0,0.3);
+
+  --wd-gold-hover: #D4A843;
+}
+
+/* ── Base Resets ──────────────────────────────────────────────── */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: #08080A; overflow-x: hidden; color: #F4F4F5; }
+body {
+  background: rgb(var(--wd-bg));
+  overflow-x: hidden;
+  color: rgb(var(--wd-text));
+  transition: background-color 0.3s, color 0.3s;
+}
 ::selection { background: rgba(212,168,67,0.19); }
 img { display: block; }
 a { text-decoration: none; color: inherit; }
@@ -17,9 +86,9 @@ video::-webkit-media-controls { display: none !important; }
 video::-webkit-media-controls-enclosure { display: none !important; }
 video::-webkit-media-controls-panel { display: none !important; }
 
-/* Noise texture overlay */
-.wd-app { position: relative; }
-.wd-app::before {
+/* Noise texture overlay — dark mode only */
+.dark .wd-app { position: relative; }
+.dark .wd-app::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -29,10 +98,17 @@ video::-webkit-media-controls-panel { display: none !important; }
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 128px 128px;
 }
+.wd-app { position: relative; }
 .wd-app > * { position: relative; z-index: 1; }
 
 /* Gradient dividers */
 .wd-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background: linear-gradient(90deg, transparent, var(--wd-divider), transparent);
+}
+
+/* Theme transition on key elements */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s !important;
 }

@@ -71,7 +71,7 @@ function BookingSuccessContent() {
 
         {/* Booking details */}
         {bookingDetails && (
-          <div className="bg-white/[0.03] border border-wd-border rounded-lg p-5 mb-6 text-left space-y-3">
+          <div className="bg-wd-overlay/[0.03] border border-wd-border rounded-lg p-5 mb-6 text-left space-y-3">
             <div className="flex justify-between items-center">
               <span className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted">
                 Advisor

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,17 +19,17 @@ export default function Nav() {
       <header
         className={`fixed top-0 left-0 right-0 z-[100] h-[60px] flex justify-between items-center px-[clamp(20px,4vw,48px)] transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
           scrolled
-            ? "bg-[rgba(8,8,10,0.72)] backdrop-blur-[24px] saturate-150 border-b border-wd-border shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            ? "backdrop-blur-[24px] saturate-150 border-b border-wd-border"
             : ""
         }`}
+        style={scrolled ? { background: "var(--wd-nav-bg)", boxShadow: "var(--wd-nav-shadow)" } : undefined}
       >
         <Link href="/" className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
             alt=""
-            className="h-7 w-auto"
-            style={{ mixBlendMode: "screen" }}
+            className="h-7 w-auto dark:mix-blend-screen"
           />
           War Desk
         </Link>
@@ -42,9 +43,10 @@ export default function Nav() {
           <a href="#studio" className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block">
             Studio
           </a>
+          <ThemeToggle />
           <Link
             href="/auth/login"
-            className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-white/[0.06] text-wd-text font-bold rounded-md border border-wd-border transition-all duration-250 hover:bg-white/[0.12] hover:border-wd-border-hov hover:-translate-y-px hidden md:block"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-overlay/[0.06] text-wd-text font-bold rounded-md border border-wd-border transition-all duration-250 hover:bg-wd-overlay/[0.12] hover:border-wd-border-hov hover:-translate-y-px hidden md:block"
           >
             Login
           </Link>
@@ -64,7 +66,7 @@ export default function Nav() {
       </header>
 
       {menuOpen && (
-        <div className="fixed top-[60px] left-0 right-0 z-[99] bg-[rgba(8,8,10,0.95)] backdrop-blur-[24px] border-b border-wd-border p-5 px-6 flex flex-col gap-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <div className="fixed top-[60px] left-0 right-0 z-[99] bg-wd-bg/95 backdrop-blur-[24px] border-b border-wd-border p-5 px-6 flex flex-col gap-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
           {["Advisors", "Show", "Studio"].map((l) => (
             <a
               key={l}

@@ -195,7 +195,7 @@ export default function SessionsPage() {
                     value={noteText}
                     onChange={(e) => setNoteText(e.target.value)}
                     placeholder="Add notes about this session..."
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-24"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-24"
                   />
                   <div className="flex justify-end mt-3">
                     <button

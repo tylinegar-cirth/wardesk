@@ -9,7 +9,7 @@ export default function ShowSection() {
   return (
     <section id="show" className="py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto relative">
       {/* Divider */}
-      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)" }} />
+      <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,var(--wd-divider),transparent)" }} />
 
       <div className="grid grid-cols-2 gap-[clamp(32px,5vw,72px)] items-center max-[768px]:grid-cols-1">
         <div>
@@ -31,7 +31,7 @@ export default function ShowSection() {
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <button className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-white/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-white/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]">
+            <button className="font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 px-8 bg-wd-overlay/[0.03] text-wd-sub border border-wd-border rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[8px] hover:bg-wd-overlay/[0.07] hover:border-wd-border-hov hover:text-wd-text hover:-translate-y-px active:translate-y-0 active:scale-[0.98]">
               Coming soon
             </button>
           </Reveal>
@@ -65,7 +65,7 @@ export default function ShowSection() {
               </div>
             </div>
             {/* Glass overlay */}
-            <div className="relative z-[2] text-center py-7 px-10 bg-[rgba(8,8,10,0.55)] backdrop-blur-[24px] saturate-150 border border-white/[0.08] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)] animate-wd-float">
+            <div className="relative z-[2] text-center py-7 px-10 bg-wd-bg/55 backdrop-blur-[24px] saturate-150 border border-wd-overlay/[0.08] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(var(--wd-overlay),0.06)] animate-wd-float">
               <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold mb-2.5">
                 The War Desk
               </div>

@@ -134,7 +134,7 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="bg-wd-card border border-wd-border rounded-[14px] p-10 text-center">
-            <div className="w-12 h-12 rounded-full bg-white/[0.04] mx-auto mb-4 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-wd-overlay/[0.04] mx-auto mb-4 flex items-center justify-center">
               <svg className="w-5 h-5 text-wd-sub" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
               </svg>
@@ -223,7 +223,7 @@ export default async function DashboardPage() {
                     <img
                       src={advisor.image_url}
                       alt=""
-                      className="w-11 h-11 rounded-full object-cover ring-2 ring-white/[0.06] group-hover:ring-wd-gold/30 transition-all"
+                      className="w-11 h-11 rounded-full object-cover ring-2 ring-wd-overlay/[0.06] group-hover:ring-wd-gold/30 transition-all"
                     />
                   )}
                   <div className="min-w-0">
@@ -239,7 +239,7 @@ export default async function DashboardPage() {
                   {advisor.focus.slice(0, 2).map((f: string) => (
                     <span
                       key={f}
-                      className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-white/[0.04] px-2 py-0.5 rounded"
+                      className="font-mono text-[8px] tracking-[0.05em] uppercase text-wd-sub bg-wd-overlay/[0.04] px-2 py-0.5 rounded"
                     >
                       {f}
                     </span>

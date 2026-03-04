@@ -69,7 +69,7 @@ export default function AdminUsersPage() {
   const roleColors: Record<string, string> = {
     admin: "text-red-400 bg-red-500/10 border-red-500/20",
     advisor: "text-wd-gold bg-wd-gold-glow border-wd-gold/20",
-    user: "text-wd-muted bg-white/[0.05] border-wd-border",
+    user: "text-wd-muted bg-wd-overlay/[0.05] border-wd-border",
   };
 
   return (
@@ -100,7 +100,7 @@ export default function AdminUsersPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by name, email, or company..."
-          className="w-full max-w-md bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
+          className="w-full max-w-md bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors"
         />
       </div>
 
@@ -142,7 +142,7 @@ export default function AdminUsersPage() {
               {filteredUsers.map((user) => (
                 <tr
                   key={user.id}
-                  className="border-b border-wd-border/50 hover:bg-white/[0.02] transition-colors"
+                  className="border-b border-wd-border/50 hover:bg-wd-overlay/[0.02] transition-colors"
                 >
                   <td className="py-3 px-4 font-sans text-sm text-wd-text">
                     {user.name || "—"}
@@ -178,7 +178,7 @@ export default function AdminUsersPage() {
                           e.target.value as "user" | "advisor" | "admin"
                         )
                       }
-                      className="bg-white/[0.03] border border-wd-border rounded-md text-wd-text font-mono text-[10px] px-2 py-1 focus:border-wd-gold/50 outline-none"
+                      className="bg-wd-overlay/[0.03] border border-wd-border rounded-md text-wd-text font-mono text-[10px] px-2 py-1 focus:border-wd-gold/50 outline-none"
                     >
                       <option value="user">User</option>
                       <option value="advisor">Advisor</option>

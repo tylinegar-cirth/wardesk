@@ -219,7 +219,7 @@ export default function AdminAdvisorsPage() {
                       onChange={(e) =>
                         handleStatusChange(advisor.id, e.target.value)
                       }
-                      className="bg-white/[0.03] border border-wd-border rounded-md text-wd-text font-mono text-[10px] px-2 py-1 focus:border-wd-gold/50 outline-none"
+                      className="bg-wd-overlay/[0.03] border border-wd-border rounded-md text-wd-text font-mono text-[10px] px-2 py-1 focus:border-wd-gold/50 outline-none"
                     >
                       <option value="available">Available</option>
                       <option value="limited">Limited</option>
@@ -235,7 +235,7 @@ export default function AdminAdvisorsPage() {
                               value={linkEmail}
                               onChange={(e) => setLinkEmail(e.target.value)}
                               placeholder="user@email.com"
-                              className="bg-white/[0.03] border border-wd-border rounded-md text-wd-text font-sans text-xs px-2 py-1 focus:border-wd-gold/50 outline-none w-48"
+                              className="bg-wd-overlay/[0.03] border border-wd-border rounded-md text-wd-text font-sans text-xs px-2 py-1 focus:border-wd-gold/50 outline-none w-48"
                             />
                             <button
                               onClick={() => handleLinkUser(advisor.id)}
@@ -256,7 +256,7 @@ export default function AdminAdvisorsPage() {
                         ) : (
                           <button
                             onClick={() => setLinkingAdvisor(advisor.id)}
-                            className="font-mono text-[9px] tracking-[0.05em] uppercase py-1 px-3 bg-white/[0.05] text-wd-text border border-wd-border rounded-md hover:bg-white/[0.08] transition-colors"
+                            className="font-mono text-[9px] tracking-[0.05em] uppercase py-1 px-3 bg-wd-overlay/[0.05] text-wd-text border border-wd-border rounded-md hover:bg-wd-overlay/[0.08] transition-colors"
                           >
                             Link Account
                           </button>
@@ -292,7 +292,7 @@ export default function AdminAdvisorsPage() {
                   <input
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   />
                 </div>
                 <div>
@@ -302,7 +302,7 @@ export default function AdminAdvisorsPage() {
                   <input
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   />
                 </div>
               </div>
@@ -318,7 +318,7 @@ export default function AdminAdvisorsPage() {
                       setNewBranch(e.target.value);
                       setNewCategory(e.target.value);
                     }}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   >
                     {[
                       "Army",
@@ -343,7 +343,7 @@ export default function AdminAdvisorsPage() {
                   <select
                     value={newStars}
                     onChange={(e) => setNewStars(Number(e.target.value))}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   >
                     {[1, 2, 3, 4].map((s) => (
                       <option key={s} value={s}>
@@ -363,7 +363,7 @@ export default function AdminAdvisorsPage() {
                     type="number"
                     value={newRate}
                     onChange={(e) => setNewRate(Number(e.target.value))}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   />
                 </div>
                 <div>
@@ -374,7 +374,7 @@ export default function AdminAdvisorsPage() {
                     type="number"
                     value={newYears}
                     onChange={(e) => setNewYears(Number(e.target.value))}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   />
                 </div>
                 <div>
@@ -384,7 +384,7 @@ export default function AdminAdvisorsPage() {
                   <select
                     value={newClearance}
                     onChange={(e) => setNewClearance(e.target.value)}
-                    className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
+                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none"
                   >
                     <option value="TS/SCI">TS/SCI</option>
                     <option value="TS">TS</option>
@@ -401,7 +401,7 @@ export default function AdminAdvisorsPage() {
                   value={newBio}
                   onChange={(e) => setNewBio(e.target.value)}
                   rows={3}
-                  className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none resize-none"
+                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none resize-none"
                 />
               </div>
             </div>

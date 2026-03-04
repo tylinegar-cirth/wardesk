@@ -106,7 +106,7 @@ export default async function AdvisorDashboard() {
         </Link>
         <Link
           href="/advisor/profile"
-          className="font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-5 bg-white/[0.05] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-white/[0.08]"
+          className="font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-5 bg-wd-overlay/[0.05] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-wd-overlay/[0.08]"
         >
           View Profile
         </Link>

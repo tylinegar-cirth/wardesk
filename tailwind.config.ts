@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,22 +11,28 @@ const config: Config = {
     extend: {
       colors: {
         wd: {
-          bg: "#08080A",
-          surface: "#111114",
-          card: "#16161A",
-          border: "rgba(255,255,255,0.06)",
-          "border-hov": "rgba(255,255,255,0.12)",
-          text: "#F4F4F5",
-          sub: "#A1A1AA",
-          muted: "#52525B",
-          gold: "#D4A843",
-          "gold-glow": "rgba(212,168,67,0.15)",
+          bg: "rgb(var(--wd-bg) / <alpha-value>)",
+          surface: "rgb(var(--wd-surface) / <alpha-value>)",
+          card: "rgb(var(--wd-card) / <alpha-value>)",
+          text: "rgb(var(--wd-text) / <alpha-value>)",
+          sub: "rgb(var(--wd-sub) / <alpha-value>)",
+          muted: "rgb(var(--wd-muted) / <alpha-value>)",
+          gold: "rgb(var(--wd-gold) / <alpha-value>)",
+          border: "var(--wd-border)",
+          "border-hov": "var(--wd-border-hov)",
+          "gold-glow": "var(--wd-gold-glow)",
+          // Overlay color: white in dark, black in light (for subtle bg effects)
+          overlay: "rgb(var(--wd-overlay) / <alpha-value>)",
         },
       },
       fontFamily: {
         serif: ["'Instrument Serif'", "Georgia", "serif"],
         sans: ["'Instrument Sans'", "sans-serif"],
         mono: ["'Space Mono'", "monospace"],
+      },
+      boxShadow: {
+        "wd-card": "var(--wd-card-shadow)",
+        "wd-card-hover": "var(--wd-card-shadow-hover)",
       },
       animation: {
         "wd-bounce": "wd-bounce 2s ease infinite",

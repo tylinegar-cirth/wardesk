@@ -83,7 +83,7 @@ export default function MissionBrief() {
           value={mission}
           onChange={(e) => setMission(e.target.value)}
           placeholder="Describe your goals, challenges, or what you need help with. For example: &quot;We're building an autonomous logistics system and need help navigating Army acquisition channels and SOCOM procurement...&quot;"
-          className="w-full bg-white/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-28 placeholder:text-wd-muted/40"
+          className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-28 placeholder:text-wd-muted/40"
           disabled={loading}
         />
         <button
@@ -125,7 +125,7 @@ export default function MissionBrief() {
               <Link
                 key={rec.advisor_id}
                 href={`/portal/advisor/${rec.advisor_id}`}
-                className="flex items-start gap-4 bg-white/[0.02] border border-wd-border rounded-xl p-4 hover:border-wd-gold/30 transition-all group"
+                className="flex items-start gap-4 bg-wd-overlay/[0.02] border border-wd-border rounded-xl p-4 hover:border-wd-gold/30 transition-all group"
               >
                 <div className="flex-shrink-0 relative">
                   <span className="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-wd-gold text-wd-bg text-[10px] font-bold flex items-center justify-center z-10">

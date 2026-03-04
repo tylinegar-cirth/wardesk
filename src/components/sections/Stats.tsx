@@ -15,9 +15,9 @@ export default function Stats() {
     <Reveal>
       <div className="flex justify-center gap-[clamp(24px,5vw,72px)] flex-wrap py-11 px-[clamp(20px,4vw,48px)] relative">
         {/* Top divider */}
-        <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)" }} />
+        <div className="absolute top-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,var(--wd-divider),transparent)" }} />
         {/* Bottom divider */}
-        <div className="absolute bottom-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)" }} />
+        <div className="absolute bottom-0 left-[5%] right-[5%] h-px" style={{ background: "linear-gradient(90deg,transparent,var(--wd-divider),transparent)" }} />
 
         {stats.map((s, i) => (
           <Reveal key={i} delay={i * 0.12}>
