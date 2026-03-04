@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface Recommendation {
@@ -24,11 +24,64 @@ interface MatchResult {
   summary: string;
 }
 
+const loadingStages = [
+  { pct: 15, text: "Analyzing your mission brief..." },
+  { pct: 35, text: "Reviewing advisor specializations..." },
+  { pct: 55, text: "Matching expertise to your needs..." },
+  { pct: 75, text: "Ranking best-fit advisors..." },
+  { pct: 90, text: "Finalizing recommendations..." },
+];
+
 export default function MissionBrief() {
   const [mission, setMission] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MatchResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [stageIndex, setStageIndex] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Animate progress bar during loading
+  useEffect(() => {
+    if (loading) {
+      setProgress(0);
+      setStageIndex(0);
+      let elapsed = 0;
+
+      intervalRef.current = setInterval(() => {
+        elapsed += 400;
+        // Gradually advance through stages over ~25s
+        const stage = Math.min(
+          Math.floor(elapsed / 5000),
+          loadingStages.length - 1
+        );
+        setStageIndex(stage);
+
+        // Smooth progress that slows as it approaches 95%
+        const target = loadingStages[stage].pct;
+        setProgress((prev) => {
+          const diff = target - prev;
+          return prev + diff * 0.15;
+        });
+      }, 400);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      // If we just finished, snap to 100%
+      if (progress > 0) {
+        setProgress(100);
+        const timer = setTimeout(() => setProgress(0), 600);
+        return () => clearTimeout(timer);
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -86,20 +139,32 @@ export default function MissionBrief() {
           className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors resize-none h-28 placeholder:text-wd-muted/40"
           disabled={loading}
         />
-        <button
-          type="submit"
-          disabled={loading || mission.trim().length < 2}
-          className="mt-3 w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-40 disabled:translate-y-0 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="w-3 h-3 border-2 border-wd-bg/30 border-t-wd-bg rounded-full animate-spin" />
-              Analyzing mission...
-            </span>
-          ) : (
-            "Find advisors"
-          )}
-        </button>
+        {loading ? (
+          <div className="mt-3 w-full">
+            {/* Progress bar */}
+            <div className="h-1.5 bg-wd-overlay/[0.06] rounded-full overflow-hidden mb-3">
+              <div
+                className="h-full bg-wd-gold rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${Math.round(progress)}%` }}
+              />
+            </div>
+            {/* Stage text */}
+            <p className="font-mono text-[10px] tracking-[0.05em] text-wd-gold text-center transition-opacity duration-300">
+              {loadingStages[stageIndex].text}
+            </p>
+            <p className="font-mono text-[9px] tracking-[0.05em] text-wd-muted text-center mt-1">
+              This can take up to 30 seconds
+            </p>
+          </div>
+        ) : (
+          <button
+            type="submit"
+            disabled={mission.trim().length < 2}
+            className="mt-3 w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-40 disabled:translate-y-0 disabled:cursor-not-allowed"
+          >
+            Find advisors
+          </button>
+        )}
       </form>
 
       {/* Error */}

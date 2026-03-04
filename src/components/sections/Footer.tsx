@@ -14,9 +14,9 @@ export default function Footer() {
           <div className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-wd-text mb-2 flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
+              src="/logo.png"
               alt=""
-              className="h-8 w-auto dark:mix-blend-screen"
+              className="h-8 w-auto dark:invert"
             />
             War Desk
           </div>

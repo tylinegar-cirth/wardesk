@@ -1,9 +1,28 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
+import { headers } from "next/headers";
+
+function getSiteUrl(requestHeaders: Headers): string {
+  // 1. Explicit env var
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  // 2. Vercel auto-set URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // 3. Derive from request headers
+  const host = requestHeaders.get("host") || "localhost:3000";
+  const proto = requestHeaders.get("x-forwarded-proto") || "https";
+  return `${proto}://${host}`;
+}
 
 export async function POST(request: Request) {
   try {
+    const headersList = await headers();
+    const siteUrl = getSiteUrl(headersList);
+
     const supabase = createClient();
     const {
       data: { user },
@@ -33,7 +52,7 @@ export async function POST(request: Request) {
     // Look up or create Stripe customer
     const { data: profile } = await supabase
       .from("users")
-      .select("stripe_customer_id, email, name")
+      .select("stripe_customer_id, name")
       .eq("id", user.id)
       .single();
 
@@ -42,7 +61,7 @@ export async function POST(request: Request) {
 
     if (!customerId) {
       const customer = await stripe.customers.create({
-        email: profile?.email || user.email,
+        email: user.email,
         name: profile?.name || undefined,
         metadata: { supabase_user_id: user.id },
       });
@@ -59,7 +78,7 @@ export async function POST(request: Request) {
     const scheduledDate = new Date(scheduledAt);
     const dateStr = scheduledAt.split("T")[0];
     const timeStr = `${String(scheduledDate.getHours()).padStart(2, "0")}:${String(scheduledDate.getMinutes()).padStart(2, "0")}`;
-    const cancelUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/portal/advisor/${advisorId}?dur=${durationMinutes}&date=${dateStr}&time=${encodeURIComponent(timeStr)}`;
+    const cancelUrl = `${siteUrl}/portal/advisor/${advisorId}?dur=${durationMinutes}&date=${dateStr}&time=${encodeURIComponent(timeStr)}`;
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -85,15 +104,28 @@ export async function POST(request: Request) {
         price: String(price),
         userId: user.id,
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/portal/booking/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${siteUrl}/portal/booking/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Checkout error:", error);
+
+    // Return more specific error messages
+    const message =
+      error instanceof Error ? error.message : "Unknown error";
+
+    // Check for common Stripe errors
+    if (message.includes("STRIPE_SECRET_KEY")) {
+      return NextResponse.json(
+        { error: "Payment system not configured. Please contact support." },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { error: "Failed to create checkout session" },
+      { error: `Failed to create checkout session: ${message}` },
       { status: 500 }
     );
   }

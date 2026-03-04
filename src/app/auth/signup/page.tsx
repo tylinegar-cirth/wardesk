@@ -42,9 +42,9 @@ function SignupForm() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://res.cloudinary.com/dmj9mlo6o/image/upload/v1772585999/Gemini_Generated_Image_t0cq9dt0cq9dt0cq_h7woad.png"
+          src="/logo.png"
           alt=""
-          className="h-7 w-auto dark:mix-blend-screen"
+          className="h-7 w-auto dark:invert"
         />
         War Desk
       </Link>

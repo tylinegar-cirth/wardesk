@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
+import { headers } from "next/headers";
 
 export async function POST() {
   try {
+    const headersList = await headers();
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : `${headersList.get("x-forwarded-proto") || "https"}://${headersList.get("host") || "localhost:3000"}`);
+
     const supabase = createClient();
     const {
       data: { user },
@@ -31,7 +39,7 @@ export async function POST() {
     const stripe = getStripe();
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
-      return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/portal/billing`,
+      return_url: `${siteUrl}/portal/billing`,
     });
 
     return NextResponse.json({ url: portalSession.url });
