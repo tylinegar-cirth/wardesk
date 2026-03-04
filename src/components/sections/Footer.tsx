@@ -16,7 +16,7 @@ export default function Footer() {
             <img
               src="/logo.png"
               alt=""
-              className="h-8 w-auto dark:invert"
+              className="h-12 w-auto dark:invert"
             />
             War Desk
           </div>

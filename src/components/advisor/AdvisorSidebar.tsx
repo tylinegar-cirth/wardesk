@@ -37,7 +37,7 @@ export default function AdvisorSidebar({
           <img
             src="/logo.png"
             alt=""
-            className="h-6 w-auto dark:invert"
+            className="h-9 w-auto dark:invert"
           />
           War Desk
         </Link>
@@ -99,7 +99,7 @@ export default function AdvisorSidebar({
           <img
             src="/logo.png"
             alt=""
-            className="h-5 w-auto dark:invert"
+            className="h-8 w-auto dark:invert"
           />
           War Desk
         </Link>

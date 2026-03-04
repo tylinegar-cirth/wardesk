@@ -3,10 +3,18 @@ import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 
+function ensureScheme(url: string): string {
+  const trimmed = url.replace(/\/$/, "");
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
 function getSiteUrl(requestHeaders: Headers): string {
   // 1. Explicit env var
   if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+    return ensureScheme(process.env.NEXT_PUBLIC_SITE_URL);
   }
   // 2. Vercel auto-set URL
   if (process.env.VERCEL_URL) {

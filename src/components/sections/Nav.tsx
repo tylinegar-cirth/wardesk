@@ -29,7 +29,7 @@ export default function Nav() {
           <img
             src="/logo.png"
             alt=""
-            className="h-7 w-auto dark:invert"
+            className="h-10 w-auto -my-1 dark:invert"
           />
           War Desk
         </Link>

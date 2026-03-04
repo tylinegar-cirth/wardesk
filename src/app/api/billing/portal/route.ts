@@ -6,11 +6,10 @@ import { headers } from "next/headers";
 export async function POST() {
   try {
     const headersList = await headers();
-    const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-      (process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : `${headersList.get("x-forwarded-proto") || "https"}://${headersList.get("host") || "localhost:3000"}`);
+    const rawUrl = process.env.NEXT_PUBLIC_SITE_URL
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || `${headersList.get("x-forwarded-proto") || "https"}://${headersList.get("host") || "localhost:3000"}`;
+    const siteUrl = rawUrl.replace(/\/$/, "").match(/^https?:\/\//) ? rawUrl.replace(/\/$/, "") : `https://${rawUrl.replace(/\/$/, "")}`;
 
     const supabase = createClient();
     const {
