@@ -13,12 +13,23 @@ const navItems = [
   { label: "Billing", href: "/portal/billing", icon: "□" },
 ];
 
+const studioNavItems = [
+  { label: "Studio", href: "/portal/studio", icon: "◈" },
+  { label: "Projects", href: "/portal/studio/projects", icon: "▣" },
+  { label: "Assets", href: "/portal/studio/assets", icon: "◧" },
+  { label: "Calendar", href: "/portal/studio/calendar", icon: "◇" },
+];
+
 export default function Sidebar({ userName }: { userName: string | null }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isActive = (href: string) =>
-    href === "/portal" ? pathname === "/portal" : pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (href === "/portal" || href === "/portal/studio") {
+      return pathname === href;
+    }
+    return pathname.startsWith(href);
+  };
 
   const nav = (
     <>
@@ -41,6 +52,30 @@ export default function Sidebar({ userName }: { userName: string | null }) {
       {/* Nav items */}
       <nav className="flex-1 px-3">
         {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => setMobileOpen(false)}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 font-mono text-[11px] tracking-[0.05em] uppercase transition-all duration-200 ${
+              isActive(item.href)
+                ? "bg-wd-gold-glow text-wd-gold border-l-2 border-wd-gold"
+                : "text-wd-sub hover:text-wd-text hover:bg-wd-overlay/[0.04]"
+            }`}
+          >
+            <span className="text-sm">{item.icon}</span>
+            {item.label}
+          </Link>
+        ))}
+
+        {/* Studio section */}
+        <div className="my-4 mx-3">
+          <div className="h-px bg-wd-border" />
+          <div className="font-mono text-[8px] tracking-[0.3em] uppercase text-wd-muted mt-3 mb-1 px-0">
+            Studio
+          </div>
+        </div>
+
+        {studioNavItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}

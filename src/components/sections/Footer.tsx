@@ -1,9 +1,21 @@
 "use client";
 
+import Link from "next/link";
+
 const footerCols = [
-  { t: "Platform", links: ["Advisors", "Book a briefing", "Enterprise"] },
-  { t: "Media", links: ["The Show", "Newsletter"] },
-  { t: "Studio", links: ["Services", "Contact"] },
+  { t: "Platform", links: [
+    { label: "Advisors", href: "#advisors" },
+    { label: "Book a briefing", href: "#advisors" },
+    { label: "Enterprise", href: "#enterprise" },
+  ]},
+  { t: "Media", links: [
+    { label: "The Show", href: "#show" },
+    { label: "Newsletter", href: "#" },
+  ]},
+  { t: "Studio", links: [
+    { label: "Services", href: "/studio#services" },
+    { label: "Contact", href: "/studio#contact" },
+  ]},
 ];
 
 export default function Footer() {
@@ -31,13 +43,13 @@ export default function Footer() {
                 {col.t}
               </div>
               {col.links.map((l, j) => (
-                <a
+                <Link
                   key={j}
-                  href="#"
+                  href={l.href}
                   className="block font-sans text-[13px] text-wd-sub mb-2 transition-colors duration-200 hover:text-wd-text"
                 >
-                  {l}
-                </a>
+                  {l.label}
+                </Link>
               ))}
             </div>
           ))}
