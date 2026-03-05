@@ -67,7 +67,7 @@ export default function Nav() {
       </header>
 
       {menuOpen && (
-        <div className="fixed top-[60px] left-0 right-0 z-[99] bg-wd-bg/95 backdrop-blur-[24px] border-b border-wd-border p-5 px-6 flex flex-col gap-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <div className="fixed top-[60px] left-0 right-0 z-[99] bg-wd-bg border-b border-wd-border py-3 px-6 flex flex-col gap-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
           <a href="#advisors" onClick={() => setMenuOpen(false)} className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase">
             Advisors
           </a>
