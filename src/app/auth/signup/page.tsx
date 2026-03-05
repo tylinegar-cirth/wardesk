@@ -44,7 +44,7 @@ function SignupForm() {
         <img
           src="/logo.png"
           alt=""
-          className="h-[90px] w-auto -my-4 dark:invert"
+          className="h-[90px] w-auto -my-4 dark:invert max-[480px]:h-[60px] max-[480px]:-my-2"
         />
         War Desk
       </Link>

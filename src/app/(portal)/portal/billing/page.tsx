@@ -132,8 +132,8 @@ export default async function BillingPage() {
           Payment History
         </h2>
         {payments && payments.length > 0 ? (
-          <div className="bg-wd-card border border-wd-border rounded-[14px] overflow-hidden">
-            <table className="w-full">
+          <div className="bg-wd-card border border-wd-border rounded-[14px] overflow-x-auto">
+            <table className="w-full min-w-[520px]">
               <thead>
                 <tr className="border-b border-wd-border">
                   <th className="text-left font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted p-4">

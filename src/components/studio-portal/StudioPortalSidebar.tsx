@@ -110,7 +110,7 @@ export default function StudioPortalSidebar({ userName }: { userName: string | n
           <img
             src="/logo.png"
             alt=""
-            className="h-[72px] w-auto -my-3 dark:invert"
+            className="h-[50px] w-auto -my-1 dark:invert"
           />
           <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>

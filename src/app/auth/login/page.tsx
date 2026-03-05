@@ -60,7 +60,7 @@ function LoginForm() {
         <img
           src="/logo.png"
           alt=""
-          className="h-[90px] w-auto -my-4 dark:invert"
+          className="h-[90px] w-auto -my-4 dark:invert max-[480px]:h-[60px] max-[480px]:-my-2"
         />
         War Desk
       </Link>
@@ -88,7 +88,7 @@ function LoginForm() {
           ))}
         </div>
 
-        <div className="p-8">
+        <div className="p-8 max-[480px]:p-5">
           {hasBooking && (
             <div className="mb-6 p-3 bg-wd-gold-glow border border-wd-gold/20 rounded-lg">
               <p className="font-sans text-sm text-wd-gold">

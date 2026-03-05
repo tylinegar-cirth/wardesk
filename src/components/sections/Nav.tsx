@@ -24,12 +24,12 @@ export default function Nav() {
         }`}
         style={scrolled ? { background: "var(--wd-nav-bg)", boxShadow: "var(--wd-nav-shadow)" } : undefined}
       >
-        <Link href="/" className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5">
+        <Link href="/" className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.15em] max-[480px]:gap-1.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt=""
-            className="h-[90px] w-auto -mt-[12px] -mb-[18px] dark:invert"
+            className="h-[90px] w-auto -mt-[12px] -mb-[18px] dark:invert max-[480px]:h-[56px] max-[480px]:-mt-[6px] max-[480px]:-mb-[10px]"
           />
           War Desk
         </Link>

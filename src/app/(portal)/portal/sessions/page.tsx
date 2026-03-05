@@ -131,7 +131,7 @@ export default function SessionsPage() {
               key={session.id}
               className="bg-wd-card border border-wd-border rounded-[14px] overflow-hidden"
             >
-              <div className="p-5 flex items-center gap-4">
+              <div className="p-5 flex items-center gap-4 max-[480px]:flex-wrap">
                 {session.advisor?.image_url && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -162,7 +162,7 @@ export default function SessionsPage() {
                 <StatusBadge status={session.status} />
 
                 {/* Actions */}
-                <div className="flex gap-2 flex-shrink-0">
+                <div className="flex gap-2 flex-shrink-0 max-[480px]:w-full max-[480px]:pt-1 max-[480px]:border-t max-[480px]:border-wd-border">
                   {tab === "upcoming" && session.meeting_link && (
                     <a
                       href={session.meeting_link}

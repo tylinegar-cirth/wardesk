@@ -111,7 +111,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           <img
             src="/logo.png"
             alt=""
-            className="h-[72px] w-auto -my-3 dark:invert"
+            className="h-[50px] w-auto -my-1 dark:invert"
           />
           War Desk
         </Link>

@@ -4,17 +4,17 @@ export default function LivePage() {
   return (
     <div className="min-h-screen bg-wd-bg flex flex-col items-center justify-center px-6 text-center">
       {/* Logo */}
-      <Link href="/" className="mb-12">
+      <Link href="/" className="mb-12 max-[480px]:mb-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo.png"
           alt="War Desk"
-          className="h-[120px] w-auto dark:invert mx-auto"
+          className="h-[120px] w-auto dark:invert mx-auto max-[480px]:h-[80px]"
         />
       </Link>
 
       {/* Heading */}
-      <h1 className="font-mono text-[clamp(24px,5vw,48px)] font-bold tracking-[0.3em] uppercase text-wd-text mb-6 leading-[1.1]">
+      <h1 className="font-mono text-[clamp(24px,5vw,48px)] font-bold tracking-[0.3em] uppercase text-wd-text mb-6 leading-[1.1] max-[480px]:tracking-[0.15em]">
         War Desk <span className="text-wd-gold">Live</span>
       </h1>
       <p className="font-serif text-[clamp(16px,2vw,20px)] text-wd-sub italic mb-4 leading-[1.4]">
