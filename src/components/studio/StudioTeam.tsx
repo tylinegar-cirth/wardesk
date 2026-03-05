@@ -82,7 +82,7 @@ export default function StudioTeam() {
                         onClick={() => setShowArticle(true)}
                         className="font-mono text-[10px] tracking-[0.05em] text-wd-gold hover:text-wd-text transition-colors bg-transparent border-none p-0 cursor-pointer"
                       >
-                        Read Essay &rarr;
+                        Read Manifesto &rarr;
                       </button>
                     )}
                   </div>
