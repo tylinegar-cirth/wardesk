@@ -116,6 +116,20 @@ export default function StudioNav() {
               </Link>
             )
           )}
+          <a
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+            className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
+          >
+            Contact
+          </a>
+          <Link
+            href="/studio-portal"
+            onClick={() => setMenuOpen(false)}
+            className="font-mono text-[13px] text-wd-gold tracking-[0.1em] uppercase"
+          >
+            Client Portal
+          </Link>
         </div>
       )}
     </>
