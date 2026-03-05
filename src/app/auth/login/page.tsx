@@ -224,7 +224,7 @@ function LoginForm() {
                     type="text"
                     required
                     autoFocus
-                    className="flex-1 bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-[11px] tracking-[0.05em] uppercase px-4 py-2.5 focus:border-wd-gold/50 outline-none transition-colors placeholder:normal-case placeholder:tracking-normal"
+                    className="flex-1 bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-mono text-base md:text-[11px] tracking-[0.05em] uppercase px-4 py-2.5 focus:border-wd-gold/50 outline-none transition-colors placeholder:normal-case placeholder:tracking-normal"
                     placeholder="Enter demo code"
                   />
                   <button
