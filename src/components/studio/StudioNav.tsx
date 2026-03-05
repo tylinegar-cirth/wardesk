@@ -70,7 +70,7 @@ export default function StudioNav() {
               </Link>
             )
           )}
-          <ThemeToggle />
+          <span className="hidden md:block"><ThemeToggle /></span>
           <a
             href="#contact"
             className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-overlay/[0.06] text-wd-text font-bold rounded-md border border-wd-border transition-all duration-250 hover:bg-wd-overlay/[0.12] hover:border-wd-border-hov hover:-translate-y-px hidden md:block"
@@ -79,7 +79,7 @@ export default function StudioNav() {
           </a>
           <Link
             href="/studio-portal"
-            className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-gold text-wd-bg font-bold rounded-md transition-all duration-250 shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)] hover:-translate-y-px max-[480px]:text-[9px] max-[480px]:py-[7px] max-[480px]:px-4 max-[480px]:rounded-[5px]"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-gold text-wd-bg font-bold rounded-md transition-all duration-250 shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)] hover:-translate-y-px hidden md:block"
           >
             Client Portal
           </Link>
@@ -130,6 +130,7 @@ export default function StudioNav() {
           >
             Client Portal
           </Link>
+          <div className="pt-1"><ThemeToggle /></div>
         </div>
       )}
     </>
