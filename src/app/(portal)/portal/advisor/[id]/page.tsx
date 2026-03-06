@@ -19,6 +19,41 @@ const timeSlots = [
 ];
 
 type Step = "profile" | "booking";
+type BookingTab = "single" | "retained";
+
+const retainedTiers = [
+  {
+    key: "signal" as const,
+    name: "Signal",
+    hours: 2,
+    description: "Monthly check-in & strategic pulse",
+    features: ["2 hrs/month advisory time", "Email support between sessions", "Monthly strategic brief"],
+    color: "text-wd-muted",
+    borderColor: "border-wd-border",
+    bgColor: "bg-wd-overlay/[0.03]",
+  },
+  {
+    key: "strategy" as const,
+    name: "Strategy",
+    hours: 4,
+    description: "Active strategic partnership",
+    features: ["4 hrs/month advisory time", "Priority scheduling", "Direct line access", "Quarterly strategy review"],
+    color: "text-wd-gold",
+    borderColor: "border-wd-gold/30",
+    bgColor: "bg-wd-gold-glow",
+    recommended: true,
+  },
+  {
+    key: "principal" as const,
+    name: "Principal",
+    hours: 8,
+    description: "Embedded senior advisory",
+    features: ["8 hrs/month advisory time", "On-call availability", "Board-level prep & support", "Intro to network", "Quarterly strategy review"],
+    color: "text-emerald-400",
+    borderColor: "border-emerald-500/30",
+    bgColor: "bg-emerald-500/[0.06]",
+  },
+];
 
 export default function AdvisorDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +63,10 @@ export default function AdvisorDetailPage() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState<Step>("profile");
 
-  // Booking state
+  // Booking tab
+  const [bookingTab, setBookingTab] = useState<BookingTab>("single");
+
+  // Single session state
   const [selectedDuration, setSelectedDuration] = useState<30 | 60 | 90>(60);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -37,6 +75,10 @@ export default function AdvisorDetailPage() {
   const [paymentMethod, setPaymentMethod] = useState<"card" | "invoice">("card");
   const [companyName, setCompanyName] = useState("");
   const [poNumber, setPoNumber] = useState("");
+
+  // Retained advisory state
+  const [selectedTier, setSelectedTier] = useState<"signal" | "strategy" | "principal">("strategy");
+  const [retainedSubmitting, setRetainedSubmitting] = useState(false);
 
   // Track whether we've pre-populated from URL params
   const prePopulated = useRef(false);
@@ -319,161 +361,293 @@ export default function AdvisorDetailPage() {
         </div>
 
         {/* Right: Booking panel */}
-        <div className="bg-wd-card border border-wd-border rounded-[14px] p-6 h-fit sticky top-6">
-            <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-5">
-              Book a session
-            </p>
+        <div className="bg-wd-card border border-wd-border rounded-[14px] overflow-hidden h-fit sticky top-6">
+          {/* Tabs */}
+          <div className="flex border-b border-wd-border">
+            <button
+              onClick={() => setBookingTab("single")}
+              className={`flex-1 py-3.5 font-mono text-[10px] tracking-[0.12em] uppercase transition-all duration-300 border-b-2 bg-transparent ${
+                bookingTab === "single"
+                  ? "text-wd-gold border-wd-gold bg-wd-gold-glow"
+                  : "text-wd-muted border-transparent hover:text-wd-sub"
+              }`}
+            >
+              Single Session
+            </button>
+            <button
+              onClick={() => setBookingTab("retained")}
+              className={`flex-1 py-3.5 font-mono text-[10px] tracking-[0.12em] uppercase transition-all duration-300 border-b-2 bg-transparent ${
+                bookingTab === "retained"
+                  ? "text-wd-gold border-wd-gold bg-wd-gold-glow"
+                  : "text-wd-muted border-transparent hover:text-wd-sub"
+              }`}
+            >
+              Retained Advisory
+            </button>
+          </div>
 
-              {/* Duration */}
-              <div className="mb-5">
-                <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
-                  Duration
-                </p>
-                <div className="grid grid-cols-3 gap-2">
-                  {durations.map((d) => (
-                    <button
-                      key={d.minutes}
-                      onClick={() => setSelectedDuration(d.minutes)}
-                      className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all ${
-                        selectedDuration === d.minutes
-                          ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                          : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
-                      }`}
-                    >
-                      {d.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Date */}
-              <div className="mb-5">
-                <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
-                  Date
-                </p>
-                <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
-                  {calendarDays().map((day) => (
-                    <button
-                      key={day.date}
-                      onClick={() => {
-                        setSelectedDate(day.date);
-                        setSelectedTime("");
-                      }}
-                      className={`w-full text-left font-mono text-[10px] px-3 py-2 rounded-lg border transition-all ${
-                        selectedDate === day.date
-                          ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                          : "bg-transparent text-wd-sub border-wd-border hover:border-wd-sub/30"
-                      }`}
-                    >
-                      {day.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Time slots */}
-              {selectedDate && (
+          <div className="p-6">
+            {bookingTab === "single" ? (
+              <>
+                {/* ── Single Session ── */}
+                {/* Duration */}
                 <div className="mb-5">
                   <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
-                    Time
+                    Duration
                   </p>
-                  <div className="grid grid-cols-4 gap-1.5">
-                    {timeSlots.map((t) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {durations.map((d) => (
                       <button
-                        key={t}
-                        onClick={() => setSelectedTime(t)}
-                        className={`font-mono text-[10px] py-2 rounded-lg border transition-all ${
-                          selectedTime === t
+                        key={d.minutes}
+                        onClick={() => setSelectedDuration(d.minutes)}
+                        className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all ${
+                          selectedDuration === d.minutes
                             ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                            : "bg-transparent text-wd-sub border-wd-border hover:border-wd-sub/30"
+                            : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
                         }`}
                       >
-                        {t}
+                        {d.label}
                       </button>
                     ))}
                   </div>
                 </div>
-              )}
 
-              {/* Price + payment method */}
-              {selectedDate && selectedTime && (
-                <div className="border-t border-wd-border pt-5">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="font-sans text-sm text-wd-sub">
-                      {selectedDuration} min session
-                    </span>
-                    <span className="font-serif text-xl text-wd-gold">
-                      ${price.toLocaleString()}
-                    </span>
+                {/* Date */}
+                <div className="mb-5">
+                  <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
+                    Date
+                  </p>
+                  <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
+                    {calendarDays().map((day) => (
+                      <button
+                        key={day.date}
+                        onClick={() => {
+                          setSelectedDate(day.date);
+                          setSelectedTime("");
+                        }}
+                        className={`w-full text-left font-mono text-[10px] px-3 py-2 rounded-lg border transition-all ${
+                          selectedDate === day.date
+                            ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
+                            : "bg-transparent text-wd-sub border-wd-border hover:border-wd-sub/30"
+                        }`}
+                      >
+                        {day.label}
+                      </button>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Payment method toggle */}
-                  <div className="mb-4">
+                {/* Time slots */}
+                {selectedDate && (
+                  <div className="mb-5">
                     <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
-                      Payment method
+                      Time
                     </p>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={() => setPaymentMethod("card")}
-                        className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all flex items-center justify-center gap-1.5 ${
-                          paymentMethod === "card"
-                            ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                            : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
-                        }`}
-                      >
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                        </svg>
-                        Pay now
-                      </button>
-                      <button
-                        onClick={() => setPaymentMethod("invoice")}
-                        className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all flex items-center justify-center gap-1.5 ${
-                          paymentMethod === "invoice"
-                            ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
-                            : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
-                        }`}
-                      >
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                        </svg>
-                        Invoice
-                      </button>
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {timeSlots.map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setSelectedTime(t)}
+                          className={`font-mono text-[10px] py-2 rounded-lg border transition-all ${
+                            selectedTime === t
+                              ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
+                              : "bg-transparent text-wd-sub border-wd-border hover:border-wd-sub/30"
+                          }`}
+                        >
+                          {t}
+                        </button>
+                      ))}
                     </div>
                   </div>
+                )}
 
-                  {/* Invoice fields */}
-                  {paymentMethod === "invoice" && (
-                    <div className="mb-4 space-y-3">
-                      <div>
-                        <label className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted block mb-1.5">
-                          Company name *
-                        </label>
-                        <input
-                          type="text"
-                          value={companyName}
-                          onChange={(e) => setCompanyName(e.target.value)}
-                          placeholder="Acme Corp"
-                          className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/40"
-                        />
-                      </div>
-                      <div>
-                        <label className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted block mb-1.5">
-                          PO number <span className="text-wd-muted/50">(optional)</span>
-                        </label>
-                        <input
-                          type="text"
-                          value={poNumber}
-                          onChange={(e) => setPoNumber(e.target.value)}
-                          placeholder="PO-12345"
-                          className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/40"
-                        />
-                      </div>
-                      <p className="font-mono text-[9px] text-wd-muted/60">
-                        Net-30 invoice sent to your email. Session reserved immediately.
-                      </p>
+                {/* Price + payment method */}
+                {selectedDate && selectedTime && (
+                  <div className="border-t border-wd-border pt-5">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="font-sans text-sm text-wd-sub">
+                        {selectedDuration} min session
+                      </span>
+                      <span className="font-serif text-xl text-wd-gold">
+                        ${price.toLocaleString()}
+                      </span>
                     </div>
-                  )}
+
+                    {/* Payment method toggle */}
+                    <div className="mb-4">
+                      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-3">
+                        Payment method
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setPaymentMethod("card")}
+                          className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all flex items-center justify-center gap-1.5 ${
+                            paymentMethod === "card"
+                              ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
+                              : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
+                          }`}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                          </svg>
+                          Pay now
+                        </button>
+                        <button
+                          onClick={() => setPaymentMethod("invoice")}
+                          className={`font-mono text-[10px] tracking-[0.05em] py-2.5 rounded-lg border transition-all flex items-center justify-center gap-1.5 ${
+                            paymentMethod === "invoice"
+                              ? "bg-wd-gold-glow text-wd-gold border-wd-gold/30"
+                              : "bg-transparent text-wd-muted border-wd-border hover:border-wd-sub/30"
+                          }`}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                          </svg>
+                          Invoice
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Invoice fields */}
+                    {paymentMethod === "invoice" && (
+                      <div className="mb-4 space-y-3">
+                        <div>
+                          <label className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted block mb-1.5">
+                            Company name *
+                          </label>
+                          <input
+                            type="text"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                            placeholder="Acme Corp"
+                            className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/40"
+                          />
+                        </div>
+                        <div>
+                          <label className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-muted block mb-1.5">
+                            PO number <span className="text-wd-muted/50">(optional)</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={poNumber}
+                            onChange={(e) => setPoNumber(e.target.value)}
+                            placeholder="PO-12345"
+                            className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-3 py-2 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-muted/40"
+                          />
+                        </div>
+                        <p className="font-mono text-[9px] text-wd-muted/60">
+                          Net-30 invoice sent to your email. Session reserved immediately.
+                        </p>
+                      </div>
+                    )}
+
+                    {bookingError && (
+                      <p className="font-sans text-sm text-red-400 mb-3">
+                        {bookingError}
+                      </p>
+                    )}
+
+                    {paymentMethod === "card" ? (
+                      <button
+                        onClick={handleBook}
+                        disabled={submitting}
+                        className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
+                      >
+                        {submitting ? "Redirecting to payment..." : "Proceed to payment"}
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleInvoice}
+                        disabled={submitting || !companyName.trim()}
+                        className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
+                      >
+                        {submitting ? "Sending invoice..." : "Request invoice"}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {/* ── Retained Advisory ── */}
+                <p className="font-sans text-sm text-wd-sub leading-relaxed mb-5">
+                  Monthly retainer with dedicated advisory hours, priority access, and ongoing strategic support.
+                </p>
+
+                {/* Tier selection */}
+                <div className="space-y-3 mb-5">
+                  {retainedTiers.map((tier) => {
+                    const tierPrice = advisor
+                      ? Math.round(advisor.rate * tier.hours * 0.85)
+                      : 0;
+                    const isSelected = selectedTier === tier.key;
+
+                    return (
+                      <button
+                        key={tier.key}
+                        onClick={() => setSelectedTier(tier.key)}
+                        className={`w-full text-left p-4 rounded-lg border-2 transition-all relative ${
+                          isSelected
+                            ? `${tier.bgColor} ${tier.borderColor}`
+                            : "bg-transparent border-wd-border hover:border-wd-sub/30"
+                        }`}
+                      >
+                        {tier.recommended && (
+                          <span className="absolute -top-2.5 right-3 font-mono text-[8px] tracking-[0.1em] uppercase bg-wd-gold text-wd-bg px-2 py-0.5 rounded-full font-bold">
+                            Recommended
+                          </span>
+                        )}
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <span className={`font-mono text-[11px] tracking-[0.1em] uppercase font-bold ${isSelected ? tier.color : "text-wd-text"}`}>
+                              {tier.name}
+                            </span>
+                            <p className="font-sans text-[11px] text-wd-muted mt-0.5">
+                              {tier.description}
+                            </p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-3">
+                            <span className={`font-serif text-lg ${isSelected ? tier.color : "text-wd-text"}`}>
+                              ${tierPrice.toLocaleString()}
+                            </span>
+                            <p className="font-mono text-[8px] text-wd-muted tracking-[0.05em]">/month</p>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-1">
+                          {tier.features.map((f) => (
+                            <span key={f} className="font-mono text-[9px] text-wd-muted">
+                              {f}
+                            </span>
+                          ))}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Summary + CTA */}
+                <div className="border-t border-wd-border pt-5">
+                  {(() => {
+                    const tier = retainedTiers.find((t) => t.key === selectedTier)!;
+                    const tierPrice = advisor
+                      ? Math.round(advisor.rate * tier.hours * 0.85)
+                      : 0;
+                    return (
+                      <>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="font-sans text-sm text-wd-sub">
+                            {tier.name} &middot; {tier.hours} hrs/month
+                          </span>
+                          <span className={`font-serif text-xl ${tier.color}`}>
+                            ${tierPrice.toLocaleString()}
+                          </span>
+                        </div>
+                        <p className="font-mono text-[9px] text-wd-muted/60 mb-4">
+                          15% discount vs. hourly rate &middot; billed monthly &middot; cancel anytime
+                        </p>
+                      </>
+                    );
+                  })()}
 
                   {bookingError && (
                     <p className="font-sans text-sm text-red-400 mb-3">
@@ -481,25 +655,24 @@ export default function AdvisorDetailPage() {
                     </p>
                   )}
 
-                  {paymentMethod === "card" ? (
-                    <button
-                      onClick={handleBook}
-                      disabled={submitting}
-                      className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
-                    >
-                      {submitting ? "Redirecting to payment..." : "Proceed to payment"}
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleInvoice}
-                      disabled={submitting || !companyName.trim()}
-                      className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
-                    >
-                      {submitting ? "Sending invoice..." : "Request invoice"}
-                    </button>
-                  )}
+                  <button
+                    disabled={retainedSubmitting}
+                    onClick={async () => {
+                      setRetainedSubmitting(true);
+                      setBookingError(null);
+                      // TODO: Wire up to Stripe subscription checkout
+                      // For now, show contact prompt
+                      setBookingError("Retained advisory setup requires a brief onboarding call. Our team will reach out within 24 hours.");
+                      setRetainedSubmitting(false);
+                    }}
+                    className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
+                  >
+                    {retainedSubmitting ? "Processing..." : "Start retained advisory"}
+                  </button>
                 </div>
-              )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
