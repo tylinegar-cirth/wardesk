@@ -64,7 +64,7 @@ export default function LandingPage() {
             <br />
             for defense tech.
           </h1>
-          <div className="font-mono text-[11px] tracking-[0.3em] uppercase text-wd-muted/70 max-[480px]:text-[9px] max-[480px]:tracking-[0.2em]">
+          <div className="font-mono text-sm tracking-[0.35em] uppercase text-wd-gold font-bold max-[480px]:text-xs max-[480px]:tracking-[0.25em]">
             Coming Soon
           </div>
         </div>
