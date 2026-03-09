@@ -1,16 +1,52 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
+// Production domains that should show only the landing page
+const LANDING_HOSTS = ["thewardesk.com", "www.thewardesk.com"];
+
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  const hostname = request.headers.get("host")?.split(":")[0] || "";
+  const { pathname } = request.nextUrl;
+
+  // ── Production domain: landing page only ──
+  if (LANDING_HOSTS.includes(hostname)) {
+    // Allow static assets, Next.js internals, and the landing page itself
+    if (
+      pathname.startsWith("/_next") ||
+      pathname.startsWith("/landing") ||
+      pathname.match(/\.(ico|png|jpg|jpeg|svg|mp4|webp|gif|css|js|woff2?|ttf)$/)
+    ) {
+      return NextResponse.next();
+    }
+
+    // Rewrite root to the landing page (URL stays as /)
+    if (pathname === "/") {
+      return NextResponse.rewrite(new URL("/landing", request.url));
+    }
+
+    // Redirect everything else to root
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  // ── Vercel / dev domains: full site with auth ──
+  // Only run Supabase auth middleware on protected + auth routes
+  const isProtectedRoute =
+    pathname.startsWith("/portal") ||
+    pathname.startsWith("/studio-portal") ||
+    pathname.startsWith("/advisor") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/auth");
+
+  if (isProtectedRoute) {
+    return await updateSession(request);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/portal/:path*",
-    "/studio-portal/:path*",
-    "/advisor/:path*",
-    "/admin/:path*",
-    "/auth/:path*",
+    // Match all routes except static files
+    "/((?!_next/static|_next/image|favicon\\.ico).*)",
   ],
 };
