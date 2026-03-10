@@ -99,7 +99,7 @@ video::-webkit-media-controls-panel { display: none !important; }
   background-size: 128px 128px;
 }
 .wd-app { position: relative; }
-.wd-app > * { position: relative; z-index: 1; }
+.wd-app > *:not(header) { position: relative; z-index: 1; }
 
 /* Gradient dividers */
 .wd-divider {
