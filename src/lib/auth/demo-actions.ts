@@ -18,7 +18,7 @@ export async function enterDemo(formData: FormData) {
     sameSite: "lax",
   });
 
-  redirect("/portal");
+  redirect("/portal/advisors");
 }
 
 export async function exitDemo() {
