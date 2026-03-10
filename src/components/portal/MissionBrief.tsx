@@ -212,7 +212,7 @@ export default function MissionBrief() {
                     <p className="font-sans text-sm text-wd-text group-hover:text-wd-gold transition-colors truncate">
                       {rec.name}
                     </p>
-                    {rec.advisor?.stars && rec.advisor.stars > 0 && (
+                    {rec.advisor && rec.advisor.stars > 0 && (
                       <div className="flex gap-px flex-shrink-0">
                         {Array.from({ length: rec.advisor.stars }).map((_, j) => (
                           <svg key={j} className="w-2.5 h-2.5 text-wd-gold" viewBox="0 0 20 20" fill="currentColor">
