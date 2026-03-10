@@ -17,12 +17,8 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] h-[60px] flex justify-between items-center px-[clamp(20px,4vw,48px)] transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          scrolled
-            ? "backdrop-blur-[24px] saturate-150 border-b border-wd-border"
-            : ""
-        }`}
-        style={scrolled ? { background: "var(--wd-nav-bg)", boxShadow: "var(--wd-nav-shadow)" } : undefined}
+        className={`fixed top-0 left-0 right-0 z-[100] h-[60px] flex justify-between items-center px-[clamp(20px,4vw,48px)] transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] backdrop-blur-[24px] saturate-150 border-b border-wd-border`}
+        style={{ background: "var(--wd-nav-bg)", boxShadow: "var(--wd-nav-shadow)" }}
       >
         <Link href="/" className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.15em] max-[480px]:gap-1.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
