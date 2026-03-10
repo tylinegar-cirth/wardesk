@@ -1,19 +1,26 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
+import { advisors as staticAdvisors } from "@/data/advisors";
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 });
 
 export async function POST(req: NextRequest) {
-  // Verify the user is authenticated
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Check for demo mode or authenticated user
+  const cookieStore = cookies();
+  const isDemo = cookieStore.has("wd-demo");
+
+  if (!isDemo) {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
 
   const { mission } = await req.json();
@@ -24,24 +31,59 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Fetch all advisors from Supabase
-  const { data: advisors, error: dbError } = await supabase
-    .from("advisors")
-    .select("id, name, title, branch, category, stars, focus, clearance, rate, bio, image_url, years_service, availability_status")
-    .eq("availability_status", "available")
-    .order("stars", { ascending: false });
+  // In demo mode, use static advisors; otherwise fetch from Supabase
+  let advisorList: {
+    id: string | number;
+    name: string;
+    title: string;
+    branch: string;
+    category?: string;
+    stars: number;
+    focus: string[];
+    clearance: string;
+    rate: number;
+    bio: string;
+    image_url: string | null;
+    years_service?: number;
+    years?: number;
+  }[];
 
-  if (dbError || !advisors) {
-    return NextResponse.json(
-      { error: "Failed to load advisors." },
-      { status: 500 }
-    );
+  if (isDemo) {
+    advisorList = staticAdvisors.map((a) => ({
+      id: a.id,
+      name: a.name,
+      title: a.title,
+      branch: a.branch,
+      category: a.category,
+      stars: a.stars,
+      focus: a.focus,
+      clearance: a.clearance,
+      rate: a.rate,
+      bio: a.bio,
+      image_url: a.image,
+      years: a.years,
+    }));
+  } else {
+    const supabase = createClient();
+    const { data: advisors, error: dbError } = await supabase
+      .from("advisors")
+      .select("id, name, title, branch, category, stars, focus, clearance, rate, bio, image_url, years_service, availability_status")
+      .eq("availability_status", "available")
+      .order("stars", { ascending: false });
+
+    if (dbError || !advisors) {
+      return NextResponse.json(
+        { error: "Failed to load advisors." },
+        { status: 500 }
+      );
+    }
+    advisorList = advisors;
   }
 
-  const advisorRoster = advisors
+  const advisorRoster = advisorList
     .map(
       (a) =>
-        `[${a.id}] ${a.name} — ${a.title} | ${a.branch} | ${a.stars}-star | Focus: ${a.focus.join(", ")} | Clearance: ${a.clearance} | ${a.years_service}yr service | $${a.rate}/hr\nBio: ${a.bio || "N/A"}`
+        `[${a.id}] ${a.name} — ${a.title} | ${a.branch} | ${a.stars}-star | Focus: ${a.focus.join(", ")} | Clearance: ${a.clearance} | ${a.years_service ?? a.years ?? "N/A"}yr service | $${a.rate}/hr\nBio: ${a.bio || "N/A"}`
     )
     .join("\n\n");
 
@@ -105,10 +147,21 @@ Respond in valid JSON only. No markdown, no code fences. Use this exact structur
     // Enrich recommendations with full advisor data
     const enriched = parsed.recommendations.map(
       (rec: { advisor_id: string; name: string; reason: string }) => {
-        const advisor = advisors.find((a) => a.id === rec.advisor_id);
+        const advisor = advisorList.find((a) => String(a.id) === String(rec.advisor_id));
         return {
           ...rec,
-          advisor: advisor || null,
+          advisor: advisor
+            ? {
+                id: String(advisor.id),
+                name: advisor.name,
+                title: advisor.title,
+                branch: advisor.branch,
+                stars: advisor.stars,
+                focus: advisor.focus,
+                rate: advisor.rate,
+                image_url: advisor.image_url,
+              }
+            : null,
         };
       }
     );
