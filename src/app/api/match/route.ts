@@ -31,6 +31,79 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Preloaded demo response for instant results during walkthroughs
+  if (isDemo) {
+    const mLower = mission.toLowerCase();
+    if (
+      mLower.includes("logistics") ||
+      mLower.includes("acquisition") ||
+      mLower.includes("socom") ||
+      mLower.includes("autonomous")
+    ) {
+      const perna = staticAdvisors.find((a) => a.id === 3)!;
+      const lowman = staticAdvisors.find((a) => a.id === 9)!;
+      const thomas = staticAdvisors.find((a) => a.id === 6)!;
+
+      // Brief delay to let the progress animation play for a moment
+      await new Promise((r) => setTimeout(r, 3000));
+
+      return NextResponse.json({
+        recommendations: [
+          {
+            advisor_id: String(perna.id),
+            name: perna.name,
+            reason:
+              "As former Commanding General of Army Materiel Command, General Perna oversaw the Army's entire global logistics enterprise spanning 150 countries. His direct experience modernizing supply chains and leading Operation Warp Speed makes him the ideal advisor for navigating autonomous logistics integration at scale.",
+            advisor: {
+              id: String(perna.id),
+              name: perna.name,
+              title: perna.title,
+              branch: perna.branch,
+              stars: perna.stars,
+              focus: perna.focus,
+              rate: perna.rate,
+              image_url: perna.image,
+            },
+          },
+          {
+            advisor_id: String(lowman.id),
+            name: lowman.name,
+            reason:
+              "As Assistant Secretary of the Army for Sustainment, Chris Lowman was the Pentagon's senior civilian authority on Army logistics and acquisition reform. He can map the exact procurement pathways, program offices, and budget lines your autonomous system needs to target.",
+            advisor: {
+              id: String(lowman.id),
+              name: lowman.name,
+              title: lowman.title,
+              branch: lowman.branch,
+              stars: lowman.stars,
+              focus: lowman.focus,
+              rate: lowman.rate,
+              image_url: lowman.image,
+            },
+          },
+          {
+            advisor_id: String(thomas.id),
+            name: thomas.name,
+            reason:
+              "General Thomas commanded all US Special Operations forces worldwide. His deep understanding of SOCOM's unique acquisition authority and rapid fielding processes is exactly what you need to navigate SOF procurement channels and get your technology in front of the right operators.",
+            advisor: {
+              id: String(thomas.id),
+              name: thomas.name,
+              title: thomas.title,
+              branch: thomas.branch,
+              stars: thomas.stars,
+              focus: thomas.focus,
+              rate: thomas.rate,
+              image_url: thomas.image,
+            },
+          },
+        ],
+        summary:
+          "Your mission calls for a logistics modernization expert, an acquisition authority, and a SOCOM insider — this team covers the full pipeline from system validation to fielded capability.",
+      });
+    }
+  }
+
   // In demo mode, use static advisors; otherwise fetch from Supabase
   let advisorList: {
     id: string | number;
