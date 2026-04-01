@@ -15,9 +15,9 @@ export default function StudioPage() {
       <StudioNav />
       <StudioHero />
       <StudioServices />
-      <StudioEcosystem />
       <StudioBrands />
       <StudioTeam />
+      <StudioEcosystem />
       <StudioContact />
       <StudioFooter />
     </div>
