@@ -42,7 +42,7 @@ export default function LandingPage() {
         </div>
 
         {/* Top bar: logo + wordmark */}
-        <header className="relative z-[2] flex items-center px-[clamp(20px,4vw,48px)] h-[60px] flex-shrink-0">
+        <header className="relative z-[2] flex items-center justify-between px-[clamp(20px,4vw,48px)] h-[60px] flex-shrink-0">
           <div className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.15em] max-[480px]:gap-1.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -52,6 +52,12 @@ export default function LandingPage() {
             />
             War Desk
           </div>
+          <a
+            href="/studio"
+            className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-gold transition-colors"
+          >
+            Studio
+          </a>
         </header>
 
         {/* Center content */}
