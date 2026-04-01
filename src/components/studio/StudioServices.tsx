@@ -52,11 +52,12 @@ export default function StudioServices() {
           What We Do
         </div>
         <h2 className="font-serif text-[clamp(28px,3.8vw,42px)] font-normal text-wd-text leading-[1.1] mb-3">
-          Own the floor at every conference
+          The creative company for defense and hard tech
         </h2>
         <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px] mb-10">
-          Your booth is where deals close. We build the presence your pipeline
-          deserves — then keep that momentum going year-round.
+          Booths, films, campaigns, investor materials. End-to-end creative
+          built by people who understand your buyers, your mission, and the
+          weight of what you&apos;re building.
         </p>
       </Reveal>
 
