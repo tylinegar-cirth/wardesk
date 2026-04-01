@@ -32,7 +32,7 @@ export default function StudioEcosystem() {
           Companies On Our Radar
         </h2>
         <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px] mb-8">
-          The companies defining the future of defense and national security.
+          The companies defining the future of civilisation.
         </p>
       </Reveal>
 
