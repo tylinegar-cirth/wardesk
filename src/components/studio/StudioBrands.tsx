@@ -3,7 +3,7 @@
 import Reveal from "@/components/ui/Reveal";
 
 const brands = [
-  "Dept of Defense",
+  "Dept of War",
   "Boeing",
   "Viasat",
   "Toyota",
