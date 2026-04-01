@@ -8,9 +8,9 @@ export async function middleware(request: NextRequest) {
   const hostname = request.headers.get("host")?.split(":")[0] || "";
   const { pathname } = request.nextUrl;
 
-  // ── Production domain: landing page only ──
+  // ── Production domain: landing + studio only ──
   if (LANDING_HOSTS.includes(hostname)) {
-    // Allow static assets, Next.js internals, and the landing page itself
+    // Allow static assets, Next.js internals
     if (
       pathname.startsWith("/_next") ||
       pathname.startsWith("/landing") ||
@@ -22,6 +22,11 @@ export async function middleware(request: NextRequest) {
     // Rewrite root to the landing page (URL stays as /)
     if (pathname === "/") {
       return NextResponse.rewrite(new URL("/landing", request.url));
+    }
+
+    // Allow studio routes through
+    if (pathname.startsWith("/studio")) {
+      return NextResponse.next();
     }
 
     // Redirect everything else to root

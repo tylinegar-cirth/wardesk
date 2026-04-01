@@ -21,6 +21,14 @@ const team = [
     hasArticle: false,
     linkedin: "https://www.linkedin.com/in/seangilfillan/",
   },
+  {
+    name: "Sam Bennetts",
+    role: "Lead Creative",
+    image: "/team-sam.jpg",
+    bio: "20+ years directing and creative-directing across broadcast, live events, and immersive installations. Former creative leadership at ACNE and Toyota. Work spans Toyota, Ferrari, Audi, Starlink, McDonald\u2019s, Coca-Cola, Shell, and GE. Multi-disciplinary maker across directing, design, VFX, and emerging AI workflows.",
+    hasArticle: false,
+    linkedin: "#",
+  },
 ];
 
 export default function StudioTeam() {
