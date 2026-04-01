@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
+import { exitDemo } from "@/lib/auth/demo-actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navItems = [
@@ -13,7 +14,7 @@ const navItems = [
   { label: "Calendar", href: "/studio-portal/calendar", icon: "◇" },
 ];
 
-export default function StudioPortalSidebar({ userName }: { userName: string | null }) {
+export default function StudioPortalSidebar({ userName, isDemo }: { userName: string | null; isDemo?: boolean }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -81,12 +82,12 @@ export default function StudioPortalSidebar({ userName }: { userName: string | n
           </div>
           <ThemeToggle />
         </div>
-        <form action={signOut}>
+        <form action={isDemo ? exitDemo : signOut}>
           <button
             type="submit"
             className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-sub hover:text-wd-text transition-colors bg-transparent border-none p-0 cursor-pointer"
           >
-            Sign out
+            {isDemo ? "Exit demo" : "Sign out"}
           </button>
         </form>
       </div>

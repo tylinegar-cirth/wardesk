@@ -5,8 +5,8 @@ import Link from "next/link";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navLinks = [
-  { label: "Advisors", href: "/" },
-  { label: "Live", href: "/live" },
+  { label: "Advisors", href: "/", soon: true },
+  { label: "Live", href: "/live", soon: true },
 ];
 
 export default function StudioNav() {
@@ -51,14 +51,24 @@ export default function StudioNav() {
           </span>
         </Link>
         <nav className="flex gap-7 items-center">
-          {navLinks.map((link) =>
-            link.href.startsWith("#") ? (
+          {navLinks.map((link) => {
+            const inner = (
+              <span className="flex items-center gap-1.5">
+                {link.label}
+                {link.soon && (
+                  <span className="font-mono text-[7px] tracking-[0.08em] uppercase text-wd-gold/80 border border-wd-gold/30 rounded px-1 py-px leading-none">
+                    Soon
+                  </span>
+                )}
+              </span>
+            );
+            return link.href.startsWith("#") ? (
               <a
                 key={link.label}
                 href={link.href}
                 className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
               >
-                {link.label}
+                {inner}
               </a>
             ) : (
               <Link
@@ -66,10 +76,10 @@ export default function StudioNav() {
                 href={link.href}
                 className="font-mono text-[10px] tracking-[0.1em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
               >
-                {link.label}
+                {inner}
               </Link>
-            )
-          )}
+            );
+          })}
           <span className="hidden md:block"><ThemeToggle /></span>
           <a
             href="#contact"
@@ -95,15 +105,25 @@ export default function StudioNav() {
 
       {menuOpen && (
         <div className="fixed top-[60px] left-0 right-0 z-[99] bg-wd-bg border-b border-wd-border py-3 px-6 flex flex-col gap-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-          {navLinks.map((link) =>
-            link.href.startsWith("#") ? (
+          {navLinks.map((link) => {
+            const mobileInner = (
+              <span className="flex items-center gap-2">
+                {link.label}
+                {link.soon && (
+                  <span className="font-mono text-[7px] tracking-[0.08em] uppercase text-wd-gold/80 border border-wd-gold/30 rounded px-1 py-px leading-none">
+                    Soon
+                  </span>
+                )}
+              </span>
+            );
+            return link.href.startsWith("#") ? (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
               >
-                {link.label}
+                {mobileInner}
               </a>
             ) : (
               <Link
@@ -112,10 +132,10 @@ export default function StudioNav() {
                 onClick={() => setMenuOpen(false)}
                 className="font-mono text-[13px] text-wd-sub tracking-[0.1em] uppercase"
               >
-                {link.label}
+                {mobileInner}
               </Link>
-            )
-          )}
+            );
+          })}
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}

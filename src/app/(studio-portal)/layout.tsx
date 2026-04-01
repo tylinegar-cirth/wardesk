@@ -34,7 +34,7 @@ export default async function StudioPortalLayout({
   return (
     <div className="min-h-screen bg-wd-bg">
       {isDemo && <DemoBanner />}
-      <StudioPortalSidebar userName={userName} />
+      <StudioPortalSidebar userName={userName} isDemo={isDemo} />
       <main className="md:ml-[240px] min-h-screen">
         <div className={`pt-14 md:pt-0 ${isDemo ? "md:pt-8" : ""}`}>
           {children}
