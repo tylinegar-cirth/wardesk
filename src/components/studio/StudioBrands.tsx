@@ -3,15 +3,22 @@
 import Reveal from "@/components/ui/Reveal";
 
 const brands = [
+  "Dept of Defense",
+  "Boeing",
+  "Viasat",
+  "Toyota",
+  "Ferrari",
+  "Audi",
+  "Starlink",
   "Sony Pictures",
   "Mercedes-Benz",
-  "Volkswagen",
   "Netflix",
+  "McDonald's",
+  "Coca-Cola",
+  "Shell",
+  "GE",
   "Universal",
   "Warner Bros",
-  "Amnesty International",
-  "Telstra",
-  "EMI",
 ];
 
 export default function StudioBrands() {
@@ -27,7 +34,7 @@ export default function StudioBrands() {
       <Reveal>
         <section className="py-[clamp(36px,5vw,56px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto text-center">
           <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-muted mb-5">
-            Brands We&apos;ve Produced For
+            Brands We&apos;ve Worked For
           </div>
           <div className="font-sans text-[15px] font-medium text-wd-sub leading-relaxed flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
             {brands.map((brand, i) => (
