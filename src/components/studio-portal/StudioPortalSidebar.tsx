@@ -28,10 +28,10 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
   const nav = (
     <>
       {/* Logo */}
-      <div className="px-6 pt-6 pb-8">
+      <div className="px-4 pt-6 pb-8">
         <Link
           href="/studio"
-          className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
+          className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-wd-text flex items-center gap-1.5"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
