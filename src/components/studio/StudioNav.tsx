@@ -88,7 +88,7 @@ export default function StudioNav() {
             Contact
           </a>
           <Link
-            href="/studio-portal"
+            href="/studio/login"
             className="font-mono text-[10px] tracking-[0.1em] uppercase py-[9px] px-[22px] bg-wd-gold text-wd-bg font-bold rounded-md transition-all duration-250 shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:shadow-[0_4px_20px_rgba(212,168,67,0.35)] hover:-translate-y-px hidden md:block"
           >
             Client Portal
@@ -144,7 +144,7 @@ export default function StudioNav() {
             Contact
           </a>
           <Link
-            href="/studio-portal"
+            href="/studio/login"
             onClick={() => setMenuOpen(false)}
             className="font-mono text-[13px] text-wd-gold tracking-[0.1em] uppercase"
           >

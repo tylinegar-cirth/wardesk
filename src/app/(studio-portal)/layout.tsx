@@ -22,7 +22,7 @@ export default async function StudioPortalLayout({
     } = await supabase.auth.getUser();
 
     if (!user) {
-      redirect("/auth/login");
+      redirect("/studio/login");
     }
 
     const { data: profile } = await supabase

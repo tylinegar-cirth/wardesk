@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
-import { exitDemo } from "@/lib/auth/demo-actions";
+import { exitStudioDemo } from "@/lib/auth/demo-actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navItems = [
@@ -82,7 +82,7 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
           </div>
           <ThemeToggle />
         </div>
-        <form action={isDemo ? exitDemo : signOut}>
+        <form action={isDemo ? exitStudioDemo : signOut}>
           <button
             type="submit"
             className="font-mono text-[9px] tracking-[0.1em] uppercase text-wd-sub hover:text-wd-text transition-colors bg-transparent border-none p-0 cursor-pointer"
