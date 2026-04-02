@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import StudioPortalSidebar from "@/components/studio-portal/StudioPortalSidebar";
 import DemoBanner from "@/components/portal/DemoBanner";
@@ -20,15 +21,17 @@ export default async function StudioPortalLayout({
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (user) {
-      const { data: profile } = await supabase
-        .from("users")
-        .select("name")
-        .eq("id", user.id)
-        .single();
-      userName =
-        profile?.name || user.user_metadata?.name || user.email || null;
+    if (!user) {
+      redirect("/auth/login");
     }
+
+    const { data: profile } = await supabase
+      .from("users")
+      .select("name")
+      .eq("id", user.id)
+      .single();
+    userName =
+      profile?.name || user.user_metadata?.name || user.email || null;
   }
 
   return (
