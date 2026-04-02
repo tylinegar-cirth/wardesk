@@ -29,6 +29,11 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
+    // Allow auth routes (login, signup, callback) and portal routes
+    if (pathname.startsWith("/auth") || pathname.startsWith("/studio-portal") || pathname.startsWith("/portal")) {
+      return await updateSession(request);
+    }
+
     // Redirect everything else to root
     return NextResponse.redirect(new URL("/", request.url));
   }
