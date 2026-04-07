@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function LandingPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    v.play().catch(() => {});
+    v.play().catch(() => setVideoFailed(true));
     const handleVis = () => {
       if (!document.hidden) v.play().catch(() => {});
     };
@@ -21,16 +22,26 @@ export default function LandingPage() {
       <div className="relative h-screen flex flex-col overflow-hidden max-[768px]:h-[100svh]">
         {/* Video Background */}
         <div className="absolute inset-0 z-0">
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            disablePictureInPicture
-            className="w-full h-full object-cover pointer-events-none"
-            src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/Military_Proof_of_concept_i8axfn.mov"
-          />
+          {videoFailed ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="https://res.cloudinary.com/dmj9mlo6o/video/upload/so_2,w_1920,q_80,f_auto/Military_Proof_of_concept_i8axfn.jpg"
+              alt=""
+              className="w-full h-full object-cover pointer-events-none"
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              loop
+              playsInline
+              disablePictureInPicture
+              poster="https://res.cloudinary.com/dmj9mlo6o/video/upload/so_2,w_1920,q_80,f_auto/Military_Proof_of_concept_i8axfn.jpg"
+              className="w-full h-full object-cover pointer-events-none"
+              src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/Military_Proof_of_concept_i8axfn.mov"
+            />
+          )}
           {/* Gradient overlay */}
           <div
             className="absolute inset-0"
