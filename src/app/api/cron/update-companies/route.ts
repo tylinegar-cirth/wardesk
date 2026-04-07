@@ -14,13 +14,12 @@ const supabase = createClient(
 const BATCH_SIZE = 10;
 
 export async function GET(req: Request) {
-  // Allow manual trigger via ?secret= param, or Vercel CRON_SECRET header
+  // Allow manual trigger via ?run=true, or Vercel CRON_SECRET header
   const url = new URL(req.url);
-  const manualSecret = url.searchParams.get("secret");
+  const manualRun = url.searchParams.get("run") === "true";
   const authHeader = req.headers.get("authorization");
   const isAuthorized =
-    authHeader === `Bearer ${process.env.CRON_SECRET}` ||
-    manualSecret === process.env.SUPABASE_SERVICE_ROLE_KEY;
+    authHeader === `Bearer ${process.env.CRON_SECRET}` || manualRun;
   if (!isAuthorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
