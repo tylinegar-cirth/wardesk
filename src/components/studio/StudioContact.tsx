@@ -170,7 +170,7 @@ export default function StudioContact() {
                 Studio Deck
               </h3>
               <p className="font-sans text-sm text-wd-sub leading-relaxed">
-                Our capabilities, approach, and select work. Enter your email to download.
+                Our capabilities and approach. Enter your email to download.
               </p>
             </div>
 
