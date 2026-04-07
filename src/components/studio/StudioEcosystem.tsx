@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Reveal from "@/components/ui/Reveal";
-import { studioCompanies, sectors } from "@/data/studio-companies";
+import {
+  studioCompanies as staticCompanies,
+  sectors,
+  type StudioCompany,
+} from "@/data/studio-companies";
 
 // 2 rows × 3 columns = 6 cards before expand
 const INITIAL_COUNT = 6;
@@ -10,11 +14,23 @@ const INITIAL_COUNT = 6;
 export default function StudioEcosystem() {
   const [activeSector, setActiveSector] = useState("All Companies");
   const [expanded, setExpanded] = useState(false);
+  const [companies, setCompanies] = useState<StudioCompany[]>(staticCompanies);
+
+  useEffect(() => {
+    fetch("/api/companies")
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.data && result.data.length > 0) {
+          setCompanies(result.data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const filtered =
     activeSector === "All Companies"
-      ? studioCompanies
-      : studioCompanies.filter((c) => c.sector === activeSector);
+      ? companies
+      : companies.filter((c) => c.sector === activeSector);
 
   const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
   const hasMore = filtered.length > INITIAL_COUNT;
@@ -42,8 +58,8 @@ export default function StudioEcosystem() {
           {sectors.map((sector) => {
             const count =
               sector === "All Companies"
-                ? studioCompanies.length
-                : studioCompanies.filter((c) => c.sector === sector).length;
+                ? companies.length
+                : companies.filter((c) => c.sector === sector).length;
             return (
               <button
                 key={sector}
@@ -68,7 +84,7 @@ export default function StudioEcosystem() {
       {/* Company grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {visible.map((company, i) => (
-          <Reveal key={company.id} delay={0.02 * Math.min(i, 6)}>
+          <Reveal key={company.name} delay={0.02 * Math.min(i, 6)}>
             <div className="bg-wd-card border border-wd-border rounded-[14px] p-5 hover:border-wd-border-hov transition-colors h-full">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full bg-wd-overlay/[0.06] flex items-center justify-center font-mono text-xs font-bold text-wd-text">
@@ -176,6 +192,10 @@ export default function StudioEcosystem() {
           </a>
         </div>
       </Reveal>
+
+      <p className="font-sans text-[11px] italic text-wd-muted mt-6 text-center">
+        Company data is refreshed monthly and may not reflect the latest figures.
+      </p>
     </section>
   );
 }
