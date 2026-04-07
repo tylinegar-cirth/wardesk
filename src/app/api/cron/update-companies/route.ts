@@ -11,11 +11,14 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 6;
 
 export async function GET(req: Request) {
+  // Allow manual trigger via ?run=wardesk or Vercel CRON_SECRET
+  const url = new URL(req.url);
+  const manualRun = url.searchParams.get("run") === "wardesk";
   const authHeader = req.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!manualRun && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -28,7 +31,9 @@ export async function GET(req: Request) {
     trending: boolean;
   }[] = [];
 
-  // Process companies in batches
+  const errors: string[] = [];
+
+  // Process companies in smaller batches for better web search coverage
   const batches: (typeof studioCompanies)[] = [];
   for (let i = 0; i < studioCompanies.length; i += BATCH_SIZE) {
     batches.push(studioCompanies.slice(i, i + BATCH_SIZE));
@@ -36,7 +41,10 @@ export async function GET(req: Request) {
 
   for (const batch of batches) {
     const companyList = batch
-      .map((c) => `- ${c.name} (${c.sector})`)
+      .map(
+        (c) =>
+          `- ${c.name} (${c.sector}) — STALE DATA: valuation ${c.valuation}, funding ${c.funding}, employees ${c.employees}`
+      )
       .join("\n");
 
     try {
@@ -47,26 +55,28 @@ export async function GET(req: Request) {
           {
             type: "web_search_20250305" as const,
             name: "web_search",
-            max_uses: 5,
+            max_uses: 10,
           },
         ],
         messages: [
           {
             role: "user",
-            content: `Research these defense/aerospace/hard-tech companies and return their latest data. Search the web for current information.
+            content: `You MUST use the web_search tool to look up current 2025-2026 data for these companies. The data shown below is STALE and likely WRONG. Do NOT repeat it back — search for the real current numbers.
 
-For each company provide:
-- funding: Total funding raised (e.g. "$2.8B+"). Use "Public" for publicly traded companies.
-- valuation: Latest valuation or market cap (e.g. "$14B" or "$50B+ MCap"). "Undisclosed" if unknown.
-- employees: Approximate headcount (e.g. "2,500+")
-- news: One headline (max 12 words) about their most recent notable activity
+For each company, search the web and provide:
+- funding: Total funding raised to date (e.g. "$4.7B+"). "Public" for publicly traded companies.
+- valuation: Latest known valuation or market cap as of 2025-2026 (e.g. "$28B"). "Undisclosed" if truly unknown after searching.
+- employees: Current approximate headcount (e.g. "3,000+")
+- news: One headline (max 12 words) about their most recent notable activity in 2025-2026
 - trending: true if significant news in the past 60 days
 
-Companies:
+Companies with STALE data to update:
 ${companyList}
 
-Return ONLY a valid JSON array. No markdown fences, no explanation. Example format:
-[{"name":"Anduril","funding":"$2.8B+","valuation":"$14B","employees":"2,500+","news":"Roadrunner-M in full production","trending":true}]`,
+IMPORTANT: Search the web for EACH company. Do not guess or use the stale data shown above.
+
+Return ONLY a valid JSON array. No markdown fences, no explanation.
+[{"name":"CompanyName","funding":"...","valuation":"...","employees":"...","news":"...","trending":true}]`,
           },
         ],
       });
@@ -80,9 +90,15 @@ Return ONLY a valid JSON array. No markdown fences, no explanation. Example form
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
         results.push(...parsed);
+      } else {
+        errors.push(
+          `No JSON found for batch: ${batch.map((c) => c.name).join(", ")}. Response: ${text.slice(0, 200)}`
+        );
       }
     } catch (e) {
-      console.error("Failed to process batch:", e);
+      errors.push(
+        `Batch failed: ${batch.map((c) => c.name).join(", ")} — ${e}`
+      );
     }
   }
 
@@ -109,7 +125,6 @@ Return ONLY a valid JSON array. No markdown fences, no explanation. Example form
     .upsert(upsertData, { onConflict: "name" });
 
   if (error) {
-    console.error("Supabase upsert error:", error);
     return NextResponse.json(
       { error: "Failed to update", details: error.message },
       { status: 500 }
@@ -119,6 +134,9 @@ Return ONLY a valid JSON array. No markdown fences, no explanation. Example form
   return NextResponse.json({
     success: true,
     updated: upsertData.length,
+    resultsFromClaude: results.length,
+    errors: errors.length > 0 ? errors : undefined,
+    sample: results.slice(0, 3),
     timestamp: new Date().toISOString(),
   });
 }
