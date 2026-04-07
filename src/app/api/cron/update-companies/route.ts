@@ -14,13 +14,8 @@ const supabase = createClient(
 const BATCH_SIZE = 10;
 
 export async function GET(req: Request) {
-  // Allow manual trigger via ?run=true, or Vercel CRON_SECRET header
-  const url = new URL(req.url);
-  const manualRun = url.searchParams.get("run") === "true";
   const authHeader = req.headers.get("authorization");
-  const isAuthorized =
-    authHeader === `Bearer ${process.env.CRON_SECRET}` || manualRun;
-  if (!isAuthorized) {
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
