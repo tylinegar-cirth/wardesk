@@ -40,22 +40,22 @@ export default function ManifestoPage() {
             Hair product. Soda. Insurance... A drop in an ocean of
             competitors who do it just as well for roughly the same price. So
             our job is to manufacture meaning. Build mythology. Attach the
-            product to identity — to aspiration, to belonging. You make
+            product to identity, to aspiration, to belonging. Make
             people feel like buying this particular thing says something about
             who they are.
           </p>
 
           <p>
-            It works. That&apos;s the craft, and there&apos;s real skill in it.
+            That&apos;s the craft, it sells, and there is skill in it.
             But there&apos;s also a hollow center to the whole enterprise that
-            you learn to stop noticing. You&apos;re building on nothing. The
+            was always hard to tune out. You&apos;re building on nothing. The
             brand is the product because there&apos;s no other
             differentiation. The story you&apos;re telling isn&apos;t a story
             about anything real.
           </p>
 
           <p>
-            I don&apos;t think this is evil. It&apos;s just the logic of consumer
+            I don&apos;t think this is inherently evil. It&apos;s just the logic of consumer
             markets. When the thing itself doesn&apos;t matter much, the
             narrative has to do all the work.
           </p>
@@ -77,9 +77,7 @@ export default function ManifestoPage() {
           </p>
 
           <p>
-            Not the El Segundo of aerospace&apos;s old guard, though
-            that&apos;s part of the DNA. Something newer. The SpaceX
-            diaspora. Defense tech startups. Companies building power
+            Defense tech startups. Companies building power
             systems, satellites, autonomous platforms, infrastructure that
             matters. Hard tech.
           </p>
@@ -117,8 +115,9 @@ export default function ManifestoPage() {
           </div>
 
           <p>
-            Here&apos;s the mismatch: traditional agencies are optimized for
-            consumer brands.
+            So there&apos;s an inherent mismatch between these companies and
+            the available traditional agencies that should serve them.
+            Traditional agencies are optimized for consumer brands.
           </p>
 
           <p>
@@ -129,8 +128,8 @@ export default function ManifestoPage() {
           </p>
 
           <p>
-            Bring that machinery to hard tech and it doesn&apos;t just
-            underperform. It actively damages.
+            Bring that machinery to hard tech and not only does it
+            underperform, it actively damages.
           </p>
 
           <p>
@@ -172,10 +171,10 @@ export default function ManifestoPage() {
           </p>
 
           <p>
-            This isn&apos;t just technically impressive. It&apos;s beautiful.
-            There&apos;s genuine cinematic weight to what&apos;s being built.
-            The raw material is better than anything a consumer brand could
-            dream of.
+            This is as beautiful on a deep level as it is technically
+            impressive. There&apos;s genuine cinematic weight to what&apos;s
+            being built. The raw material is better than anything a consumer
+            brand could dream of.
           </p>
 
           <p>
@@ -196,7 +195,7 @@ export default function ManifestoPage() {
           <p>
             This IS a new frontier, and we are watching the early innings of
             something civilizationally significant. A generation of builders
-            focused on energy, defense, space, infrastructure — the kind of
+            focused on energy, defense, space, infrastructure, doing the kind of
             work that actually moves the needle on what humanity is capable
             of.
           </p>
