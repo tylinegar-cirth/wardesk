@@ -147,10 +147,10 @@ export default function StudioContact() {
               <p className="font-sans text-xs text-wd-muted mt-4 text-center">
                 Or email us directly at{" "}
                 <a
-                  href="mailto:hello@wardeskstudio.com"
+                  href="mailto:ty@thewardesk.com"
                   className="text-wd-gold hover:text-wd-text transition-colors"
                 >
-                  hello@wardeskstudio.com
+                  ty@thewardesk.com
                 </a>
               </p>
             )}
