@@ -42,7 +42,7 @@ export default function StudioTeam() {
       >
         <Reveal>
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
-            The Team
+            Who We Are
           </div>
           <h2 className="font-serif text-[clamp(28px,3.8vw,42px)] font-normal text-wd-text leading-[1.1] mb-3">
             The Team
