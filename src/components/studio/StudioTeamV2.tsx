@@ -26,7 +26,7 @@ const team: TeamMemberData[] = [
     name: "Sean Gilfillan",
     role: "Co-Founder & Partner",
     image: "/team-sean.jpg",
-    bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing and Viasat\u2019s $1B government division. Founded BaseFEST. 12 years Army, 15 months in Iraq. He\u2019s been on both sides \u2014 building campaigns for defense giants and buying what defense startups sell.",
+    bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing and Viasat\u2019s $1B government division. Founded BaseFEST. 12 years Army, 15 months in Iraq. He\u2019s been on both sides, building campaigns for defense giants and buying what defense startups sell.",
     hasArticle: false,
     linkedin: "https://www.linkedin.com/in/seangilfillan/",
   },

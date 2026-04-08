@@ -17,7 +17,7 @@ const team = [
     name: "Sean Gilfillan",
     role: "Co-Founder & Partner",
     image: "/team-sean.jpg",
-    bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing (VC/M&A) and Viasat\u2019s $1B government division. Founded BaseFEST, the largest music festival on military bases. 12 years Army, 15 months in Iraq. Sean\u2019s been on both sides \u2014 building campaigns for defense giants and buying what defense startups sell. Now helping hard tech founders tell stories that land.",
+    bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing (VC/M&A) and Viasat\u2019s $1B government division. Founded BaseFEST, the largest music festival on military bases. 12 years Army, 15 months in Iraq. Sean\u2019s been on both sides, building campaigns for defense giants and buying what defense startups sell. Now helping hard tech founders tell stories that land.",
     hasArticle: false,
     linkedin: "https://www.linkedin.com/in/seangilfillan/",
   },

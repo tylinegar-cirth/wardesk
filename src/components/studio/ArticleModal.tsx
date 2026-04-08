@@ -75,7 +75,7 @@ export default function ArticleModal({ onClose }: { onClose: () => void }) {
               Hair product. Soda. Insurance... A drop in an ocean of
               competitors who do it just as well for roughly the same price. So
               our job is to manufacture meaning. Build mythology. Attach the
-              product to identity — to aspiration, to belonging. You make
+              product to identity, to aspiration, to belonging. You make
               people feel like buying this particular thing says something about
               who they are.
             </p>
@@ -231,7 +231,7 @@ export default function ArticleModal({ onClose }: { onClose: () => void }) {
             <p>
               This IS a new frontier, and we are watching the early innings of
               something civilizationally significant. A generation of builders
-              focused on energy, defense, space, infrastructure — the kind of
+              focused on energy, defense, space, infrastructure, doing the kind of
               work that actually moves the needle on what humanity is capable
               of.
             </p>

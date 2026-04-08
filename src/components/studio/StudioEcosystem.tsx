@@ -181,7 +181,7 @@ export default function StudioEcosystem() {
               Not on the list?
             </p>
             <p className="font-sans text-xs text-wd-sub">
-              If you&apos;re building in defense, aerospace, or hard tech — we want to know about you.
+              If you&apos;re building in defense, aerospace, or hard tech, we want to know about you.
             </p>
           </div>
           <a
