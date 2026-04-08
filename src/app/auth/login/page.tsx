@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { login, sendMagicLink } from "@/lib/auth/actions";
 import { enterDemo } from "@/lib/auth/demo-actions";
+import Logo from "@/components/ui/Logo";
 
 const tabs = [
   { key: "client", label: "Client" },
@@ -56,12 +57,7 @@ function LoginForm() {
         href="/"
         className="mb-10 font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo.png"
-          alt=""
-          className="h-[90px] w-auto -my-4 dark:invert max-[480px]:h-[60px] max-[480px]:-my-2"
-        />
+        <Logo className="h-[90px] w-auto -my-4 max-[480px]:h-[60px] max-[480px]:-my-2" />
         War Desk
       </Link>
 

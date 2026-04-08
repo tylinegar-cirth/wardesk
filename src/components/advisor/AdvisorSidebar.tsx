@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Logo from "@/components/ui/Logo";
 
 const navItems = [
   { label: "Dashboard", href: "/advisor", icon: "◆" },
@@ -34,12 +35,7 @@ export default function AdvisorSidebar({
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[84px] w-auto -my-4 dark:invert"
-          />
+          <Logo className="h-[84px] w-auto -my-4" />
           War Desk
         </Link>
         <span className="inline-block mt-2 font-mono text-[8px] tracking-[0.2em] uppercase text-wd-gold bg-wd-gold-glow px-2 py-0.5 rounded">
@@ -99,12 +95,7 @@ export default function AdvisorSidebar({
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[72px] w-auto -my-3 dark:invert"
-          />
+          <Logo className="h-[72px] w-auto -my-3" />
           War Desk
         </Link>
         <button

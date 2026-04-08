@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Logo from "@/components/ui/Logo";
 
 const navItems = [
   { label: "Dashboard", href: "/portal", icon: "◆" },
@@ -33,12 +34,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[84px] w-auto -my-4 dark:invert"
-          />
+          <Logo className="h-[84px] w-auto -my-4" />
           War Desk
         </Link>
       </div>
@@ -107,12 +103,7 @@ export default function Sidebar({ userName }: { userName: string | null }) {
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[50px] w-auto -my-1 dark:invert"
-          />
+          <Logo className="h-[50px] w-auto -my-1" />
           War Desk
         </Link>
         <button

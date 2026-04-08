@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/auth/actions";
 import { exitStudioDemo } from "@/lib/auth/demo-actions";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Logo from "@/components/ui/Logo";
 
 const navItems = [
   { label: "Dashboard", href: "/studio-portal", icon: "◆" },
@@ -33,12 +34,7 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
           href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-wd-text flex items-center gap-1.5"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[84px] w-auto -my-4 dark:invert"
-          />
+          <Logo className="h-[84px] w-auto -my-4" />
           <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
       </div>
@@ -107,12 +103,7 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
           href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[50px] w-auto -my-1 dark:invert"
-          />
+          <Logo className="h-[50px] w-auto -my-1" />
           <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
         <button

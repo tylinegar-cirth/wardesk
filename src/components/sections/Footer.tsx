@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Logo from "@/components/ui/Logo";
 
 const footerCols = [
   { t: "Platform", links: [
@@ -24,12 +25,7 @@ export default function Footer() {
       <div className="flex justify-between flex-wrap gap-8 mb-10 max-[480px]:gap-6">
         <div>
           <div className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-wd-text mb-2 flex items-center gap-2.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo.png"
-              alt=""
-              className="h-[108px] w-auto -my-6 dark:invert max-[480px]:h-[72px] max-[480px]:-my-4"
-            />
+            <Logo className="h-[108px] w-auto -my-6 max-[480px]:h-[72px] max-[480px]:-my-4" />
             War Desk
           </div>
           <p className="font-sans text-xs text-wd-muted leading-relaxed">

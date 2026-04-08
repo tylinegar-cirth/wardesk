@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { login } from "@/lib/auth/actions";
 import { enterStudioDemo } from "@/lib/auth/demo-actions";
+import Logo from "@/components/ui/Logo";
 
 export default function StudioLoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -29,12 +30,7 @@ export default function StudioLoginPage() {
         href="/studio"
         className="mb-10 font-mono text-xs font-bold tracking-[0.2em] uppercase text-wd-text flex items-center gap-2"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo.png"
-          alt=""
-          className="h-[90px] w-auto -my-4 dark:invert max-[480px]:h-[60px] max-[480px]:-my-2"
-        />
+        <Logo className="h-[90px] w-auto -my-4 max-[480px]:h-[60px] max-[480px]:-my-2" />
         War Desk <span className="text-wd-gold">Studio</span>
       </Link>
 
