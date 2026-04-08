@@ -6,16 +6,16 @@ import { motion, useInView } from "framer-motion";
 /* ─── Service data ─── */
 const services = [
   {
-    id: "content",
-    label: "01",
-    title: "Content Production",
-    tags: ["Social", "LinkedIn", "Video", "Recruiting", "Written"],
-  },
-  {
     id: "films",
-    label: "02",
+    label: "01",
     title: "Brand Films",
     tags: ["Recruitment", "Capability", "Founder Stories", "Commercials"],
+  },
+  {
+    id: "content",
+    label: "02",
+    title: "Content Production",
+    tags: ["Social", "Copywriting", "Video", "Podcasts"],
   },
   {
     id: "campaigns",
