@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import { createBrowserClient } from "@supabase/ssr";
+
+const supabase = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export default function StudioContact() {
   const [form, setForm] = useState({
@@ -11,19 +17,33 @@ export default function StudioContact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [deckEmail, setDeckEmail] = useState("");
   const [deckUnlocked, setDeckUnlocked] = useState(false);
+  const [deckSubmitting, setDeckSubmitting] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitting(true);
+    await supabase.from("contact_submissions").insert({
+      name: form.name,
+      email: form.email,
+      message: `[${form.company}] ${form.message}`,
+      source: "studio_contact",
+    });
+    setSubmitting(false);
     setSubmitted(true);
   }
 
-  function handleDeckSubmit(e: React.FormEvent) {
+  async function handleDeckSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (deckEmail.trim()) {
-      setDeckUnlocked(true);
-    }
+    if (!deckEmail.trim()) return;
+    setDeckSubmitting(true);
+    await supabase.from("deck_downloads").insert({
+      email: deckEmail.trim(),
+    });
+    setDeckSubmitting(false);
+    setDeckUnlocked(true);
   }
 
   const inputClass =
@@ -137,9 +157,10 @@ export default function StudioContact() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98]"
+                  disabled={submitting}
+                  className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             )}
@@ -206,9 +227,10 @@ export default function StudioContact() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-overlay/[0.06] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-wd-overlay/[0.12] hover:border-wd-border-hov hover:-translate-y-px"
+                  disabled={deckSubmitting}
+                  className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-overlay/[0.06] text-wd-text border border-wd-border font-bold rounded-lg transition-all duration-300 hover:bg-wd-overlay/[0.12] hover:border-wd-border-hov hover:-translate-y-px disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Get the Deck
+                  {deckSubmitting ? "Submitting..." : "Get the Deck"}
                 </button>
               </form>
             )}
