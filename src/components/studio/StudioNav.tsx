@@ -41,7 +41,7 @@ export default function StudioNav() {
           href="/studio"
           className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.15em] max-[480px]:gap-1.5"
         >
-          <Logo className="h-[90px] w-auto -my-4 max-[480px]:h-[56px] max-[480px]:-my-2" />
+          <Logo className="h-[44px] w-auto -my-2 max-[480px]:h-[28px] max-[480px]:-my-1" />
           <span>
             War Desk <span className="text-wd-gold">Studio</span>
           </span>

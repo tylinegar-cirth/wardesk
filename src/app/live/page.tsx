@@ -6,7 +6,7 @@ export default function LivePage() {
     <div className="min-h-screen bg-wd-bg flex flex-col items-center justify-center px-6 text-center">
       {/* Logo */}
       <Link href="/" className="mb-12 max-[480px]:mb-8">
-        <Logo alt="War Desk" className="h-[120px] w-auto mx-auto max-[480px]:h-[80px]" />
+        <Logo alt="War Desk" className="h-[60px] w-auto mx-auto max-[480px]:h-[40px]" />
       </Link>
 
       {/* Heading */}

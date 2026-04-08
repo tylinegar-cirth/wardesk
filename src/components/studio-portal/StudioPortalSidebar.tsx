@@ -34,7 +34,7 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
           href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-wd-text flex items-center gap-1.5"
         >
-          <Logo className="h-[84px] w-auto -my-4" />
+          <Logo className="h-[42px] w-auto -my-2" />
           <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
       </div>
@@ -103,7 +103,7 @@ export default function StudioPortalSidebar({ userName, isDemo }: { userName: st
           href="/studio"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          <Logo className="h-[50px] w-auto -my-1" />
+          <Logo className="h-[28px] w-auto -my-0.5" />
           <span>War Desk <span className="text-wd-gold">Studio</span></span>
         </Link>
         <button

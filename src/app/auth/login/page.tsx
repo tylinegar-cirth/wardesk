@@ -57,7 +57,7 @@ function LoginForm() {
         href="/"
         className="mb-10 font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5"
       >
-        <Logo className="h-[90px] w-auto -my-4 max-[480px]:h-[60px] max-[480px]:-my-2" />
+        <Logo className="h-[44px] w-auto -my-2 max-[480px]:h-[30px] max-[480px]:-my-1" />
         War Desk
       </Link>
 

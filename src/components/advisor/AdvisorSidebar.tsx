@@ -35,7 +35,7 @@ export default function AdvisorSidebar({
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          <Logo className="h-[84px] w-auto -my-4" />
+          <Logo className="h-[42px] w-auto -my-2" />
           War Desk
         </Link>
         <span className="inline-block mt-2 font-mono text-[8px] tracking-[0.2em] uppercase text-wd-gold bg-wd-gold-glow px-2 py-0.5 rounded">
@@ -95,7 +95,7 @@ export default function AdvisorSidebar({
           href="/"
           className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2"
         >
-          <Logo className="h-[72px] w-auto -my-3" />
+          <Logo className="h-[36px] w-auto -my-1.5" />
           War Desk
         </Link>
         <button
