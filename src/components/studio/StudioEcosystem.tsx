@@ -184,12 +184,14 @@ export default function StudioEcosystem() {
               If you&apos;re building in defense, aerospace, or hard tech, we want to know about you.
             </p>
           </div>
-          <a
-            href="#contact"
-            className="font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-6 bg-wd-gold/10 text-wd-gold border border-wd-gold/20 rounded-lg hover:bg-wd-gold/20 transition-all"
+          <button
+            onClick={() => {
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className="font-mono text-[10px] tracking-[0.1em] uppercase py-2.5 px-6 bg-wd-gold/10 text-wd-gold border border-wd-gold/20 rounded-lg hover:bg-wd-gold/20 transition-all cursor-pointer"
           >
             Add your company &rarr;
-          </a>
+          </button>
         </div>
       </Reveal>
 
