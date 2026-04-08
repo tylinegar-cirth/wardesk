@@ -18,7 +18,7 @@ const team: TeamMemberData[] = [
     name: "Ty Linegar",
     role: "Co-Founder & Executive Producer",
     image: "/team-ty.jpg",
-    bio: "A decade producing campaigns for the world\u2019s biggest brands. Good work, great clients \u2014 but Ty wanted to apply the craft to something with more weight. War Desk Studio exists to serve the companies actually pushing Western capability forward.",
+    bio: "A decade producing campaigns for the world\u2019s biggest brands. Good work, great clients, but Ty wanted to apply the craft to something with more weight. War Desk Studio exists to serve the companies actually pushing Western capability forward.",
     hasArticle: true,
     linkedin: "#",
   },
