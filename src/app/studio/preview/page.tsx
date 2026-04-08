@@ -4,7 +4,7 @@ import StudioNav from "@/components/studio/StudioNav";
 import StudioHero from "@/components/studio/StudioHero";
 import StudioServicesV2 from "@/components/studio/StudioServicesV2";
 import StudioBrands from "@/components/studio/StudioBrands";
-import StudioTeam from "@/components/studio/StudioTeam";
+import StudioTeamV2 from "@/components/studio/StudioTeamV2";
 import StudioEcosystem from "@/components/studio/StudioEcosystem";
 import StudioContact from "@/components/studio/StudioContact";
 import StudioFooter from "@/components/studio/StudioFooter";
@@ -16,7 +16,7 @@ export default function StudioPreview() {
       <StudioHero />
       <StudioServicesV2 />
       <StudioBrands />
-      <StudioTeam />
+      <StudioTeamV2 />
       <StudioEcosystem />
       <StudioContact />
       <StudioFooter />
