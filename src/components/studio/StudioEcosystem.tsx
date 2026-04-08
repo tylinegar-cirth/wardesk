@@ -14,8 +14,6 @@ const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-const sectorOptions = sectors.filter((s) => s !== "All Companies");
-
 // 2 rows × 3 columns = 6 cards before expand
 const INITIAL_COUNT = 6;
 
@@ -26,13 +24,8 @@ export default function StudioEcosystem() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [addSubmitting, setAddSubmitting] = useState(false);
   const [addSubmitted, setAddSubmitted] = useState(false);
-  const [addForm, setAddForm] = useState({
-    company_name: "",
-    sector: "",
-    website: "",
-    contact_email: "",
-    description: "",
-  });
+  const [addCompany, setAddCompany] = useState("");
+  const [addEmail, setAddEmail] = useState("");
 
   useEffect(() => {
     fetch("/api/companies")
@@ -201,8 +194,8 @@ export default function StudioEcosystem() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                 </svg>
               </div>
-              <h4 className="font-serif text-lg text-wd-text mb-1">Submitted</h4>
-              <p className="font-sans text-xs text-wd-sub">We&apos;ll review and add your company to the radar.</p>
+              <h4 className="font-serif text-lg text-wd-text mb-1">Added to the radar</h4>
+              <p className="font-sans text-xs text-wd-sub">Your company is being researched and will appear shortly.</p>
             </div>
           ) : !showAddForm ? (
             <div className="flex items-center justify-between flex-wrap gap-4">
@@ -226,19 +219,30 @@ export default function StudioEcosystem() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 setAddSubmitting(true);
+                // Log the submission
                 await supabase.from("company_submissions").insert({
-                  company_name: addForm.company_name.trim(),
-                  sector: addForm.sector,
-                  website: addForm.website.trim(),
-                  contact_email: addForm.contact_email.trim(),
-                  description: addForm.description.trim(),
+                  company_name: addCompany.trim(),
+                  contact_email: addEmail.trim(),
                 });
+                // Trigger Claude to research and populate the company
+                try {
+                  await fetch("/api/companies/add", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      company_name: addCompany.trim(),
+                      contact_email: addEmail.trim(),
+                    }),
+                  });
+                } catch {
+                  // Still show success — submission is logged
+                }
                 setAddSubmitting(false);
                 setAddSubmitted(true);
               }}
               className="space-y-4"
             >
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-1">
                 <h4 className="font-serif text-lg text-wd-text">Add Your Company</h4>
                 <button
                   type="button"
@@ -250,6 +254,9 @@ export default function StudioEcosystem() {
                   </svg>
                 </button>
               </div>
+              <p className="font-sans text-xs text-wd-sub !mt-0 mb-2">
+                We&apos;ll research and populate your company data automatically.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1.5 block">
@@ -258,72 +265,32 @@ export default function StudioEcosystem() {
                   <input
                     type="text"
                     required
-                    value={addForm.company_name}
-                    onChange={(e) => setAddForm({ ...addForm, company_name: e.target.value })}
+                    value={addCompany}
+                    onChange={(e) => setAddCompany(e.target.value)}
                     className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-sub"
                     placeholder="Your company"
                   />
                 </div>
                 <div>
                   <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1.5 block">
-                    Sector
-                  </label>
-                  <select
-                    required
-                    value={addForm.sector}
-                    onChange={(e) => setAddForm({ ...addForm, sector: e.target.value })}
-                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors appearance-none"
-                  >
-                    <option value="" disabled className="bg-[#0a0a0a] text-wd-sub">Select sector</option>
-                    {sectorOptions.map((s) => (
-                      <option key={s} value={s} className="bg-[#0a0a0a] text-wd-text">{s}</option>
-                    ))}
-                    <option value="Other" className="bg-[#0a0a0a] text-wd-text">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1.5 block">
-                    Website
-                  </label>
-                  <input
-                    type="url"
-                    value={addForm.website}
-                    onChange={(e) => setAddForm({ ...addForm, website: e.target.value })}
-                    className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-sub"
-                    placeholder="https://yourcompany.com"
-                  />
-                </div>
-                <div>
-                  <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1.5 block">
-                    Contact Email
+                    Email
                   </label>
                   <input
                     type="email"
                     required
-                    value={addForm.contact_email}
-                    onChange={(e) => setAddForm({ ...addForm, contact_email: e.target.value })}
+                    value={addEmail}
+                    onChange={(e) => setAddEmail(e.target.value)}
                     className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-sub"
                     placeholder="you@company.com"
                   />
                 </div>
-              </div>
-              <div>
-                <label className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-muted mb-1.5 block">
-                  What are you building?
-                </label>
-                <textarea
-                  value={addForm.description}
-                  onChange={(e) => setAddForm({ ...addForm, description: e.target.value })}
-                  className="w-full bg-wd-overlay/[0.03] border border-wd-border rounded-lg text-wd-text font-sans text-sm px-4 py-3 focus:border-wd-gold/50 outline-none transition-colors placeholder:text-wd-sub resize-none h-20"
-                  placeholder="Brief description of your company and product..."
-                />
               </div>
               <button
                 type="submit"
                 disabled={addSubmitting}
                 className="w-full font-mono text-[11px] tracking-[0.1em] uppercase py-3.5 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
               >
-                {addSubmitting ? "Submitting..." : "Submit Company"}
+                {addSubmitting ? "Researching..." : "Add Company"}
               </button>
             </form>
           )}

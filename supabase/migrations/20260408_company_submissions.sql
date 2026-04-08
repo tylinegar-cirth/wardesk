@@ -2,10 +2,7 @@
 CREATE TABLE IF NOT EXISTS company_submissions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   company_name TEXT NOT NULL,
-  sector TEXT NOT NULL DEFAULT '',
-  website TEXT NOT NULL DEFAULT '',
   contact_email TEXT NOT NULL,
-  description TEXT NOT NULL DEFAULT '',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
