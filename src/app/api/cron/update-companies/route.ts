@@ -22,6 +22,9 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Support ?batch=0,1,2... to process one batch at a time (avoids timeout)
+  const batchParam = url.searchParams.get("batch");
+
   const results: {
     name: string;
     funding: string;
@@ -33,13 +36,19 @@ export async function GET(req: Request) {
 
   const errors: string[] = [];
 
-  // Process companies in smaller batches for better web search coverage
-  const batches: (typeof studioCompanies)[] = [];
+  // Split companies into batches
+  const allBatches: (typeof studioCompanies)[] = [];
   for (let i = 0; i < studioCompanies.length; i += BATCH_SIZE) {
-    batches.push(studioCompanies.slice(i, i + BATCH_SIZE));
+    allBatches.push(studioCompanies.slice(i, i + BATCH_SIZE));
   }
 
-  for (const batch of batches) {
+  // If batch param specified, only process that batch
+  const batchesToProcess =
+    batchParam !== null
+      ? [allBatches[parseInt(batchParam)]].filter(Boolean)
+      : allBatches;
+
+  for (const batch of batchesToProcess) {
     const companyList = batch
       .map(
         (c) =>
@@ -102,8 +111,12 @@ Return ONLY a valid JSON array. No markdown fences, no explanation.
     }
   }
 
-  // Merge with static data and upsert
-  const upsertData = studioCompanies.map((company) => {
+  // Merge with static data and upsert — only companies in processed batches
+  const processedCompanies =
+    batchParam !== null
+      ? batchesToProcess.flat()
+      : studioCompanies;
+  const upsertData = processedCompanies.map((company) => {
     const updated = results.find(
       (r) => r.name.toLowerCase() === company.name.toLowerCase()
     );
@@ -135,6 +148,8 @@ Return ONLY a valid JSON array. No markdown fences, no explanation.
     success: true,
     updated: upsertData.length,
     resultsFromClaude: results.length,
+    totalBatches: allBatches.length,
+    batchProcessed: batchParam ?? "all",
     errors: errors.length > 0 ? errors : undefined,
     sample: results.slice(0, 3),
     timestamp: new Date().toISOString(),
