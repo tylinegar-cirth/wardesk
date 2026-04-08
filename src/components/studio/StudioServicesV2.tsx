@@ -238,7 +238,7 @@ export default function StudioServicesV2() {
           />
         ))}
       </div>
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 max-w-[calc(66.666%-4px)] lg:max-w-[calc(66.666%+2px)] mx-auto">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 max-w-full md:max-w-[calc(66.666%-4px)] lg:max-w-[calc(66.666%+2px)] mx-auto">
         {services.slice(3).map((service, i) => (
           <ServiceCard
             key={service.id}
