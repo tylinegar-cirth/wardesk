@@ -56,7 +56,7 @@ export default function LandingPage() {
         {/* Top bar: logo + wordmark */}
         <header className="relative z-[2] flex items-center justify-between px-[clamp(20px,4vw,48px)] h-[60px] flex-shrink-0">
           <div className="font-mono text-xs font-bold tracking-[0.3em] uppercase text-wd-text flex items-center gap-2.5 max-[480px]:text-[10px] max-[480px]:tracking-[0.15em] max-[480px]:gap-1.5">
-            <Logo className="h-[22px] w-auto max-[480px]:h-[18px]" />
+            <Logo className="h-[32px] w-auto max-[480px]:h-[24px]" />
             War Desk
           </div>
           <a
