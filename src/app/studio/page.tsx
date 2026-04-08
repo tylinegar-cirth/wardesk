@@ -2,10 +2,10 @@
 
 import StudioNav from "@/components/studio/StudioNav";
 import StudioHero from "@/components/studio/StudioHero";
-import StudioServices from "@/components/studio/StudioServices";
+import StudioServicesV2 from "@/components/studio/StudioServicesV2";
 import StudioEcosystem from "@/components/studio/StudioEcosystem";
 import StudioBrands from "@/components/studio/StudioBrands";
-import StudioTeam from "@/components/studio/StudioTeam";
+import StudioTeamV2 from "@/components/studio/StudioTeamV2";
 import StudioContact from "@/components/studio/StudioContact";
 import StudioFooter from "@/components/studio/StudioFooter";
 
@@ -14,9 +14,9 @@ export default function StudioPage() {
     <div className="wd-app">
       <StudioNav />
       <StudioHero />
-      <StudioServices />
+      <StudioServicesV2 />
       <StudioBrands />
-      <StudioTeam />
+      <StudioTeamV2 />
       <StudioEcosystem />
       <StudioContact />
       <StudioFooter />
