@@ -136,14 +136,14 @@ function ServiceCard({
       <div
         className="relative rounded-lg border p-6 h-full overflow-hidden transition-all duration-500"
         style={{
-          borderColor: isActive ? "rgba(212,168,67,0.2)" : "rgba(255,255,255,0.04)",
-          background: isActive ? "rgba(212,168,67,0.03)" : "rgba(255,255,255,0.01)",
+          borderColor: isActive ? "rgba(212,168,67,0.2)" : "rgba(255,255,255,0.08)",
+          background: isActive ? "rgba(212,168,67,0.03)" : "rgba(255,255,255,0.02)",
         }}
       >
         {/* CAD illustration — positioned in background */}
         <div
           className="absolute -right-4 -bottom-4 w-[180px] h-[180px] transition-opacity duration-600"
-          style={{ opacity: isActive ? 0.35 : 0.08 }}
+          style={{ opacity: isActive ? 0.35 : 0.15 }}
         >
           <svg viewBox="0 0 200 200" className="w-full h-full">
             <g
@@ -170,7 +170,7 @@ function ServiceCard({
           {/* Title */}
           <h3
             className="font-serif text-[clamp(22px,2.5vw,28px)] font-normal leading-[1.15] mb-5 transition-colors duration-400"
-            style={{ color: isActive ? "rgb(var(--wd-text))" : "rgb(var(--wd-muted))" }}
+            style={{ color: isActive ? "rgb(var(--wd-text))" : "rgb(var(--wd-sub))" }}
           >
             {service.title}
           </h3>
@@ -182,8 +182,8 @@ function ServiceCard({
                 key={tag}
                 className="font-mono text-[8px] tracking-[0.15em] uppercase py-1 px-2.5 rounded border transition-all duration-400"
                 style={{
-                  borderColor: isActive ? "rgba(212,168,67,0.3)" : "rgba(255,255,255,0.06)",
-                  color: isActive ? "rgb(212,168,67)" : "rgb(var(--wd-muted))",
+                  borderColor: isActive ? "rgba(212,168,67,0.3)" : "rgba(255,255,255,0.1)",
+                  color: isActive ? "rgb(212,168,67)" : "rgb(var(--wd-sub))",
                   background: isActive ? "rgba(212,168,67,0.08)" : "transparent",
                   transitionDelay: `${i * 25}ms`,
                 }}
