@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 /* ─── Service data ─── */
@@ -109,30 +109,6 @@ const cadDrawings: Record<string, JSX.Element> = {
   ),
 };
 
-/* ─── Dot grid background ─── */
-function TechGrid({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <svg className="absolute inset-0 w-full h-full opacity-[0.12]">
-        <defs>
-          <pattern id="dotgrid" width="32" height="32" patternUnits="userSpaceOnUse">
-            <circle cx="16" cy="16" r="0.7" fill="rgb(var(--wd-muted))" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dotgrid)" />
-      </svg>
-      <div
-        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.06] pointer-events-none transition-opacity duration-700"
-        style={{
-          background: "radial-gradient(circle, rgba(212,168,67,0.5) 0%, transparent 70%)",
-          left: mouseX - 250,
-          top: mouseY - 250,
-        }}
-      />
-    </div>
-  );
-}
-
 /* ─── Service card ─── */
 function ServiceCard({
   service,
@@ -224,32 +200,15 @@ function ServiceCard({
 
 /* ─── Main component ─── */
 export default function StudioServicesV2() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeIndex, setActiveIndex] = useState(0);
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  }, []);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    section.addEventListener("mousemove", handleMouseMove);
-    return () => section.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
-
   return (
     <section
-      ref={sectionRef}
       id="services"
       className="relative py-[clamp(64px,10vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto overflow-hidden"
     >
-      <TechGrid mouseX={mousePos.x} mouseY={mousePos.y} />
 
       {/* Header */}
       <motion.div

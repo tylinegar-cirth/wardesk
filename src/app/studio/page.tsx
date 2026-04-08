@@ -1,5 +1,6 @@
 "use client";
 
+import StudioAmbient from "@/components/studio/StudioAmbient";
 import StudioNav from "@/components/studio/StudioNav";
 import StudioHero from "@/components/studio/StudioHero";
 import StudioServicesV2 from "@/components/studio/StudioServicesV2";
@@ -12,6 +13,7 @@ import StudioFooter from "@/components/studio/StudioFooter";
 export default function StudioPage() {
   return (
     <div className="wd-app">
+      <StudioAmbient />
       <StudioNav />
       <StudioHero />
       <StudioServicesV2 />
