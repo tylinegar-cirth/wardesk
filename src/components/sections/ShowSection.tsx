@@ -65,7 +65,7 @@ export default function ShowSection() {
               </div>
             </div>
             {/* Glass overlay */}
-            <div className="relative z-[2] text-center py-7 px-10 bg-wd-bg/55 backdrop-blur-[24px] saturate-150 border border-wd-overlay/[0.08] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(var(--wd-overlay),0.06)] animate-wd-float">
+            <div className="relative z-[2] text-center py-7 px-10 bg-wd-bg/55 backdrop-blur-[24px] saturate-150 border border-wd-overlay/[0.08] rounded-[14px] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgb(var(--wd-overlay)/0.06)] animate-wd-float">
               <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold mb-2.5">
                 War Desk Live
               </div>

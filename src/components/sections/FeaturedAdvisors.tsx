@@ -48,7 +48,7 @@ export default function FeaturedAdvisors({
                 className="absolute bottom-0 left-0 right-0 py-7 px-6 z-[2]"
                 style={{
                   background:
-                    "linear-gradient(transparent, rgba(var(--wd-bg),0.95) 50%)",
+                    "linear-gradient(transparent, rgb(var(--wd-bg) / 0.95) 50%)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-1.5">

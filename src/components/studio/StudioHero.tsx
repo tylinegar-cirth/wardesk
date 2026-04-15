@@ -73,7 +73,7 @@ export default function StudioHero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg,rgba(var(--wd-bg),0.3) 0%,rgba(var(--wd-bg),0.1) 40%,rgba(var(--wd-bg),0.7) 70%,rgba(var(--wd-bg),1) 100%)",
+              "linear-gradient(180deg,rgb(var(--wd-bg) / 0.3) 0%,rgb(var(--wd-bg) / 0.1) 40%,rgb(var(--wd-bg) / 0.7) 70%,rgb(var(--wd-bg)) 100%)",
           }}
         />
       </div>
