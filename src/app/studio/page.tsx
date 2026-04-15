@@ -3,7 +3,7 @@
 import StudioAmbient from "@/components/studio/StudioAmbient";
 import StudioNav from "@/components/studio/StudioNav";
 import StudioHero from "@/components/studio/StudioHero";
-import StudioServicesV2 from "@/components/studio/StudioServicesV2";
+import StudioServicesV3 from "@/components/studio/StudioServicesV3";
 import StudioEcosystem from "@/components/studio/StudioEcosystem";
 import StudioBrands from "@/components/studio/StudioBrands";
 import StudioTeamV2 from "@/components/studio/StudioTeamV2";
@@ -17,7 +17,7 @@ export default function StudioPage() {
       <StudioAmbient />
       <StudioNav />
       <StudioHero />
-      <StudioServicesV2 />
+      <StudioServicesV3 />
       <StudioBrands />
       <StudioTeamV2 />
       <StudioInterstitial />

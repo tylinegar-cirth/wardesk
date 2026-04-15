@@ -14,10 +14,10 @@ export default function StudioInterstitial() {
   return (
     <section
       ref={ref}
-      className="relative h-[clamp(260px,34vh,400px)] w-full overflow-hidden"
+      className="relative h-[clamp(300px,42vh,480px)] w-full overflow-hidden"
       aria-hidden="true"
     >
-      {/* Parallax image with subtle grade, shifted up so the dish top shows */}
+      {/* Parallax image with subtle grade, shifted up so the dish top is visible */}
       <motion.div className="absolute inset-0 scale-110" style={{ y }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -26,7 +26,7 @@ export default function StudioInterstitial() {
           className="w-full h-full object-cover"
           style={{
             filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
-            objectPosition: "center 35%",
+            objectPosition: "center 30%",
           }}
         />
       </motion.div>
