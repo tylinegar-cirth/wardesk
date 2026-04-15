@@ -84,7 +84,7 @@ export default function StudioHero() {
           </div>
         </Reveal>
         <Reveal delay={0.12}>
-          <h1 className="font-serif text-[clamp(48px,8vw,104px)] font-normal text-wd-text leading-[0.95] mb-6 tracking-[-0.02em]">
+          <h1 className="font-serif text-[clamp(48px,8vw,104px)] font-normal text-wd-text leading-[0.92] mb-4 tracking-[-0.02em]">
             Business.
             <br />
             Is.
@@ -92,11 +92,16 @@ export default function StudioHero() {
             <span className="text-wd-gold">War.</span>
           </h1>
         </Reveal>
-        <Reveal delay={0.24}>
-          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-wd-text/75 leading-[1.65] max-w-[520px] mb-9">
-            The creative force behind Western capability. We build the
-            campaigns, films, and experiences that position the companies
-            advancing hard tech, defense, and aerospace.
+        <Reveal delay={0.2}>
+          <h2 className="font-serif italic text-[clamp(20px,2.4vw,30px)] font-normal text-wd-text/85 leading-[1.15] mb-6 tracking-[-0.01em]">
+            We forge your legend.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-wd-text/70 leading-[1.65] max-w-[520px] mb-9">
+            The creative force behind Western capability. Campaigns, films,
+            and experiences for the companies advancing hard tech, defense,
+            and aerospace.
           </p>
         </Reveal>
         <Reveal delay={0.36}>
