@@ -9,15 +9,15 @@ export default function StudioInterstitial() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   return (
     <section
       ref={ref}
-      className="relative h-[clamp(200px,28vh,300px)] w-full overflow-hidden"
+      className="relative h-[clamp(260px,34vh,400px)] w-full overflow-hidden"
       aria-hidden="true"
     >
-      {/* Parallax image with subtle grade */}
+      {/* Parallax image with subtle grade, shifted up so the dish top shows */}
       <motion.div className="absolute inset-0 scale-110" style={{ y }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -26,6 +26,7 @@ export default function StudioInterstitial() {
           className="w-full h-full object-cover"
           style={{
             filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
+            objectPosition: "center 35%",
           }}
         />
       </motion.div>
@@ -44,7 +45,7 @@ export default function StudioInterstitial() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.15) 25%, rgba(var(--wd-bg),0.15) 75%, rgb(var(--wd-bg)) 100%)",
+            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.12) 22%, rgba(var(--wd-bg),0.12) 78%, rgb(var(--wd-bg)) 100%)",
         }}
       />
 
@@ -56,44 +57,6 @@ export default function StudioInterstitial() {
           backgroundSize: "240px 240px",
         }}
       />
-
-      {/* HUD — ring + crosshair only, tracks the image crop */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
-        viewBox="0 0 2593 1527"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <g
-          stroke="rgba(212,168,67,0.55)"
-          strokeWidth="2"
-          fill="none"
-          vectorEffect="non-scaling-stroke"
-        >
-          <circle
-            cx="1880"
-            cy="770"
-            r="300"
-            strokeDasharray="10 16"
-            opacity="0.7"
-          />
-          <circle
-            cx="1880"
-            cy="770"
-            r="180"
-            strokeDasharray="3 12"
-            opacity="0.5"
-          />
-          <line x1="1820" y1="770" x2="1940" y2="770" />
-          <line x1="1880" y1="710" x2="1880" y2="830" />
-          <circle
-            cx="1880"
-            cy="770"
-            r="6"
-            fill="rgba(212,168,67,0.9)"
-            stroke="none"
-          />
-        </g>
-      </svg>
 
       {/* Radar sweep */}
       <motion.div
