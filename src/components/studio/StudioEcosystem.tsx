@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Reveal from "@/components/ui/Reveal";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 import { createBrowserClient } from "@supabase/ssr";
 import {
   studioCompanies as staticCompanies,
@@ -49,18 +50,31 @@ export default function StudioEcosystem() {
   return (
     <section
       id="ecosystem"
-      className="py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
+      className="relative pt-[clamp(20px,3vw,52px)] pb-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
     >
+      <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
+
       <Reveal>
-        <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
-          The Sector
+        <div className="relative mb-8 flex items-start justify-between gap-8">
+          <div className="flex-1 max-w-[680px]">
+            <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
+              The Sector
+            </div>
+            <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em] mb-3">
+              Companies on our <span className="italic text-wd-gold/90">radar</span>.
+            </h2>
+            <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px]">
+              The companies defining the future of civilisation.
+            </p>
+          </div>
+          <div className="hidden md:block pt-1 text-right">
+            <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+              Section // 04
+              <br />
+              <span className="text-wd-gold/80">Intelligence</span>
+            </div>
+          </div>
         </div>
-        <h2 className="font-serif text-[clamp(28px,3.8vw,42px)] font-normal text-wd-text leading-[1.1] mb-3">
-          Companies On Our Radar
-        </h2>
-        <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px] mb-8">
-          The companies defining the future of civilisation.
-        </p>
       </Reveal>
 
       {/* Filter tabs */}

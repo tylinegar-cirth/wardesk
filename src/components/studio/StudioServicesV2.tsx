@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 /* ─── Service data ─── */
 const services = [
@@ -26,8 +27,8 @@ const services = [
   {
     id: "roadshow",
     label: "04",
-    title: "Roadshow & Booth",
-    tags: ["AUSA", "SOFIC", "Space Symposium", "Booth Design", "Video Walls"],
+    title: "Roadshow & Live Events",
+    tags: ["AUSA", "SOFIC", "LED Volume", "Keynote Production", "Launch Events"],
   },
   {
     id: "investor",
@@ -209,21 +210,35 @@ export default function StudioServicesV2() {
       id="services"
       className="relative py-[clamp(64px,10vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto overflow-hidden"
     >
+      <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.35)" strokeWidth={1} />
 
-      {/* Header */}
+      {/* Header — asymmetric: label left, oversized serif ghost letter right */}
       <motion.div
         ref={headerRef}
-        className="relative mb-12"
+        className="relative mb-14 flex items-start justify-between gap-8"
         initial={{ opacity: 0, y: 24 }}
         animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
-          Systems &amp; Services
+        <div className="relative flex-1 max-w-[680px]">
+          <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
+            Systems &amp; Services
+          </div>
+          <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em]">
+            The creative company for
+            <br />
+            <span className="italic text-wd-gold/90">defense</span> and{" "}
+            <span className="italic text-wd-gold/90">hard tech</span>.
+          </h2>
         </div>
-        <h2 className="font-serif text-[clamp(28px,4vw,48px)] font-normal text-wd-text leading-[1.08] max-w-[600px]">
-          The creative company for defense and hard tech
-        </h2>
+        {/* Right-side technical label */}
+        <div className="hidden md:block pt-1 text-right">
+          <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+            Section // 02
+            <br />
+            <span className="text-wd-gold/80">Capabilities</span>
+          </div>
+        </div>
       </motion.div>
 
       {/* Grid — 3 top, 2 bottom centered */}

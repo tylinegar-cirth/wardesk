@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import ArticleModal from "./ArticleModal";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 interface TeamMemberData {
   name: string;
@@ -115,24 +116,35 @@ export default function StudioTeamV2() {
         id="team"
         className="relative py-[clamp(64px,10vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
       >
-        {/* Header */}
+        <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
+
+        {/* Header — asymmetric with section label */}
         <motion.div
           ref={headerRef}
-          className="mb-14"
+          className="relative mb-14 flex items-start justify-between gap-8"
           initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
-            Who We Are
+          <div className="relative flex-1 max-w-[680px]">
+            <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
+              Who We Are
+            </div>
+            <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em]">
+              The <span className="italic text-wd-gold/90">Team</span>.
+            </h2>
           </div>
-          <h2 className="font-serif text-[clamp(28px,4vw,48px)] font-normal text-wd-text leading-[1.08]">
-            The Team
-          </h2>
+          <div className="hidden md:block pt-1 text-right">
+            <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+              Section // 03
+              <br />
+              <span className="text-wd-gold/80">Operators</span>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Team grid — 3 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        {/* Team grid — 3 columns, narrower container so portraits aren't oversized */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-10 max-w-[940px] mx-auto">
           {team.map((member, i) => (
             <TeamCard
               key={member.name}

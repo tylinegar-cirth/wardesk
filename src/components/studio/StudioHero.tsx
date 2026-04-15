@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 export default function StudioHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -27,6 +28,21 @@ export default function StudioHero() {
 
   return (
     <section className="relative h-screen flex items-end overflow-hidden max-[768px]:h-[100svh]">
+      <CornerBrackets size={36} inset={24} color="rgba(212,168,67,0.85)" strokeWidth={1.25} />
+
+      {/* Technical readout — upper right */}
+      <div className="absolute top-[clamp(40px,5vw,72px)] right-[clamp(40px,5vw,80px)] z-[4] hidden md:block text-right">
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-gold/70 leading-[1.8]">
+          N 33°55&apos;09&quot;
+          <br />
+          W 118°24&apos;59&quot;
+        </div>
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8] mt-3">
+          Section // 01
+          <br />
+          <span className="text-wd-gold/80">Broadcast</span>
+        </div>
+      </div>
       {/* Video Background */}
       <div
         className="absolute inset-0 z-0"
@@ -66,21 +82,28 @@ export default function StudioHero() {
       <div className="relative z-[2] w-full px-[clamp(24px,5vw,72px)] pb-[clamp(48px,6vw,80px)] max-w-[800px] max-[768px]:max-w-full">
         <Reveal>
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-5">
-            Strategic Production
+            EST. 2026
           </div>
         </Reveal>
         <Reveal delay={0.12}>
-          <h1 className="font-serif text-[clamp(36px,5.5vw,64px)] font-normal text-wd-text leading-[1.06] mb-5">
-            Forging Your
+          <h1 className="font-serif text-[clamp(48px,8vw,104px)] font-normal text-wd-text leading-[0.92] mb-4 tracking-[-0.02em]">
+            Business.
             <br />
-            Legend.
+            Is.
+            <br />
+            <span className="text-wd-gold">War.</span>
           </h1>
         </Reveal>
-        <Reveal delay={0.24}>
-          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-wd-text/75 leading-[1.65] max-w-[520px] mb-9">
-            Strategic content and production for defense, aerospace, and hard
-            tech. We build the campaigns, films, and experiences that position
-            the companies advancing Western capability.
+        <Reveal delay={0.2}>
+          <h2 className="font-serif italic text-[clamp(20px,2.4vw,30px)] font-normal text-wd-text/85 leading-[1.15] mb-6 tracking-[-0.01em]">
+            We forge your legend.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="font-sans text-[clamp(15px,1.6vw,18px)] font-light text-wd-text/70 leading-[1.65] max-w-[520px] mb-9">
+            The creative force behind Western capability. Campaigns, films,
+            and experiences for the companies advancing hard tech, defense,
+            and aerospace.
           </p>
         </Reveal>
         <Reveal delay={0.36}>
