@@ -47,20 +47,20 @@ export default function StudioInterstitial() {
         }}
       />
 
-      {/* Top fade into black */}
+      {/* Top fade — hardcoded rgba to avoid CSS-variable interpolation issues */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.55) 10%, rgba(var(--wd-bg),0.1) 24%, transparent 35%)",
+            "linear-gradient(180deg, rgb(8,8,10) 0%, rgba(8,8,10,0.6) 10%, rgba(8,8,10,0.12) 24%, transparent 35%)",
         }}
       />
-      {/* Bottom fade into black — long, gradual bleed into the section below */}
+      {/* Bottom fade — long gradual bleed into page black */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, transparent 48%, rgba(var(--wd-bg),0.1) 60%, rgba(var(--wd-bg),0.28) 72%, rgba(var(--wd-bg),0.52) 82%, rgba(var(--wd-bg),0.78) 92%, rgb(var(--wd-bg)) 100%)",
+            "linear-gradient(180deg, transparent 32%, rgba(8,8,10,0.08) 44%, rgba(8,8,10,0.2) 56%, rgba(8,8,10,0.4) 68%, rgba(8,8,10,0.65) 80%, rgba(8,8,10,0.88) 92%, rgb(8,8,10) 100%)",
         }}
       />
 
