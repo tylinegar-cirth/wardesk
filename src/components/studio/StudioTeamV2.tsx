@@ -144,7 +144,7 @@ export default function StudioTeamV2() {
         </motion.div>
 
         {/* Team grid — 3 columns, narrower container so portraits aren't oversized */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-10 max-w-[940px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-10 max-w-[940px] mx-auto">
           {team.map((member, i) => (
             <TeamCard
               key={member.name}
