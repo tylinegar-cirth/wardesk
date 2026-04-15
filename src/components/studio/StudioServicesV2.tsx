@@ -227,7 +227,8 @@ export default function StudioServicesV2() {
           <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em]">
             The creative company for
             <br />
-            <span className="italic text-wd-gold/90">defense</span> and hard tech.
+            <span className="italic text-wd-gold/90">defense</span> and{" "}
+            <span className="italic text-wd-gold/90">hard tech</span>.
           </h2>
         </div>
         {/* Right-side technical label */}
@@ -235,7 +236,7 @@ export default function StudioServicesV2() {
           <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
             Section // 02
             <br />
-            <span className="text-wd-gold/70">Capabilities</span>
+            <span className="text-wd-gold/80">Capabilities</span>
           </div>
         </div>
       </motion.div>

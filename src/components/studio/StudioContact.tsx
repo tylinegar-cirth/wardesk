@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 import { createBrowserClient } from "@supabase/ssr";
 
 const supabase = createBrowserClient(
@@ -52,19 +53,33 @@ export default function StudioContact() {
   return (
     <section
       id="contact"
-      className="py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
+      className="relative py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
     >
+      <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
+
       <Reveal>
-        <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-3">
-          Get Started
+        <div className="relative mb-10 flex items-start justify-between gap-8">
+          <div className="flex-1 max-w-[680px]">
+            <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
+              Get Started
+            </div>
+            <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em] mb-3">
+              Let&apos;s build something{" "}
+              <span className="italic text-wd-gold/90">legendary</span>.
+            </h2>
+            <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px]">
+              Preparing for a conference? Launching a campaign? Need a film that
+              actually lands? Tell us what you&apos;re working on.
+            </p>
+          </div>
+          <div className="hidden md:block pt-1 text-right">
+            <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+              Section // 05
+              <br />
+              <span className="text-wd-gold/80">Transmit</span>
+            </div>
+          </div>
         </div>
-        <h2 className="font-serif text-[clamp(28px,3.8vw,42px)] font-normal text-wd-text leading-[1.1] mb-3">
-          Let&apos;s Build Something
-        </h2>
-        <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px] mb-10">
-          Preparing for a conference? Launching a campaign? Need a film that
-          actually lands? Tell us what you&apos;re working on.
-        </p>
       </Reveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">

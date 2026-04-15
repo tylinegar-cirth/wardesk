@@ -28,17 +28,14 @@ export default function StudioHero() {
 
   return (
     <section className="relative h-screen flex items-end overflow-hidden max-[768px]:h-[100svh]">
-      <CornerBrackets size={32} inset={24} color="rgba(212,168,67,0.55)" strokeWidth={1} />
+      <CornerBrackets size={36} inset={24} color="rgba(212,168,67,0.85)" strokeWidth={1.25} />
 
       {/* Technical readout — upper right */}
-      <div className="absolute top-[clamp(24px,4vw,56px)] right-[clamp(24px,5vw,72px)] z-[2] hidden md:block text-right">
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-gold/70 leading-[1.8]">
-          N 38°53&apos;23&quot;
+      <div className="absolute top-[clamp(40px,5vw,72px)] right-[clamp(40px,5vw,80px)] z-[4] hidden md:block text-right">
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+          Section // 01
           <br />
-          W 077°00&apos;32&quot;
-        </div>
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted mt-3">
-          Transmission // 001
+          <span className="text-wd-gold/80">Broadcast</span>
         </div>
       </div>
       {/* Video Background */}

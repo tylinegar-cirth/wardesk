@@ -87,7 +87,7 @@ export default function CornerBrackets({
   };
 
   return (
-    <div className={`absolute inset-0 pointer-events-none ${className}`} aria-hidden>
+    <div className={`absolute inset-0 pointer-events-none z-[3] ${className}`} aria-hidden>
       <Bracket pos="tl" />
       <Bracket pos="tr" />
       <Bracket pos="bl" />
