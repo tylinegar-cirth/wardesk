@@ -82,7 +82,7 @@ export default function StudioHero() {
       <div className="relative z-[2] w-full px-[clamp(24px,5vw,72px)] pb-[clamp(48px,6vw,80px)] max-w-[800px] max-[768px]:max-w-full">
         <Reveal>
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-5">
-            War Desk Studio &mdash; EST. 2026
+            EST. 2026
           </div>
         </Reveal>
         <Reveal delay={0.12}>
