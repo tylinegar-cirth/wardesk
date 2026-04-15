@@ -76,10 +76,10 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      <div className="relative grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto] items-baseline gap-6 md:gap-14 py-[clamp(28px,4vw,56px)]">
+      <div className="relative grid grid-cols-[auto_1fr] items-baseline gap-6 md:gap-12 py-[clamp(18px,2.8vw,36px)]">
         {/* Number column */}
         <motion.span
-          className="font-mono text-[clamp(12px,1vw,14px)] tracking-[0.35em] self-start pt-[clamp(10px,1vw,16px)]"
+          className="font-mono text-[clamp(12px,1vw,14px)] tracking-[0.35em] self-start pt-[clamp(8px,0.8vw,14px)]"
           animate={{
             color: hovered ? "rgb(212,168,67)" : "rgba(212,168,67,0.55)",
           }}
@@ -92,7 +92,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         <motion.div animate={{ x: hovered ? 14 : 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
           <motion.h3
             className="font-serif font-normal leading-[0.94] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(40px,5.8vw,76px)" }}
+            style={{ fontSize: "clamp(36px,5.2vw,68px)" }}
             animate={{
               color: hovered ? "rgb(212,168,67)" : "rgb(var(--wd-text))",
             }}
@@ -101,7 +101,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
             {service.title}
           </motion.h3>
 
-          <div className="mt-4 flex flex-wrap gap-1.5">
+          <div className="mt-3 flex flex-wrap gap-1.5">
             {service.tags.map((tag, i) => (
               <span
                 key={tag}
@@ -124,18 +124,6 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
             ))}
           </div>
         </motion.div>
-
-        {/* Arrow — desktop only */}
-        <motion.span
-          className="font-mono text-[clamp(18px,1.5vw,22px)] hidden md:block self-center"
-          animate={{
-            x: hovered ? 18 : 0,
-            color: hovered ? "rgb(212,168,67)" : "rgba(212,168,67,0.45)",
-          }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          →
-        </motion.span>
       </div>
     </motion.div>
   );
@@ -149,7 +137,7 @@ export default function StudioServicesV3() {
   return (
     <section
       id="services"
-      className="relative py-[clamp(72px,11vw,130px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto overflow-hidden"
+      className="relative pt-[clamp(72px,11vw,130px)] pb-[clamp(36px,5vw,64px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto overflow-hidden"
     >
       <CornerBrackets
         size={24}

@@ -50,7 +50,7 @@ export default function StudioEcosystem() {
   return (
     <section
       id="ecosystem"
-      className="relative py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
+      className="relative pt-[clamp(20px,3vw,52px)] pb-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
     >
       <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
 

@@ -47,12 +47,20 @@ export default function StudioInterstitial() {
         }}
       />
 
-      {/* Symmetric melt — longer bottom fade so it bleeds into the section below */}
+      {/* Top fade into black */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.6) 10%, rgba(var(--wd-bg),0.1) 25%, rgba(var(--wd-bg),0.1) 55%, rgba(var(--wd-bg),0.35) 75%, rgba(var(--wd-bg),0.75) 92%, rgb(var(--wd-bg)) 100%)",
+            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.55) 10%, rgba(var(--wd-bg),0.1) 24%, transparent 35%)",
+        }}
+      />
+      {/* Bottom fade into black — long, gradual bleed into the section below */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent 48%, rgba(var(--wd-bg),0.1) 60%, rgba(var(--wd-bg),0.28) 72%, rgba(var(--wd-bg),0.52) 82%, rgba(var(--wd-bg),0.78) 92%, rgb(var(--wd-bg)) 100%)",
         }}
       />
 
