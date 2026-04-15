@@ -27,8 +27,8 @@ const services = [
   {
     id: "roadshow",
     label: "04",
-    title: "Roadshow & Booth",
-    tags: ["AUSA", "SOFIC", "Space Symposium", "Booth Design", "Video Walls"],
+    title: "Roadshow & Live Events",
+    tags: ["AUSA", "SOFIC", "LED Volume", "Keynote Production", "Launch Events"],
   },
   {
     id: "investor",
