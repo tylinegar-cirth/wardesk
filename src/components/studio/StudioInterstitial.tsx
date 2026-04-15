@@ -17,8 +17,15 @@ export default function StudioInterstitial() {
       className="relative h-[clamp(320px,42vh,520px)] w-full overflow-hidden"
       aria-hidden="true"
     >
-      {/* Parallax image — shifted up so dish top + snow both visible */}
-      <motion.div className="absolute inset-0 scale-110" style={{ y }}>
+      {/* Parallax image — scaled + origin-offset to crop the right-side building */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          y,
+          scale: 1.15,
+          transformOrigin: "40% 50%",
+        }}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/hero-radar.jpg"
@@ -40,12 +47,12 @@ export default function StudioInterstitial() {
         }}
       />
 
-      {/* Symmetric fades — image melts into black on both edges */}
+      {/* Symmetric melt — longer bottom fade so it bleeds into the section below */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.6) 10%, rgba(var(--wd-bg),0.1) 25%, rgba(var(--wd-bg),0.1) 75%, rgba(var(--wd-bg),0.6) 90%, rgb(var(--wd-bg)) 100%)",
+            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.6) 10%, rgba(var(--wd-bg),0.1) 25%, rgba(var(--wd-bg),0.1) 55%, rgba(var(--wd-bg),0.35) 75%, rgba(var(--wd-bg),0.75) 92%, rgb(var(--wd-bg)) 100%)",
         }}
       />
 
