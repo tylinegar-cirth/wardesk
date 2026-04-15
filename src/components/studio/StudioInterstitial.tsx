@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import CornerBrackets from "@/components/ui/CornerBrackets";
 
 export default function StudioInterstitial() {
   const ref = useRef<HTMLDivElement>(null);
@@ -10,12 +9,12 @@ export default function StudioInterstitial() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
     <section
       ref={ref}
-      className="relative h-[62vh] min-h-[480px] w-full overflow-hidden"
+      className="relative h-[clamp(200px,28vh,300px)] w-full overflow-hidden"
       aria-hidden="true"
     >
       {/* Parallax image with subtle grade */}
@@ -31,7 +30,7 @@ export default function StudioInterstitial() {
         />
       </motion.div>
 
-      {/* Warm gold multiply tint — pushes it into palette */}
+      {/* Warm gold multiply tint */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -45,29 +44,20 @@ export default function StudioInterstitial() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.35) 18%, rgba(var(--wd-bg),0.3) 82%, rgb(var(--wd-bg)) 100%)",
+            "linear-gradient(180deg, rgb(var(--wd-bg)) 0%, rgba(var(--wd-bg),0.15) 25%, rgba(var(--wd-bg),0.15) 75%, rgb(var(--wd-bg)) 100%)",
         }}
       />
 
-      {/* Subtle vignette */}
+      {/* Grain */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)",
-        }}
-      />
-
-      {/* Film grain */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.13] mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.12] mix-blend-overlay"
         style={{
           backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`,
           backgroundSize: "240px 240px",
         }}
       />
 
-      {/* HUD overlay — SVG, desktop only */}
+      {/* HUD — ring + crosshair only, tracks the image crop */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
         viewBox="0 0 2593 1527"
@@ -79,15 +69,13 @@ export default function StudioInterstitial() {
           fill="none"
           vectorEffect="non-scaling-stroke"
         >
-          {/* Outer range ring around dish position */}
           <circle
             cx="1880"
             cy="770"
             r="300"
             strokeDasharray="10 16"
-            opacity="0.65"
+            opacity="0.7"
           />
-          {/* Inner ring */}
           <circle
             cx="1880"
             cy="770"
@@ -95,10 +83,8 @@ export default function StudioInterstitial() {
             strokeDasharray="3 12"
             opacity="0.5"
           />
-          {/* Crosshair arms */}
           <line x1="1820" y1="770" x2="1940" y2="770" />
           <line x1="1880" y1="710" x2="1880" y2="830" />
-          {/* Center pip */}
           <circle
             cx="1880"
             cy="770"
@@ -106,39 +92,10 @@ export default function StudioInterstitial() {
             fill="rgba(212,168,67,0.9)"
             stroke="none"
           />
-
-          {/* Horizon reference line + tick marks */}
-          <line
-            x1="180"
-            y1="1080"
-            x2="2420"
-            y2="1080"
-            strokeWidth="1.5"
-            opacity="0.28"
-          />
-          {Array.from({ length: 13 }).map((_, i) => (
-            <line
-              key={i}
-              x1={180 + i * 186}
-              y1="1068"
-              x2={180 + i * 186}
-              y2="1092"
-              strokeWidth="1.5"
-              opacity="0.38"
-            />
-          ))}
-
-          {/* Leader line from dish crosshair → top-right readout area */}
-          <path
-            d="M 2180 770 L 2300 560 L 2440 560"
-            strokeWidth="1.5"
-            opacity="0.5"
-            strokeDasharray="2 6"
-          />
         </g>
       </svg>
 
-      {/* Radar sweep — horizontal line traversing the section */}
+      {/* Radar sweep */}
       <motion.div
         className="absolute left-0 right-0 h-[2px] pointer-events-none hidden md:block"
         style={{
@@ -149,68 +106,12 @@ export default function StudioInterstitial() {
         }}
         animate={{ top: ["-2%", "102%"] }}
         transition={{
-          duration: 7,
+          duration: 5,
           repeat: Infinity,
           ease: "linear",
-          repeatDelay: 1.5,
+          repeatDelay: 1,
         }}
       />
-
-      <CornerBrackets
-        size={30}
-        inset={20}
-        color="rgba(212,168,67,0.75)"
-        strokeWidth={1.25}
-      />
-
-      {/* ─── Text overlays ─── */}
-
-      {/* Top-left — station label */}
-      <div className="absolute top-[clamp(32px,5vw,64px)] left-[clamp(24px,5vw,72px)] z-[2]">
-        <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/80 leading-[1.8]">
-          Station // 04
-          <br />
-          <span className="text-wd-muted">Forward Observation</span>
-        </div>
-      </div>
-
-      {/* Top-right — target readout (connects to leader line) */}
-      <div className="absolute top-[clamp(32px,5vw,64px)] right-[clamp(24px,5vw,72px)] z-[2] text-right hidden md:block">
-        <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/85 leading-[1.9]">
-          Target // 01
-          <br />
-          <span className="text-wd-muted">Bearing 284°</span>
-          <br />
-          <span className="text-wd-muted">Range 2.4 km</span>
-          <br />
-          <span className="text-wd-gold/70">Signal // Nominal</span>
-        </div>
-      </div>
-
-      {/* Bottom-left — transmit indicator */}
-      <div className="absolute bottom-[clamp(32px,5vw,64px)] left-[clamp(24px,5vw,72px)] z-[2]">
-        <div className="flex items-center gap-2.5">
-          <motion.span
-            className="block w-1.5 h-1.5 rounded-full bg-wd-gold"
-            animate={{ opacity: [1, 0.25, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/80 leading-[1.8]">
-            Transmit // Live
-            <br />
-            <span className="text-wd-muted">04:17:22 UTC</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom-right — coordinates */}
-      <div className="absolute bottom-[clamp(32px,5vw,64px)] right-[clamp(24px,5vw,72px)] z-[2] text-right">
-        <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/80 leading-[1.8]">
-          N 68°24&apos;18&quot;
-          <br />
-          <span className="text-wd-muted">W 133°29&apos;12&quot;</span>
-        </div>
-      </div>
     </section>
   );
 }
