@@ -32,7 +32,12 @@ export default function StudioHero() {
 
       {/* Technical readout — upper right */}
       <div className="absolute top-[clamp(40px,5vw,72px)] right-[clamp(40px,5vw,80px)] z-[4] hidden md:block text-right">
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-gold/70 leading-[1.8]">
+          N 33°55&apos;09&quot;
+          <br />
+          W 118°24&apos;59&quot;
+        </div>
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8] mt-3">
           Section // 01
           <br />
           <span className="text-wd-gold/80">Broadcast</span>
