@@ -7,6 +7,7 @@ import StudioServicesV3 from "@/components/studio/StudioServicesV3";
 import StudioEcosystem from "@/components/studio/StudioEcosystem";
 import StudioBrands from "@/components/studio/StudioBrands";
 import StudioTeamV2 from "@/components/studio/StudioTeamV2";
+import StudioRoundTable from "@/components/studio/StudioRoundTable";
 import StudioInterstitial from "@/components/studio/StudioInterstitial";
 import StudioContact from "@/components/studio/StudioContact";
 import StudioFooter from "@/components/studio/StudioFooter";
@@ -20,6 +21,7 @@ export default function StudioPage() {
       <StudioServicesV3 />
       <StudioBrands />
       <StudioTeamV2 />
+      <StudioRoundTable />
       <StudioInterstitial />
       <StudioEcosystem />
       <StudioContact />
