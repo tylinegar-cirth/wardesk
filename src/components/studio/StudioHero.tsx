@@ -30,14 +30,9 @@ export default function StudioHero() {
     <section className="relative h-screen flex items-end overflow-hidden max-[768px]:h-[100svh]">
       <CornerBrackets size={36} inset={24} color="rgba(212,168,67,0.85)" strokeWidth={1.25} />
 
-      {/* Technical readout — upper right */}
-      <div className="absolute top-[clamp(40px,5vw,72px)] right-[clamp(40px,5vw,80px)] z-[4] hidden md:block text-right">
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-gold/70 leading-[1.8]">
-          N 33°55&apos;09&quot;
-          <br />
-          W 118°24&apos;59&quot;
-        </div>
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8] mt-3">
+      {/* Section label only — coordinates moved to global StudioCoordinates element */}
+      <div className="absolute top-[clamp(40px,5vw,72px)] left-[clamp(40px,5vw,80px)] z-[4] hidden md:block">
+        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
           Section // 01
           <br />
           <span className="text-wd-gold/80">Broadcast</span>

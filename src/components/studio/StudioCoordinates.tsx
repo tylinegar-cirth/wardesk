@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useScroll } from "framer-motion";
+import { useState } from "react";
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 
-/* Base position — El Segundo (matches hero easter egg + footer payoff) */
+/* Base position — El Segundo (matches the hero easter egg + footer payoff) */
 const BASE_LAT = 33.918;
 const BASE_LNG = -118.417;
 
@@ -28,47 +32,36 @@ function formatDMS(value: number, type: "lat" | "lng"): string {
 export default function StudioCoordinates() {
   const { scrollY } = useScroll();
   const [pos, setPos] = useState({ lat: BASE_LAT, lng: BASE_LNG });
-  const [opacity, setOpacity] = useState(0);
 
-  useEffect(() => {
-    const unsubscribe = scrollY.on("change", (latest) => {
-      // Drift coordinates with scroll
-      const lat = BASE_LAT - latest * LAT_DRIFT_PER_PX;
-      const lng = BASE_LNG + latest * LNG_DRIFT_PER_PX;
-      setPos({ lat, lng });
-
-      // Fade in once we've scrolled past the hero (~600px) so we don't
-      // collide with the static coordinates inside the hero block
-      if (latest > 600) {
-        setOpacity(Math.min((latest - 600) / 200, 0.95));
-      } else {
-        setOpacity(0);
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const lat = BASE_LAT - latest * LAT_DRIFT_PER_PX;
+    const lng = BASE_LNG + latest * LNG_DRIFT_PER_PX;
+    setPos({ lat, lng });
+  });
 
   return (
-    <div
-      className="fixed top-[88px] right-[24px] z-[40] hidden lg:block pointer-events-none transition-opacity duration-300"
-      style={{ opacity }}
+    <motion.div
+      className="fixed top-[84px] right-[28px] z-[60] hidden md:block pointer-events-none"
       aria-hidden="true"
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="text-right">
-        <div className="font-mono text-[8px] tracking-[0.4em] uppercase text-wd-gold/80 mb-1.5 flex items-center justify-end gap-2">
+        <div className="font-mono text-[9px] tracking-[0.4em] uppercase text-wd-gold mb-2 flex items-center justify-end gap-2.5">
           <motion.span
-            className="block w-1 h-1 rounded-full bg-wd-gold"
-            animate={{ opacity: [1, 0.25, 1] }}
+            className="block w-1.5 h-1.5 rounded-full bg-wd-gold"
+            animate={{ opacity: [1, 0.2, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
           Transmitting
         </div>
-        <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.7] tabular-nums">
+        <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-wd-text/75 leading-[1.8] tabular-nums">
           {formatDMS(pos.lat, "lat")}
           <br />
           {formatDMS(pos.lng, "lng")}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
