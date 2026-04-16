@@ -123,15 +123,21 @@ export default function StudioEcosystem() {
         </div>
       </Reveal>
 
-      {/* Company grid — typography only, no card chrome, top borders for rhythm */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 lg:gap-x-14">
+      {/* Company grid — typography only, no card chrome, hover halo defines unit */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20">
         {visible.map((company, i) => (
           <Reveal key={company.name} delay={0.02 * Math.min(i, 6)}>
-            <article className="py-7 border-t border-wd-gold/15 group h-full flex flex-col">
+            <article className="relative py-7 border-t border-wd-gold/15 group h-full flex flex-col cursor-default isolate">
+              {/* Hover halo — appears on hover to define each cell as a unit */}
+              <span
+                aria-hidden="true"
+                className="absolute top-[1px] bottom-0 -left-4 -right-4 rounded-md bg-wd-gold/0 border border-wd-gold/0 group-hover:bg-wd-gold/[0.04] group-hover:border-wd-gold/25 transition-all duration-500 pointer-events-none -z-[1]"
+              />
+
               {/* Name + sector */}
               <div className="mb-5">
                 <div className="flex items-baseline gap-2">
-                  <h3 className="font-serif text-[clamp(20px,1.7vw,24px)] font-normal text-wd-text leading-[1.15] group-hover:text-wd-gold transition-colors duration-500">
+                  <h3 className="font-serif text-[clamp(18px,1.5vw,22px)] font-normal text-wd-text leading-[1.15] group-hover:text-wd-gold transition-colors duration-500">
                     {company.name}
                   </h3>
                   {company.trending && (

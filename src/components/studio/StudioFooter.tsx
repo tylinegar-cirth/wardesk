@@ -58,9 +58,9 @@ export default function StudioFooter() {
             </p>
           </div>
 
-          {/* Nav columns */}
+          {/* Nav columns — desktop/tablet only, hidden on mobile (use hamburger nav) */}
           {studioCols.map((col) => (
-            <div key={col.label}>
+            <div key={col.label} className="hidden md:block">
               <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-wd-gold/70 mb-4">
                 {col.label}
               </div>
