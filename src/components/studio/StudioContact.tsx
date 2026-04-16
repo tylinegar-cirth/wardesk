@@ -96,14 +96,14 @@ export default function StudioContact() {
     >
       <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
 
-      {/* Big atmospheric logo, top-right — bleeds slightly off the edge */}
+      {/* Big atmospheric logo, top-right — fully inside the section, sits below the SECTION label */}
       <div
         className="absolute pointer-events-none hidden md:block z-[0]"
         style={{
-          top: "clamp(-40px, -3vw, -20px)",
-          right: "clamp(-60px, -4vw, -30px)",
-          width: "clamp(280px, 32vw, 460px)",
-          height: "clamp(280px, 32vw, 460px)",
+          top: "clamp(48px, 5vw, 88px)",
+          right: "clamp(20px, 2.5vw, 48px)",
+          width: "clamp(260px, 28vw, 420px)",
+          height: "clamp(260px, 28vw, 420px)",
         }}
         aria-hidden="true"
       >
