@@ -80,7 +80,7 @@ export default function AdvisorModal({
           exit={{ opacity: 0, y: 24, scale: 0.97 }}
           transition={{ duration: 0.45, ease: [0.34, 1.56, 0.64, 1] }}
           onClick={(e) => e.stopPropagation()}
-          className="w-full max-w-[720px] max-h-[90vh] bg-wd-surface border border-wd-border rounded-[20px] overflow-auto shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(var(--wd-overlay),0.04)] max-[768px]:rounded-2xl"
+          className="w-full max-w-[720px] max-h-[90vh] bg-wd-surface border border-wd-border rounded-[20px] overflow-auto shadow-[0_32px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgb(var(--wd-overlay)/0.04)] max-[768px]:rounded-2xl"
         >
           {/* Header */}
           <div className="flex border-b border-wd-border max-[768px]:flex-col">

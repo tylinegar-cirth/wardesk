@@ -48,7 +48,7 @@ export default function LandingPage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg,rgba(var(--wd-bg),0.5) 0%,rgba(var(--wd-bg),0.2) 30%,rgba(var(--wd-bg),0.2) 60%,rgba(var(--wd-bg),0.7) 100%)",
+                "linear-gradient(180deg,rgb(var(--wd-bg) / 0.5) 0%,rgb(var(--wd-bg) / 0.2) 30%,rgb(var(--wd-bg) / 0.2) 60%,rgb(var(--wd-bg) / 0.7) 100%)",
             }}
           />
         </div>

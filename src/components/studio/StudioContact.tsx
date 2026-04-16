@@ -26,12 +26,34 @@ export default function StudioContact() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
-    await supabase.from("contact_submissions").insert({
-      name: form.name,
-      email: form.email,
-      message: `[${form.company}] ${form.message}`,
-      source: "studio_contact",
-    });
+    // Run Supabase insert + Formsubmit email notification in parallel.
+    // Neither throws — both settle so the user always sees a success state.
+    await Promise.allSettled([
+      supabase.from("contact_submissions").insert({
+        name: form.name,
+        email: form.email,
+        message: `[${form.company}] ${form.message}`,
+        source: "studio_contact",
+      }),
+      fetch("https://formsubmit.co/ajax/ty@thewardesk.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New Studio contact: ${form.name}${form.company ? ` (${form.company})` : ""}`,
+          _template: "table",
+          _captcha: "false",
+          _replyto: form.email,
+          Name: form.name,
+          Email: form.email,
+          Company: form.company || "—",
+          Message: form.message,
+          Source: "War Desk Studio — Contact form",
+        }),
+      }),
+    ]);
     setSubmitting(false);
     setSubmitted(true);
   }
@@ -40,9 +62,26 @@ export default function StudioContact() {
     e.preventDefault();
     if (!deckEmail.trim()) return;
     setDeckSubmitting(true);
-    await supabase.from("deck_downloads").insert({
-      email: deckEmail.trim(),
-    });
+    await Promise.allSettled([
+      supabase.from("deck_downloads").insert({
+        email: deckEmail.trim(),
+      }),
+      fetch("https://formsubmit.co/ajax/ty@thewardesk.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `Studio Deck download: ${deckEmail.trim()}`,
+          _template: "table",
+          _captcha: "false",
+          _replyto: deckEmail.trim(),
+          Email: deckEmail.trim(),
+          Source: "War Desk Studio — Deck download",
+        }),
+      }),
+    ]);
     setDeckSubmitting(false);
     setDeckUnlocked(true);
   }
