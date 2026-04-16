@@ -185,7 +185,7 @@ export default function StudioServicesV3() {
             className="font-mono text-[clamp(13px,1.05vw,15px)] tracking-[0.45em] uppercase font-bold text-wd-gold/55 whitespace-nowrap"
             style={{ writingMode: "vertical-rl" }}
           >
-            // 02 &mdash; Capabilities
+            {"// 02 \u2014 Capabilities"}
           </div>
         </div>
 
