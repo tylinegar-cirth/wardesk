@@ -92,12 +92,40 @@ export default function StudioContact() {
   return (
     <section
       id="contact"
-      className="relative py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
+      className="relative py-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto overflow-hidden"
     >
       <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
 
+      {/* Big atmospheric logo, top-right — bleeds slightly off the edge */}
+      <div
+        className="absolute pointer-events-none hidden md:block z-[0]"
+        style={{
+          top: "clamp(-40px, -3vw, -20px)",
+          right: "clamp(-60px, -4vw, -30px)",
+          width: "clamp(280px, 32vw, 460px)",
+          height: "clamp(280px, 32vw, 460px)",
+        }}
+        aria-hidden="true"
+      >
+        {/* Soft gold radial glow behind the mark */}
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(212,168,67,0.14) 0%, rgba(212,168,67,0.04) 45%, transparent 70%)",
+          }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-gold.png"
+          alt=""
+          className="relative w-full h-full object-contain opacity-[0.18]"
+          style={{ filter: "drop-shadow(0 0 32px rgba(212,168,67,0.25))" }}
+        />
+      </div>
+
       <Reveal>
-        <div className="relative mb-10 flex items-start justify-between gap-8">
+        <div className="relative mb-10 flex items-start justify-between gap-8 z-[1]">
           <div className="flex-1 max-w-[680px]">
             <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
               Get Started
@@ -111,7 +139,7 @@ export default function StudioContact() {
               actually lands? Tell us what you&apos;re working on.
             </p>
           </div>
-          <div className="hidden md:block pt-1 text-right">
+          <div className="hidden md:block pt-1 text-right relative z-[2]">
             <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
               Section // 05
               <br />

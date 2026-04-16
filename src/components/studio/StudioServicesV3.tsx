@@ -76,10 +76,10 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      <div className="relative grid grid-cols-[auto_1fr] items-baseline gap-6 md:gap-12 py-[clamp(18px,2.8vw,36px)]">
-        {/* Number column */}
+      <div className="relative grid grid-cols-[auto_1fr] items-baseline gap-4 md:gap-7 py-[clamp(14px,2vw,28px)]">
+        {/* Number column — smaller, more marginal */}
         <motion.span
-          className="font-mono text-[clamp(12px,1vw,14px)] tracking-[0.35em] self-start pt-[clamp(8px,0.8vw,14px)]"
+          className="font-mono text-[clamp(10px,0.85vw,12px)] tracking-[0.35em] self-start pt-[clamp(10px,1.1vw,18px)]"
           animate={{
             color: hovered ? "rgb(212,168,67)" : "rgba(212,168,67,0.55)",
           }}
@@ -92,7 +92,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         <motion.div animate={{ x: hovered ? 14 : 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
           <motion.h3
             className="font-serif font-normal leading-[0.94] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(36px,5.2vw,68px)" }}
+            style={{ fontSize: "clamp(40px,5.6vw,76px)" }}
             animate={{
               color: hovered ? "rgb(212,168,67)" : "rgb(var(--wd-text))",
             }}
@@ -174,12 +174,28 @@ export default function StudioServicesV3() {
         </div>
       </motion.div>
 
-      {/* Service list — 5 editorial rows, closing border at bottom */}
+      {/* Service list with vertical left rail */}
       <div className="relative">
-        {services.map((service, i) => (
-          <ServiceRow key={service.id} service={service} index={i} />
-        ))}
-        <div className="border-t border-wd-gold/25" />
+        {/* Left rail wordmark — desktop only, anchors the list */}
+        <div
+          className="absolute -left-2 top-0 bottom-0 hidden lg:flex items-center justify-center pointer-events-none"
+          aria-hidden="true"
+        >
+          <div
+            className="font-mono text-[clamp(13px,1.05vw,15px)] tracking-[0.45em] uppercase font-bold text-wd-gold/55 whitespace-nowrap"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            // 02 &mdash; Capabilities
+          </div>
+        </div>
+
+        {/* Rows — pushed right to make room for the rail on lg+ */}
+        <div className="lg:pl-14">
+          {services.map((service, i) => (
+            <ServiceRow key={service.id} service={service} index={i} />
+          ))}
+          <div className="border-t border-wd-gold/25" />
+        </div>
       </div>
     </section>
   );
