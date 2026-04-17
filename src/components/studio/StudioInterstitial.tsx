@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 export default function StudioInterstitial() {
   const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.15 });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -12,10 +13,13 @@ export default function StudioInterstitial() {
   const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   return (
-    <section
+    <motion.section
       ref={ref}
       className="relative h-[clamp(320px,42vh,520px)] w-full overflow-hidden"
       aria-hidden="true"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Parallax image — scaled + origin-offset to crop the right-side building */}
       <motion.div
@@ -90,6 +94,6 @@ export default function StudioInterstitial() {
           repeatDelay: 1,
         }}
       />
-    </section>
+    </motion.section>
   );
 }

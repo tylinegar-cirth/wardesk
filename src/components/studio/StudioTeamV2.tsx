@@ -56,11 +56,11 @@ function TeamCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 35 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+      initial={{ opacity: 0, y: 48 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
       transition={{
-        duration: 0.8,
-        delay: index * 0.12,
+        duration: 1.15,
+        delay: index * 0.14,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -122,9 +122,9 @@ export default function StudioTeamV2() {
         <motion.div
           ref={headerRef}
           className="relative mb-14 flex items-start justify-between gap-8"
-          initial={{ opacity: 0, y: 24 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 36 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="relative flex-1 max-w-[680px]">
             <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">

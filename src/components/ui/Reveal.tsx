@@ -15,17 +15,17 @@ export default function Reveal({ children, delay = 0, className = "", scale = fa
     <motion.div
       initial={{
         opacity: 0,
-        y: scale ? 40 : 28,
-        scale: scale ? 0.95 : 1,
+        y: scale ? 52 : 40,
+        scale: scale ? 0.94 : 1,
       }}
       whileInView={{
         opacity: 1,
         y: 0,
         scale: 1,
       }}
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: scale ? 1 : 0.8,
+        duration: scale ? 1.3 : 1.1,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}

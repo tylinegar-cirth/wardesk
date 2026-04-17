@@ -55,11 +55,11 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
     <motion.div
       ref={ref}
       className="relative border-t border-wd-gold/25 cursor-default"
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 44 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 44 }}
       transition={{
-        duration: 0.9,
-        delay: index * 0.08,
+        duration: 1.1,
+        delay: index * 0.09,
         ease: [0.16, 1, 0.3, 1],
       }}
       onMouseEnter={() => setHovered(true)}
@@ -150,9 +150,9 @@ export default function StudioServicesV3() {
       <motion.div
         ref={headerRef}
         className="relative mb-8 md:mb-10 flex items-start justify-between gap-8"
-        initial={{ opacity: 0, y: 24 }}
-        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: 36 }}
+        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="relative flex-1 max-w-[680px]">
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
