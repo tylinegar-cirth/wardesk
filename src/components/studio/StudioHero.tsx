@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 
@@ -120,15 +121,40 @@ export default function StudioHero() {
         </Reveal>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center gap-2 animate-wd-bounce">
-        <div
-          className="w-px h-8"
-          style={{
-            background: "linear-gradient(transparent, rgb(var(--wd-muted)))",
-          }}
-        />
-      </div>
+      {/* Scroll indicator — gold line-plus-chevron that pulses + bounces. Fades out on scroll. */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[3] pointer-events-none transition-opacity duration-500"
+        style={{ opacity: Math.max(0, 1 - scrollY / 180) }}
+        animate={{ y: [0, 5, 0] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <motion.svg
+          width="16"
+          height="38"
+          viewBox="0 0 16 38"
+          fill="none"
+          className="text-wd-gold"
+          animate={{ opacity: [1, 0.45, 1] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <line
+            x1="8"
+            y1="1"
+            x2="8"
+            y2="28"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+          />
+          <path
+            d="M1 28L8 35L15 28"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </motion.svg>
+      </motion.div>
     </section>
   );
 }
