@@ -1,11 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import {
-  motion,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 /* Base position — El Segundo (matches the hero easter egg + footer payoff) */
 const BASE_LAT = 33.918;
@@ -30,38 +26,88 @@ function formatDMS(value: number, type: "lat" | "lng"): string {
 }
 
 export default function StudioCoordinates() {
-  const { scrollY } = useScroll();
+  const [mounted, setMounted] = useState(false);
   const [pos, setPos] = useState({ lat: BASE_LAT, lng: BASE_LNG });
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const lat = BASE_LAT - latest * LAT_DRIFT_PER_PX;
-    const lng = BASE_LNG + latest * LNG_DRIFT_PER_PX;
-    setPos({ lat, lng });
-  });
+  useEffect(() => {
+    setMounted(true);
+    function update() {
+      const y = window.scrollY;
+      setPos({
+        lat: BASE_LAT - y * LAT_DRIFT_PER_PX,
+        lng: BASE_LNG + y * LNG_DRIFT_PER_PX,
+      });
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
-  return (
-    <motion.div
-      className="fixed top-[84px] right-[28px] z-[60] hidden md:block pointer-events-none"
+  if (!mounted) return null;
+
+  /* Portal directly to <body> so we escape .wd-app's
+     `position: relative; z-index: 1` global child override. */
+  return createPortal(
+    <div
+      className="hidden md:block"
+      style={{
+        position: "fixed",
+        top: "84px",
+        right: "28px",
+        zIndex: 90,
+        pointerEvents: "none",
+        textAlign: "right",
+      }}
       aria-hidden="true"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="text-right">
-        <div className="font-mono text-[9px] tracking-[0.4em] uppercase text-wd-gold mb-2 flex items-center justify-end gap-2.5">
-          <motion.span
-            className="block w-1.5 h-1.5 rounded-full bg-wd-gold"
-            animate={{ opacity: [1, 0.2, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-          Transmitting
-        </div>
-        <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-wd-text/75 leading-[1.8] tabular-nums">
-          {formatDMS(pos.lat, "lat")}
-          <br />
-          {formatDMS(pos.lng, "lng")}
-        </div>
+      <div
+        style={{
+          fontFamily: "var(--font-mono, ui-monospace, monospace)",
+          fontSize: "9px",
+          letterSpacing: "0.4em",
+          textTransform: "uppercase",
+          color: "rgb(212,168,67)",
+          marginBottom: "8px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: "10px",
+        }}
+      >
+        <span
+          style={{
+            display: "block",
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            background: "rgb(212,168,67)",
+            animation: "wdCoordPulse 2s ease-in-out infinite",
+          }}
+        />
+        Transmitting
       </div>
-    </motion.div>
+      <div
+        style={{
+          fontFamily: "var(--font-mono, ui-monospace, monospace)",
+          fontSize: "10px",
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+          color: "rgba(244,244,245,0.78)",
+          lineHeight: 1.8,
+          fontVariantNumeric: "tabular-nums",
+        }}
+      >
+        {formatDMS(pos.lat, "lat")}
+        <br />
+        {formatDMS(pos.lng, "lng")}
+      </div>
+      <style>{`
+        @keyframes wdCoordPulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.2; }
+        }
+      `}</style>
+    </div>,
+    document.body
   );
 }
