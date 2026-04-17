@@ -68,17 +68,17 @@ export default function StudioBrands() {
           src="/brands-reel.mp4"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block z-[0]"
           style={{
-            filter: "contrast(1.05) brightness(0.55) saturate(0.78)",
+            filter: "contrast(1.05) brightness(0.72) saturate(0.82)",
           }}
           onError={() => setVideoFailed(true)}
         />
       )}
 
-      {/* Heavy darkening overlay so brand names stay readable */}
+      {/* Darkening overlay so brand names stay readable */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none hidden md:block"
         style={{
-          background: "rgba(0,0,0,0.55)",
+          background: "rgba(0,0,0,0.4)",
         }}
       />
       {/* Warm gold multiply tint matching the rest of the page */}
@@ -94,7 +94,7 @@ export default function StudioBrands() {
         className="absolute inset-0 z-[1] pointer-events-none hidden md:block"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at center, rgba(0,0,0,0.5) 0%, transparent 80%)",
+            "radial-gradient(ellipse 70% 50% at center, rgba(0,0,0,0.35) 0%, transparent 80%)",
         }}
       />
 
