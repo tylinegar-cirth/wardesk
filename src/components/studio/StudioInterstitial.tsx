@@ -52,10 +52,9 @@ export default function StudioInterstitial() {
           <img
             src="/hero-radar.jpg"
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[72%_40%] md:object-[center_35%]"
             style={{
               filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
-              objectPosition: "center 35%",
             }}
           />
         ) : (
