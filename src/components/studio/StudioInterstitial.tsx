@@ -15,7 +15,7 @@ export default function StudioInterstitial() {
   return (
     <motion.section
       ref={ref}
-      className="relative h-[clamp(320px,42vh,520px)] w-full overflow-hidden"
+      className="relative h-[clamp(420px,52vh,560px)] md:h-[clamp(320px,42vh,520px)] w-full overflow-hidden"
       aria-hidden="true"
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : { opacity: 0 }}
