@@ -1,16 +1,33 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 export default function StudioInterstitial() {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
   const inView = useInView(ref, { once: true, amount: 0.15 });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+
+  // Detect autoplay failure (iOS Low Power Mode, prefers-reduced-motion, etc).
+  // On failure, fall back to the still image — never show a play button.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play().catch(() => setVideoFailed(true));
+    const handleVis = () => {
+      if (!document.hidden && videoRef.current) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", handleVis);
+    return () => document.removeEventListener("visibilitychange", handleVis);
+  }, []);
 
   return (
     <motion.section
@@ -30,21 +47,38 @@ export default function StudioInterstitial() {
           transformOrigin: "40% 50%",
         }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          aria-hidden="true"
-          poster="/hero-radar.jpg"
-          src="/hero-radar.mp4"
-          className="w-full h-full object-cover"
-          style={{
-            filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
-            objectPosition: "center 35%",
-          }}
-        />
+        {videoFailed ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src="/hero-radar.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+            style={{
+              filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
+              objectPosition: "center 35%",
+            }}
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            controls={false}
+            preload="auto"
+            aria-hidden="true"
+            poster="/hero-radar.jpg"
+            src="/hero-radar.mp4"
+            className="w-full h-full object-cover"
+            style={{
+              filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
+              objectPosition: "center 35%",
+            }}
+            onError={() => setVideoFailed(true)}
+          />
+        )}
       </motion.div>
 
       {/* Warm gold tint */}
