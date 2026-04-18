@@ -30,10 +30,15 @@ export default function StudioInterstitial() {
           transformOrigin: "40% 50%",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/hero-radar.jpg"
-          alt=""
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          disablePictureInPicture
+          aria-hidden="true"
+          poster="/hero-radar.jpg"
+          src="/hero-radar.mp4"
           className="w-full h-full object-cover"
           style={{
             filter: "contrast(1.12) brightness(0.82) saturate(0.78)",
