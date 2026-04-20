@@ -2,17 +2,16 @@
 
 import Link from "next/link";
 import FlagStripes from "@/components/ui/FlagStripes";
-import StatusDot from "@/components/ui/StatusDot";
 import MarqueeTicker from "@/components/ui/MarqueeTicker";
-import { LiveClock } from "@/components/ui/TechReadout";
 
 const studioCols = [
   {
     label: "Studio",
     links: [
-      { name: "Manifesto", href: "/studio/manifesto" },
-      { name: "Operators", href: "#team" },
-      { name: "The Radar", href: "#ecosystem" },
+      { name: "Capabilities", href: "#capabilities" },
+      { name: "Team", href: "#team" },
+      { name: "On Our Radar", href: "#ecosystem" },
+      { name: "Essays", href: "/studio/essays" },
     ],
   },
   {
@@ -69,16 +68,11 @@ export default function StudioFooter() {
                 </span>
               </span>
             </Link>
-            <p className="font-sans text-[13px] text-wd-sub leading-[1.65] max-w-[380px] mb-6">
+            <p className="font-sans text-[13px] text-wd-sub leading-[1.65] max-w-[380px]">
               The creative force behind Western capability. Campaigns, films,
               and experiences for the companies advancing hard tech, defense,
               and aerospace.
             </p>
-
-            <div className="flex items-center gap-4">
-              <StatusDot label="BROADCAST ACTIVE" tone="gold" />
-              <FlagStripes className="w-12 h-4" variant="gold" />
-            </div>
           </div>
 
           {/* Nav columns */}
@@ -114,30 +108,10 @@ export default function StudioFooter() {
             ))}
           </div>
         </div>
-
-        {/* Tech readout strip */}
-        <div className="mt-14 pt-6 border-t-2 border-wd-gold/30 grid grid-cols-2 md:grid-cols-4 gap-5 font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted">
-          <div>
-            <div className="text-wd-gold/70 mb-1">UNIT</div>
-            <div className="text-wd-text">STUDIO — 01</div>
-          </div>
-          <div>
-            <div className="text-wd-gold/70 mb-1">BASE</div>
-            <div className="text-wd-text">EL SEGUNDO, CA</div>
-          </div>
-          <div>
-            <div className="text-wd-gold/70 mb-1">COORDS</div>
-            <div className="text-wd-text">N 33°55&apos;09&quot; · W 118°24&apos;59&quot;</div>
-          </div>
-          <div>
-            <div className="text-wd-gold/70 mb-1">TIME</div>
-            <div className="text-wd-text"><LiveClock /></div>
-          </div>
-        </div>
       </div>
 
       {/* Oversized wordmark at footer bottom */}
-      <div className="px-[clamp(16px,4vw,72px)] pb-8">
+      <div className="px-[clamp(16px,4vw,72px)] pb-6">
         <div className="font-display text-[clamp(56px,16vw,220px)] text-wd-gold/20 uppercase leading-[0.86] tracking-[-0.04em] select-none" aria-hidden="true">
           WAR DESK
         </div>
@@ -147,14 +121,12 @@ export default function StudioFooter() {
       <div className="px-[clamp(16px,4vw,72px)] py-5 border-t border-wd-gold/25 max-w-[1600px] mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="font-mono text-[10px] tracking-[0.2em] text-wd-muted uppercase">
-            © 2026 War Desk Studio · <span className="text-wd-gold/70">All rights reserved</span>
+            © 2026 War Desk Studio
           </div>
 
-          <div className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted text-center flex items-center gap-2">
+          <div className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted flex items-center gap-2">
             <FlagStripes className="w-6 h-3" variant="gold" />
             <span className="text-wd-gold/80">Made in USA</span>
-            <span className="text-wd-gold/30">·</span>
-            <span>Continuous Operation</span>
           </div>
 
           <div className="font-mono text-[10px] tracking-[0.2em] text-wd-muted uppercase">

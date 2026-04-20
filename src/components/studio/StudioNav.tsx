@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Logo from "@/components/ui/Logo";
-import StatusDot from "@/components/ui/StatusDot";
 import { LiveClock } from "@/components/ui/TechReadout";
 
 const navLinks = [
-  { label: "Advisors", href: "/", soon: true },
-  { label: "Live", href: "/live", soon: true },
+  { label: "Work", href: "#capabilities" },
+  { label: "Team", href: "#team" },
+  { label: "Essays", href: "/studio/essays" },
 ];
 
 export default function StudioNav() {
@@ -35,24 +35,17 @@ export default function StudioNav() {
 
   return (
     <>
-      {/* ── Status strip — always visible, above nav ── */}
-      <div className="fixed top-0 left-0 right-0 z-[101] h-[22px] bg-wd-bg/95 backdrop-blur-xl border-b border-wd-border">
+      {/* ── Top status strip ── */}
+      <div className="fixed top-0 left-0 right-0 z-[101] h-[22px] bg-black/95 backdrop-blur-xl border-b border-wd-gold/20">
         <div className="h-full px-[clamp(16px,4vw,48px)] flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.24em]">
-          <div className="flex items-center gap-5 text-wd-muted">
-            <StatusDot label="BROADCAST ACTIVE" tone="gold" />
-            <span className="hidden md:inline">
-              N 33°55&apos;09&quot; W 118°24&apos;59&quot;
-            </span>
-            <span className="hidden lg:inline text-wd-gold/70">
-              / EL SEGUNDO, CA
-            </span>
+          <div className="flex items-center gap-4 text-wd-muted">
+            <span className="text-wd-gold">EST. 2026</span>
+            <span className="hidden sm:inline text-wd-gold/30">·</span>
+            <span className="hidden sm:inline">N 33°55&apos;09&quot; W 118°24&apos;59&quot;</span>
+            <span className="hidden md:inline text-wd-gold/30">·</span>
+            <span className="hidden md:inline">El Segundo, CA</span>
           </div>
-          <div className="flex items-center gap-5 text-wd-muted">
-            <span className="hidden sm:inline">OP //
-              <span className="text-wd-gold ml-1.5">WD-2026-01</span>
-            </span>
-            <LiveClock className="text-wd-gold" />
-          </div>
+          <LiveClock className="text-wd-gold" />
         </div>
       </div>
 
@@ -69,7 +62,7 @@ export default function StudioNav() {
                 background: "var(--wd-nav-bg)",
                 boxShadow: "var(--wd-nav-shadow)",
               }
-            : { background: "rgba(10,10,12,0.4)" }
+            : { background: "rgba(10,10,12,0.35)" }
         }
       >
         <Link
@@ -85,43 +78,35 @@ export default function StudioNav() {
               Studio
             </span>
           </span>
-          <span className="hidden md:flex font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted border-l border-wd-border pl-3 ml-1 leading-[1.3]">
-            EST / 2026
-            <br />
-            CA · USA
-          </span>
         </Link>
 
         <nav className="flex gap-6 items-center">
-          {navLinks.map((link) => {
-            const inner = (
-              <span className="flex items-center gap-1.5">
+          {navLinks.map((link) =>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.label}
+                href={link.href}
+                className="font-mono text-[10px] tracking-[0.16em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+              >
                 {link.label}
-                {link.soon && (
-                  <span className="font-mono text-[7px] tracking-[0.08em] uppercase text-wd-gold/80 border border-wd-gold/30 rounded-sm px-1 py-px leading-none">
-                    Soon
-                  </span>
-                )}
-              </span>
-            );
-            return (
+              </a>
+            ) : (
               <Link
                 key={link.label}
                 href={link.href}
                 className="font-mono text-[10px] tracking-[0.16em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
               >
-                {inner}
+                {link.label}
               </Link>
-            );
-          })}
+            )
+          )}
           <span className="hidden md:block">
             <ThemeToggle />
           </span>
           <a
-            href="#transmit"
+            href="#contact"
             className="font-mono text-[10px] tracking-[0.14em] uppercase py-[8px] px-[18px] bg-transparent text-wd-text font-bold rounded-none border border-wd-border transition-all duration-250 hover:border-wd-gold hover:text-wd-gold hidden md:inline-flex items-center gap-2"
           >
-            <span aria-hidden="true" className="h-1 w-1 bg-wd-gold rounded-full" />
             Contact
           </a>
           <Link
@@ -143,23 +128,29 @@ export default function StudioNav() {
 
       {menuOpen && (
         <div className="fixed top-[80px] left-0 right-0 bottom-0 z-[99] bg-wd-bg border-t border-wd-gold/30 py-8 px-6 flex flex-col gap-5 overflow-y-auto">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-display text-[28px] text-wd-text hover:text-wd-gold transition-colors uppercase leading-none tracking-tight flex items-center gap-3"
-            >
-              {link.label}
-              {link.soon && (
-                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-wd-gold/80 border border-wd-gold/30 rounded-sm px-2 py-[3px] leading-none">
-                  Soon
-                </span>
-              )}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-display text-[28px] text-wd-text hover:text-wd-gold transition-colors uppercase leading-none tracking-tight"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-display text-[28px] text-wd-text hover:text-wd-gold transition-colors uppercase leading-none tracking-tight"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <a
-            href="#transmit"
+            href="#contact"
             onClick={() => setMenuOpen(false)}
             className="font-display text-[28px] text-wd-text hover:text-wd-gold transition-colors uppercase leading-none tracking-tight"
           >
@@ -172,10 +163,7 @@ export default function StudioNav() {
           >
             Portal →
           </Link>
-          <div className="pt-4 border-t border-wd-border flex items-center justify-between">
-            <div className="font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted">
-              N 33°55&apos;09&quot; W 118°24&apos;59&quot;
-            </div>
+          <div className="pt-4 border-t border-wd-border">
             <ThemeToggle />
           </div>
         </div>

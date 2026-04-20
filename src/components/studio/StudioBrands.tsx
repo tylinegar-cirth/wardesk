@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
-import Bracket from "@/components/ui/Bracket";
-import StatusDot from "@/components/ui/StatusDot";
 
 const brands = [
   "Dept of War",
@@ -60,9 +58,9 @@ export default function StudioBrands() {
         />
       )}
 
-      {/* Overlays: dark + halftone + gold tint */}
+      {/* Overlays: dark + halftone */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-wd-bg/65" />
-      <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-30" />
+      <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-25" />
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
@@ -71,51 +69,31 @@ export default function StudioBrands() {
         }}
       />
 
-      {/* Top hairline */}
+      {/* Top + bottom hairlines */}
       <div className="absolute top-0 left-0 right-0 h-px bg-wd-gold/40 z-[2]" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-wd-gold/40 z-[2]" />
 
       <Reveal>
         <div className="relative z-[2] py-[clamp(72px,9vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto">
-          {/* Document-style header */}
-          <div className="grid grid-cols-12 gap-6 items-start mb-10">
-            <div className="col-span-12 md:col-span-8">
-              <div className="flex items-center gap-4 flex-wrap mb-4">
-                <Bracket variant="gold" size="sm">
-                  SECTION 03 // CREDITS
-                </Bracket>
-                <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-gold/70">
-                  FIELD TESTED — PAST LIVES
-                </span>
-              </div>
-              <h2
-                className="font-display text-[clamp(36px,6vw,88px)] uppercase leading-[0.92] tracking-[-0.025em] text-wd-bone"
-                style={{
-                  textShadow: "0 2px 18px rgba(0,0,0,0.8)",
-                }}
-              >
-                Defense discipline.
-                <br />
-                <span className="text-wd-gold italic font-serif normal-case tracking-[-0.01em]">
-                  Consumer craft.
-                </span>
-              </h2>
+          <div className="mb-10">
+            <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold mb-4">
+              03 / Credits
             </div>
-            <div className="col-span-12 md:col-span-4 md:text-right">
-              <div className="inline-flex flex-col gap-2 md:items-end">
-                <StatusDot label="CLEARED · ARCHIVE" tone="gold" />
-                <div className="font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted leading-[1.8]">
-                  <div>RECORD / 16 UNITS</div>
-                  <div>CLASS / MAJOR BRAND</div>
-                  <div className="text-wd-gold/90">
-                    EST. 2014 — 2026
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h2
+              className="font-display text-[clamp(34px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-bone"
+              style={{
+                textShadow: "0 2px 18px rgba(0,0,0,0.8)",
+              }}
+            >
+              Defense discipline.
+              <br />
+              <span className="text-wd-gold italic font-serif normal-case tracking-[-0.01em]">
+                Consumer craft.
+              </span>
+            </h2>
           </div>
 
-          {/* Brand names grid — editorial, column-broken */}
+          {/* Brand list — numbered editorial grid */}
           <div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-5 border-t border-wd-gold/30 pt-10"
             style={{
@@ -135,12 +113,6 @@ export default function StudioBrands() {
                 </span>
               </div>
             ))}
-          </div>
-
-          {/* Footer bar */}
-          <div className="mt-10 pt-5 border-t border-wd-gold/30 flex items-center justify-between font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted">
-            <span>{"// END CREDIT ARCHIVE"}</span>
-            <span className="text-wd-gold/80">CONTINUOUS OPERATION ▸</span>
           </div>
         </div>
       </Reveal>

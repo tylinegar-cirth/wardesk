@@ -51,16 +51,22 @@ export default function TechReadout({ lines, align = "left", className = "" }: P
   );
 }
 
-/* ── Live clock — useful for the nav status bar ── */
+/* ── Live clock — useful for the nav status bar ──
+   Renders empty on SSR to avoid hydration mismatch, populates on mount. */
 export function LiveClock({ className = "" }: { className?: string }) {
-  const [time, setTime] = useState<string>(() => formatUTC(new Date()));
+  const [time, setTime] = useState<string>("");
 
   useEffect(() => {
+    setTime(formatUTC(new Date()));
     const i = setInterval(() => setTime(formatUTC(new Date())), 1000);
     return () => clearInterval(i);
   }, []);
 
-  return <span className={className}>{time}</span>;
+  return (
+    <span className={className} suppressHydrationWarning>
+      {time || "\u00A0"}
+    </span>
+  );
 }
 
 function formatUTC(d: Date) {
