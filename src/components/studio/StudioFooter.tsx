@@ -1,117 +1,167 @@
 "use client";
 
 import Link from "next/link";
+import FlagStripes from "@/components/ui/FlagStripes";
+import StatusDot from "@/components/ui/StatusDot";
+import MarqueeTicker from "@/components/ui/MarqueeTicker";
+import { LiveClock } from "@/components/ui/TechReadout";
 
-/* ─── Footer nav data ─── */
 const studioCols = [
   {
     label: "Studio",
     links: [
       { name: "Manifesto", href: "/studio/manifesto" },
-      { name: "Team", href: "#team" },
-      { name: "Companies", href: "#ecosystem" },
+      { name: "Operators", href: "#team" },
+      { name: "The Radar", href: "#ecosystem" },
     ],
   },
   {
     label: "Capabilities",
     links: [
-      { name: "Brand Films", href: "#services" },
-      { name: "Content Production", href: "#services" },
-      { name: "Campaigns", href: "#services" },
-      { name: "Roadshow & Live Events", href: "#services" },
-      { name: "Investor Content", href: "#services" },
+      { name: "Narrative & Voice", href: "#capabilities" },
+      { name: "Embedded Creative", href: "#capabilities" },
+      { name: "Campaigns & Films", href: "#capabilities" },
+      { name: "Roadshow & Live Events", href: "#capabilities" },
     ],
   },
   {
     label: "Connect",
     links: [
       { name: "ty@thewardesk.com", href: "mailto:ty@thewardesk.com" },
-      { name: "Client Portal", href: "/studio/login" },
+      { name: "Client Portal →", href: "/studio/login" },
       { name: "The War Desk →", href: "/" },
     ],
   },
 ];
 
+const footerTickerItems = [
+  <span key="1" className="font-display text-wd-bone text-[clamp(40px,6vw,80px)] leading-none tracking-[-0.02em] uppercase">War Desk Studio</span>,
+  <span key="2" className="font-serif italic text-wd-gold text-[clamp(40px,6vw,80px)] leading-none tracking-[-0.01em]">Business is War.</span>,
+  <span key="3" className="font-display text-wd-bone/40 text-[clamp(40px,6vw,80px)] leading-none tracking-[-0.02em] uppercase">We Forge Your Legend</span>,
+  <span key="4" className="font-serif italic text-wd-gold/70 text-[clamp(40px,6vw,80px)] leading-none tracking-[-0.01em]">For the companies advancing Western capability.</span>,
+];
+
 export default function StudioFooter() {
   return (
-    <footer className="relative border-t border-wd-border mt-4">
-      {/* ─── Nav columns ─── */}
-      <div className="px-[clamp(20px,5vw,72px)] pt-[clamp(48px,7vw,88px)] pb-[clamp(32px,4vw,56px)] max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
+    <footer className="relative border-t border-wd-gold/40 mt-4 bg-wd-bg overflow-hidden">
+      {/* Giant ticker banner */}
+      <div className="py-6 border-b border-wd-gold/25">
+        <MarqueeTicker items={footerTickerItems} speed="normal" divider="◆" />
+      </div>
+
+      {/* Main footer body */}
+      <div className="px-[clamp(16px,4vw,72px)] pt-[clamp(48px,7vw,88px)] pb-[clamp(32px,4vw,56px)] max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
           {/* Brand block */}
-          <div className="md:col-span-1">
+          <div className="md:col-span-5">
             <Link
               href="/studio"
-              className="inline-flex items-center gap-2.5 mb-4"
+              className="inline-flex items-center gap-3 mb-5"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-gold.png" alt="" className="h-7 w-auto" />
-              <span className="font-mono text-[11px] font-bold tracking-[0.3em] uppercase text-wd-text">
-                War Desk{" "}
-                <span className="text-wd-gold">Studio</span>
+              <img src="/logo-gold.png" alt="" className="h-10 w-auto" />
+              <span className="flex items-center gap-2">
+                <span className="font-mono text-[11px] font-bold tracking-[0.3em] uppercase text-wd-text leading-none">
+                  War Desk
+                </span>
+                <span className="font-mono text-[11px] font-bold tracking-[0.3em] uppercase text-wd-gold leading-none">
+                  Studio
+                </span>
               </span>
             </Link>
-            <p className="font-sans text-[12px] text-wd-sub leading-[1.65] max-w-[260px]">
+            <p className="font-sans text-[13px] text-wd-sub leading-[1.65] max-w-[380px] mb-6">
               The creative force behind Western capability. Campaigns, films,
               and experiences for the companies advancing hard tech, defense,
               and aerospace.
             </p>
+
+            <div className="flex items-center gap-4">
+              <StatusDot label="BROADCAST ACTIVE" tone="gold" />
+              <FlagStripes className="w-12 h-4" variant="gold" />
+            </div>
           </div>
 
-          {/* Nav columns — desktop/tablet only, hidden on mobile (use hamburger nav) */}
-          {studioCols.map((col) => (
-            <div key={col.label} className="hidden md:block">
-              <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-wd-gold/70 mb-4">
-                {col.label}
+          {/* Nav columns */}
+          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {studioCols.map((col) => (
+              <div key={col.label}>
+                <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/70 mb-4 pb-2 border-b border-wd-gold/20">
+                  {col.label}
+                </div>
+                <ul className="space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.name}>
+                      {link.href.startsWith("/") ||
+                      link.href.startsWith("mailto:") ? (
+                        <Link
+                          href={link.href}
+                          className="font-mono text-[11px] tracking-[0.08em] uppercase text-wd-sub hover:text-wd-gold transition-colors duration-300"
+                        >
+                          {link.name}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className="font-mono text-[11px] tracking-[0.08em] uppercase text-wd-sub hover:text-wd-gold transition-colors duration-300"
+                        >
+                          {link.name}
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.name}>
-                    {link.href.startsWith("/") ||
-                    link.href.startsWith("mailto:") ? (
-                      <Link
-                        href={link.href}
-                        className="font-sans text-[13px] text-wd-sub hover:text-wd-gold transition-colors duration-300"
-                      >
-                        {link.name}
-                      </Link>
-                    ) : (
-                      <a
-                        href={link.href}
-                        className="font-sans text-[13px] text-wd-sub hover:text-wd-gold transition-colors duration-300"
-                      >
-                        {link.name}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Tech readout strip */}
+        <div className="mt-14 pt-6 border-t-2 border-wd-gold/30 grid grid-cols-2 md:grid-cols-4 gap-5 font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted">
+          <div>
+            <div className="text-wd-gold/70 mb-1">UNIT</div>
+            <div className="text-wd-text">STUDIO — 01</div>
+          </div>
+          <div>
+            <div className="text-wd-gold/70 mb-1">BASE</div>
+            <div className="text-wd-text">EL SEGUNDO, CA</div>
+          </div>
+          <div>
+            <div className="text-wd-gold/70 mb-1">COORDS</div>
+            <div className="text-wd-text">N 33°55&apos;09&quot; · W 118°24&apos;59&quot;</div>
+          </div>
+          <div>
+            <div className="text-wd-gold/70 mb-1">TIME</div>
+            <div className="text-wd-text"><LiveClock /></div>
+          </div>
         </div>
       </div>
 
-      {/* ─── Bottom row — copyright, coordinates payoff, parent connection ─── */}
-      <div className="px-[clamp(20px,5vw,72px)] py-6 max-w-[1400px] mx-auto border-t border-wd-border">
+      {/* Oversized wordmark at footer bottom */}
+      <div className="px-[clamp(16px,4vw,72px)] pb-8">
+        <div className="font-display text-[clamp(56px,16vw,220px)] text-wd-gold/20 uppercase leading-[0.86] tracking-[-0.04em] select-none" aria-hidden="true">
+          WAR DESK
+        </div>
+      </div>
+
+      {/* Bottom legal strip */}
+      <div className="px-[clamp(16px,4vw,72px)] py-5 border-t border-wd-gold/25 max-w-[1600px] mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="font-mono text-[10px] tracking-[0.15em] text-wd-muted">
-            &copy; 2026 War Desk Studio
+          <div className="font-mono text-[10px] tracking-[0.2em] text-wd-muted uppercase">
+            © 2026 War Desk Studio · <span className="text-wd-gold/70">All rights reserved</span>
           </div>
 
-          {/* El Segundo easter-egg payoff — coordinates from the hero finally named */}
-          <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-muted text-center">
-            <span className="text-wd-gold/70">
-              N 33°55&apos;09&quot; W 118°24&apos;59&quot;
-            </span>
-            <span className="mx-2 text-wd-gold/30">·</span>
-            El Segundo, CA
+          <div className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted text-center flex items-center gap-2">
+            <FlagStripes className="w-6 h-3" variant="gold" />
+            <span className="text-wd-gold/80">Made in USA</span>
+            <span className="text-wd-gold/30">·</span>
+            <span>Continuous Operation</span>
           </div>
 
-          <div className="font-mono text-[10px] tracking-[0.15em] text-wd-muted">
+          <div className="font-mono text-[10px] tracking-[0.2em] text-wd-muted uppercase">
             A{" "}
             <Link
               href="/"
-              className="text-wd-text hover:text-wd-gold transition-colors duration-300 underline-offset-4 hover:underline"
+              className="text-wd-text hover:text-wd-gold transition-colors duration-300"
             >
               War Desk
             </Link>{" "}

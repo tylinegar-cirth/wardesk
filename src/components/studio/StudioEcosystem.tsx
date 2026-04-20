@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Reveal from "@/components/ui/Reveal";
-import CornerBrackets from "@/components/ui/CornerBrackets";
+import Bracket from "@/components/ui/Bracket";
+import StatusDot from "@/components/ui/StatusDot";
 import { createBrowserClient } from "@supabase/ssr";
 import {
   studioCompanies as staticCompanies,
@@ -15,8 +16,7 @@ const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// 2 rows × 3 columns = 6 cards before expand
-const INITIAL_COUNT = 6;
+const INITIAL_COUNT = 9;
 
 export default function StudioEcosystem() {
   const [activeSector, setActiveSector] = useState("All Companies");
@@ -50,314 +50,304 @@ export default function StudioEcosystem() {
   return (
     <section
       id="ecosystem"
-      className="relative pt-[clamp(20px,3vw,52px)] pb-[clamp(56px,9vw,110px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto"
+      className="relative pt-[clamp(80px,11vw,130px)] pb-[clamp(80px,10vw,130px)] px-[clamp(16px,4vw,72px)] overflow-hidden"
     >
-      <CornerBrackets size={24} inset={12} color="rgba(212,168,67,0.5)" strokeWidth={1} />
+      {/* Faint radar-sweep background */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-30"
+        style={{
+          background:
+            "radial-gradient(circle at 82% 18%, rgba(212,168,67,0.12) 0%, transparent 45%)",
+        }}
+        aria-hidden="true"
+      />
 
-      <Reveal>
-        <div className="relative mb-8 flex items-start justify-between gap-8">
-          <div className="flex-1 max-w-[680px]">
-            <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
-              The Sector
-            </div>
-            <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em] mb-3">
-              Companies on our <span className="italic text-wd-gold/90">radar</span>.
-            </h2>
-            <p className="font-sans text-[clamp(14px,1.4vw,16px)] font-light text-wd-sub leading-[1.65] max-w-[560px]">
-              The companies defining the future of civilisation.
-            </p>
-          </div>
-          <div className="hidden md:block pt-1 text-right">
-            <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
-              Section // 04
-              <br />
-              <span className="text-wd-gold/80">Intelligence</span>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Filter row — inline editorial, gold underline on active */}
-      <Reveal delay={0.07}>
-        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 mb-12 pb-5 border-b border-wd-gold/20">
-          {sectors.map((sector, idx) => {
-            const count =
-              sector === "All Companies"
-                ? companies.length
-                : companies.filter((c) => c.sector === sector).length;
-            const isActive = activeSector === sector;
-            return (
-              <button
-                key={sector}
-                onClick={() => {
-                  setActiveSector(sector);
-                  setExpanded(false);
-                }}
-                className="group relative font-mono text-[10px] tracking-[0.25em] uppercase transition-colors duration-300"
-                style={{
-                  color: isActive ? "rgb(212,168,67)" : "rgba(255,255,255,0.4)",
-                }}
-              >
-                <span className="relative">
-                  {sector}
-                  <span
-                    className="ml-1.5 opacity-50"
-                    style={{ fontSize: "0.85em" }}
-                  >
-                    {count}
-                  </span>
-                  <span
-                    className="absolute -bottom-1.5 left-0 right-0 h-px transition-transform duration-300 origin-left"
-                    style={{
-                      background: "rgb(212,168,67)",
-                      transform: isActive ? "scaleX(1)" : "scaleX(0)",
-                    }}
-                  />
-                </span>
-                {idx < sectors.length - 1 && (
-                  <span className="ml-5 text-wd-gold/20 select-none">/</span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </Reveal>
-
-      {/* Company grid — typography only, no card chrome, hover halo defines unit */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20">
-        {visible.map((company, i) => (
-          <Reveal key={company.name} delay={0.02 * Math.min(i, 6)}>
-            <article className="relative py-7 border-t border-wd-gold/15 group h-full flex flex-col cursor-default isolate">
-              {/* Hover halo — appears on hover to define each cell as a unit */}
-              <span
-                aria-hidden="true"
-                className="absolute top-[1px] bottom-0 -left-4 -right-4 rounded-md bg-wd-gold/0 border border-wd-gold/0 group-hover:bg-wd-gold/[0.04] group-hover:border-wd-gold/25 transition-all duration-500 pointer-events-none -z-[1]"
-              />
-
-              {/* Name + sector */}
-              <div className="mb-5">
-                <div className="flex items-baseline gap-2">
-                  <h3 className="font-serif text-[clamp(18px,1.5vw,22px)] font-normal text-wd-text leading-[1.15] group-hover:text-wd-gold transition-colors duration-500">
-                    {company.name}
-                  </h3>
-                  {company.trending && (
-                    <svg
-                      className="w-3.5 h-3.5 text-wd-gold flex-shrink-0 mt-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22"
-                      />
-                    </svg>
-                  )}
-                </div>
-                <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-wd-gold/70 mt-1.5">
-                  {company.sector}
-                </div>
-              </div>
-
-              {/* Metrics — inline rows with mono labels */}
-              <div className="space-y-1.5 mb-5">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-muted w-[52px] flex-shrink-0">
-                    Raised
-                  </span>
-                  <span className="font-sans text-[13px] text-wd-text">
-                    {company.funding}
-                  </span>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-muted w-[52px] flex-shrink-0">
-                    Val
-                  </span>
-                  <span className="font-sans text-[13px] text-wd-text">
-                    {company.valuation}
-                  </span>
-                </div>
-                <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-muted w-[52px] flex-shrink-0">
-                    Team
-                  </span>
-                  <span className="font-sans text-[13px] text-wd-text">
-                    {company.employees}
-                  </span>
-                </div>
-              </div>
-
-              {/* News — pushed to bottom of card via mt-auto */}
-              <div className="flex items-start gap-2 mt-auto pt-4 border-t border-wd-border/40">
-                <svg
-                  className="w-3 h-3 text-wd-gold/80 flex-shrink-0 mt-1"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M11.3 1.046A1 1 0 0 0 9.552.871L6.7 5.318l-5.19.756a1 1 0 0 0-.554 1.705l3.756 3.66-.887 5.172a1 1 0 0 0 1.45 1.054L10 15.27l4.725 2.484a1 1 0 0 0 1.451-1.054l-.887-5.172 3.756-3.66a1 1 0 0 0-.554-1.705l-5.19-.756-2.852-4.272Z" />
-                </svg>
-                <span className="font-sans text-[12px] text-wd-sub leading-[1.55]">
-                  {company.news}
+      <div className="relative max-w-[1600px] mx-auto">
+        <Reveal>
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-6 pb-3 border-b border-wd-gold/30 flex-wrap gap-4">
+              <div className="flex items-center gap-4 flex-wrap">
+                <Bracket variant="gold" size="sm">
+                  SECTION 05 // INTEL
+                </Bracket>
+                <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted">
+                  THE RADAR — COMPANIES IN SCOPE
                 </span>
               </div>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Closing border on the company grid */}
-      <div className="border-t border-wd-gold/15" />
-
-      {/* Expand / Collapse — text-only editorial */}
-      {hasMore && (
-        <div className="mt-10 text-center">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="font-mono text-[11px] tracking-[0.3em] uppercase text-wd-gold/80 hover:text-wd-gold transition-colors duration-300 py-2 group"
-          >
-            {expanded
-              ? "Show less"
-              : `Show all ${filtered.length} companies`}
-            <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-y-0.5">
-              {expanded ? "↑" : "↓"}
-            </span>
-          </button>
-        </div>
-      )}
-
-      {/* Add your company — editorial, no card */}
-      <Reveal delay={0.1}>
-        <div className="mt-16 pt-10 border-t border-wd-gold/20">
-          {addSubmitted ? (
-            <div className="py-4">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/10 mb-4 flex items-center justify-center">
-                <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                </svg>
-              </div>
-              <h4 className="font-serif text-[clamp(22px,2.4vw,28px)] font-normal text-wd-text leading-[1.15] mb-2">
-                Added to the radar.
-              </h4>
-              <p className="font-sans text-[14px] text-wd-sub leading-[1.6]">
-                Your company is being researched and will appear shortly.
-              </p>
+              <StatusDot label={`TRACKING · ${companies.length} UNITS`} tone="gold" />
             </div>
-          ) : !showAddForm ? (
-            <div className="flex items-end justify-between flex-wrap gap-6">
-              <div className="max-w-[480px]">
-                <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold/70 mb-3">
-                  {"// Submit"}
-                </div>
-                <h4 className="font-serif text-[clamp(22px,2.4vw,28px)] font-normal text-wd-text leading-[1.15] mb-2">
-                  Not on the list?
-                </h4>
-                <p className="font-sans text-[14px] text-wd-sub leading-[1.6]">
-                  If you&apos;re building in defense, aerospace, or hard tech, we want to know about you.
+
+            <div className="grid grid-cols-12 gap-6 items-end">
+              <div className="col-span-12 md:col-span-8">
+                <h2 className="font-display text-[clamp(40px,6.5vw,88px)] uppercase leading-[0.92] tracking-[-0.025em] text-wd-text">
+                  Companies on the <span className="text-wd-gold">radar</span>.
+                </h2>
+              </div>
+              <div className="col-span-12 md:col-span-4">
+                <p className="font-sans text-[13px] text-wd-sub leading-[1.65] max-w-[360px]">
+                  The companies defining the future of civilisation. Energy,
+                  defense, space, infrastructure. The work we want to help
+                  amplify.
                 </p>
               </div>
-              <button
-                onClick={() => setShowAddForm(true)}
-                className="font-mono text-[11px] tracking-[0.15em] uppercase py-4 px-9 bg-transparent text-wd-text border border-wd-gold/60 font-bold rounded-lg transition-all duration-300 hover:bg-wd-gold/10 hover:border-wd-gold hover:-translate-y-px"
-              >
-                Add Your Company →
-              </button>
             </div>
-          ) : (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                setAddSubmitting(true);
-                // Log the submission
-                await supabase.from("company_submissions").insert({
-                  company_name: addCompany.trim(),
-                  contact_email: addEmail.trim(),
-                });
-                // Trigger Claude to research and populate the company
-                try {
-                  await fetch("/api/companies/add", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      company_name: addCompany.trim(),
-                      contact_email: addEmail.trim(),
-                    }),
-                  });
-                } catch {
-                  // Still show success — submission is logged
-                }
-                setAddSubmitting(false);
-                setAddSubmitted(true);
-              }}
-              className="space-y-7 max-w-[640px]"
-            >
-              <div className="flex items-end justify-between mb-2 gap-4">
-                <div>
-                  <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-wd-gold/80 mb-3">
-                    {"// Submit"}
+          </div>
+        </Reveal>
+
+        {/* Sector filter row */}
+        <Reveal delay={0.05}>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-10 pb-4 border-b border-wd-gold/20">
+            {sectors.map((sector) => {
+              const count =
+                sector === "All Companies"
+                  ? companies.length
+                  : companies.filter((c) => c.sector === sector).length;
+              const isActive = activeSector === sector;
+              return (
+                <button
+                  key={sector}
+                  onClick={() => {
+                    setActiveSector(sector);
+                    setExpanded(false);
+                  }}
+                  className={`font-mono text-[10px] tracking-[0.2em] uppercase py-2 px-3 border transition-all duration-300 flex items-center gap-2 ${
+                    isActive
+                      ? "border-wd-gold text-wd-ink bg-wd-gold"
+                      : "border-wd-border text-wd-muted hover:border-wd-gold/50 hover:text-wd-text"
+                  }`}
+                >
+                  {sector}
+                  <span
+                    className={`text-[8px] ${
+                      isActive ? "text-wd-ink/70" : "text-wd-gold/60"
+                    }`}
+                  >
+                    [{count}]
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        {/* Company grid — tactical cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+          {visible.map((company, i) => (
+            <Reveal key={company.name} delay={0.02 * Math.min(i, 8)}>
+              <article className="group relative border border-wd-border hover:border-wd-gold/50 transition-all duration-500 bg-wd-surface/20 backdrop-blur-sm h-full flex flex-col p-5">
+                {/* Top strip: index + sector + trending */}
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-wd-border/80">
+                  <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-gold/70">
+                    TGT-{String(i + 1).padStart(3, "0")}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {company.trending && (
+                      <span className="flex items-center gap-1 font-mono text-[8px] tracking-[0.22em] uppercase text-wd-blaze">
+                        <span className="h-1 w-1 rounded-full bg-wd-blaze wd-blink" />
+                        RISING
+                      </span>
+                    )}
+                    <span className="font-mono text-[8px] tracking-[0.22em] uppercase text-wd-muted">
+                      {company.sector}
+                    </span>
                   </div>
-                  <h4 className="font-serif text-[clamp(22px,2.4vw,28px)] font-normal text-wd-text leading-[1.15]">
-                    Add Your Company
+                </div>
+
+                <h3 className="font-display text-[clamp(20px,2vw,26px)] uppercase leading-[0.95] tracking-[-0.02em] text-wd-text group-hover:text-wd-gold transition-colors duration-500 mb-3">
+                  {company.name}
+                </h3>
+
+                {/* Stats table */}
+                <div className="space-y-1 mb-4 border-t border-b border-wd-border/60 py-3">
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted w-[52px] flex-shrink-0">
+                      Raised
+                    </span>
+                    <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-wd-text">
+                      {company.funding}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted w-[52px] flex-shrink-0">
+                      Val
+                    </span>
+                    <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-wd-text">
+                      {company.valuation}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted w-[52px] flex-shrink-0">
+                      Team
+                    </span>
+                    <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-wd-text">
+                      {company.employees}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="font-sans text-[12px] text-wd-sub leading-[1.6] mt-auto">
+                  {company.news}
+                </p>
+
+                {/* Bottom hairline */}
+                <div className="mt-4 pt-3 border-t border-wd-border/60 flex items-center justify-between">
+                  <span className="font-mono text-[8px] tracking-[0.22em] uppercase text-wd-muted">
+                    {"// OBS"}
+                  </span>
+                  <span className="font-mono text-[8px] tracking-[0.22em] uppercase text-wd-gold/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                    ▸ TRACKING
+                  </span>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Expand / collapse */}
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="group font-mono text-[11px] tracking-[0.24em] uppercase py-3 px-8 border border-wd-gold/50 text-wd-gold hover:bg-wd-gold hover:text-wd-ink transition-all duration-300 flex items-center gap-3"
+            >
+              {expanded
+                ? "Collapse Roster"
+                : `Expand · ${filtered.length} Units`}
+              <span className="text-[14px] group-hover:translate-y-0.5 transition-transform">
+                {expanded ? "▲" : "▼"}
+              </span>
+            </button>
+          </div>
+        )}
+
+        {/* Add your company */}
+        <Reveal delay={0.08}>
+          <div className="mt-20 pt-10 border-t-2 border-wd-gold/30">
+            {addSubmitted ? (
+              <div className="py-6 flex flex-col items-start">
+                <StatusDot label="ADDED · RESEARCHING" tone="emerald" className="mb-4" />
+                <h4 className="font-display text-[clamp(28px,4vw,48px)] uppercase leading-[0.95] tracking-[-0.02em] text-wd-text mb-3">
+                  Added to the <span className="text-wd-gold">radar</span>.
+                </h4>
+                <p className="font-sans text-[14px] text-wd-sub leading-[1.6] max-w-[480px]">
+                  Your company is being researched and will appear shortly.
+                </p>
+              </div>
+            ) : !showAddForm ? (
+              <div className="flex items-end justify-between flex-wrap gap-6">
+                <div className="max-w-[560px]">
+                  <Bracket variant="gold" size="xs" className="mb-4">
+                    SUBMIT / REQUEST
+                  </Bracket>
+                  <h4 className="font-display text-[clamp(28px,4vw,48px)] uppercase leading-[0.94] tracking-[-0.02em] text-wd-text mb-3">
+                    Not on the list?
                   </h4>
+                  <p className="font-sans text-[14px] text-wd-sub leading-[1.6]">
+                    If you&apos;re building in defense, aerospace, or hard tech,
+                    we want to know about you.
+                  </p>
                 </div>
                 <button
-                  type="button"
-                  onClick={() => setShowAddForm(false)}
-                  className="text-wd-muted hover:text-wd-text transition-colors -mb-1"
-                  aria-label="Close"
+                  onClick={() => setShowAddForm(true)}
+                  className="group font-mono text-[11px] tracking-[0.18em] uppercase py-4 px-8 bg-transparent text-wd-text border border-wd-gold/60 font-bold transition-all duration-300 hover:bg-wd-gold hover:text-wd-ink flex items-center gap-3"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
+                  Add Your Company
+                  <span className="text-[14px] group-hover:translate-x-1 transition-transform">
+                    →
+                  </span>
                 </button>
               </div>
-              <p className="font-sans text-[13px] text-wd-sub leading-[1.6]">
-                We&apos;ll research and populate your company data automatically.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-                <div>
-                  <label className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold/70 mb-3 block">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={addCompany}
-                    onChange={(e) => setAddCompany(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-wd-border text-wd-text font-sans text-[16px] py-3 px-0 focus:border-wd-gold/60 focus:outline-none transition-colors placeholder:text-wd-muted/50"
-                    placeholder="Your company"
-                  />
-                </div>
-                <div>
-                  <label className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold/70 mb-3 block">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={addEmail}
-                    onChange={(e) => setAddEmail(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-wd-border text-wd-text font-sans text-[16px] py-3 px-0 focus:border-wd-gold/60 focus:outline-none transition-colors placeholder:text-wd-muted/50"
-                    placeholder="you@company.com"
-                  />
-                </div>
-              </div>
-              <button
-                type="submit"
-                disabled={addSubmitting}
-                className="font-mono text-[11px] tracking-[0.15em] uppercase py-4 px-9 bg-wd-gold text-wd-bg border-none font-bold rounded-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_2px_12px_rgba(212,168,67,0.15)] hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] active:translate-y-0 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
+            ) : (
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setAddSubmitting(true);
+                  await supabase.from("company_submissions").insert({
+                    company_name: addCompany.trim(),
+                    contact_email: addEmail.trim(),
+                  });
+                  try {
+                    await fetch("/api/companies/add", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        company_name: addCompany.trim(),
+                        contact_email: addEmail.trim(),
+                      }),
+                    });
+                  } catch {}
+                  setAddSubmitting(false);
+                  setAddSubmitted(true);
+                }}
+                className="space-y-6 max-w-[680px]"
               >
-                {addSubmitting ? "Researching..." : "Add Company →"}
-              </button>
-            </form>
-          )}
-        </div>
-      </Reveal>
+                <div className="flex items-start justify-between mb-2 gap-4">
+                  <div>
+                    <Bracket variant="gold" size="xs" className="mb-3">
+                      SUBMIT / REQUEST
+                    </Bracket>
+                    <h4 className="font-display text-[clamp(24px,3vw,36px)] uppercase leading-[0.95] tracking-[-0.02em] text-wd-text">
+                      Add Your Company
+                    </h4>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddForm(false)}
+                    className="text-wd-muted hover:text-wd-text transition-colors"
+                    aria-label="Close"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="font-sans text-[13px] text-wd-sub leading-[1.6]">
+                  We&apos;ll research and populate your company data automatically.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-gold/70 mb-2 block">
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={addCompany}
+                      onChange={(e) => setAddCompany(e.target.value)}
+                      className="w-full bg-transparent border border-wd-border text-wd-text font-mono text-[14px] tracking-[0.04em] py-3 px-4 focus:border-wd-gold focus:outline-none transition-colors placeholder:text-wd-muted/50 uppercase"
+                      placeholder="Your company"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-gold/70 mb-2 block">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={addEmail}
+                      onChange={(e) => setAddEmail(e.target.value)}
+                      className="w-full bg-transparent border border-wd-border text-wd-text font-mono text-[14px] tracking-[0.04em] py-3 px-4 focus:border-wd-gold focus:outline-none transition-colors placeholder:text-wd-muted/50"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={addSubmitting}
+                  className="font-mono text-[11px] tracking-[0.18em] uppercase py-4 px-8 bg-wd-gold text-wd-ink border-none font-bold transition-all duration-300 hover:bg-wd-text disabled:opacity-50 disabled:pointer-events-none flex items-center gap-3"
+                >
+                  {addSubmitting ? "Researching..." : "Add Company →"}
+                </button>
+              </form>
+            )}
+          </div>
+        </Reveal>
 
-      <p className="font-sans text-[11px] italic text-wd-muted mt-10 text-center">
-        Company data is refreshed monthly and may not reflect the latest figures.
-      </p>
+        <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-muted mt-10 text-center">
+          {"// COMPANY DATA REFRESHED MONTHLY — MAY NOT REFLECT LATEST FIGURES"}
+        </p>
+      </div>
     </section>
   );
 }

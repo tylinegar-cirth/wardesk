@@ -18,17 +18,21 @@ const config: Config = {
           sub: "rgb(var(--wd-sub) / <alpha-value>)",
           muted: "rgb(var(--wd-muted) / <alpha-value>)",
           gold: "rgb(var(--wd-gold) / <alpha-value>)",
+          blaze: "rgb(var(--wd-blaze) / <alpha-value>)",
+          bone: "rgb(var(--wd-bone) / <alpha-value>)",
+          ink: "rgb(var(--wd-ink) / <alpha-value>)",
           border: "var(--wd-border)",
           "border-hov": "var(--wd-border-hov)",
           "gold-glow": "var(--wd-gold-glow)",
-          // Overlay color: white in dark, black in light (for subtle bg effects)
           overlay: "rgb(var(--wd-overlay) / <alpha-value>)",
         },
       },
       fontFamily: {
         serif: ["'Instrument Serif'", "Georgia", "serif"],
         sans: ["'Instrument Sans'", "sans-serif"],
-        mono: ["'Space Mono'", "monospace"],
+        mono: ["'JetBrains Mono'", "'Space Mono'", "monospace"],
+        display: ["'Archivo Black'", "'Archivo'", "sans-serif"],
+        archivo: ["'Archivo'", "sans-serif"],
       },
       boxShadow: {
         "wd-card": "var(--wd-card-shadow)",
