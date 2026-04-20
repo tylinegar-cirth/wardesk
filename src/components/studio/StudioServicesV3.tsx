@@ -148,21 +148,16 @@ export default function StudioServicesV3() {
         animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="relative flex-1 max-w-[760px]">
+        <div className="relative flex-1 max-w-[680px]">
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
-            Capabilities &amp; Engagement
+            Systems &amp; Services
           </div>
           <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em]">
-            Everyone has a content guy.
+            The creative company for
             <br />
-            <span className="italic text-wd-gold/90">That&rsquo;s the problem.</span>
+            <span className="italic text-wd-gold/90">defense</span> and{" "}
+            <span className="italic text-wd-gold/90">hard tech</span>.
           </h2>
-          <p className="mt-6 max-w-[580px] text-[clamp(14px,1.1vw,16px)] leading-[1.55] text-wd-muted">
-            $49.1B in defense tech VC was deployed in 2025. The space went from niche to flooded overnight, and so did the content. War Desk Studio is built for the companies meant to stand apart.
-          </p>
-          <p className="mt-4 max-w-[580px] text-[clamp(13px,1vw,15px)] leading-[1.55] text-wd-muted/80 italic">
-            Some clients arrive with their narrative already sharp. Others are still finding it. Either way, month one is a read on your position, and every piece that follows extrapolates from it.
-          </p>
         </div>
         <div className="hidden md:block pt-1 text-right">
           <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
