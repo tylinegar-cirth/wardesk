@@ -23,13 +23,13 @@ const services: Service[] = [
     id: "embedded",
     label: "02",
     title: "Embedded Creative",
-    tags: ["Monthly Retainer", "Production Days", "Long & Short-form", "AI Brand Film"],
+    tags: ["Monthly Retainer", "Production Days", "Long & short form content", "Creative Direction"],
   },
   {
     id: "campaigns",
     label: "03",
     title: "Campaigns & Films",
-    tags: ["Launch", "Recruitment", "Capability", "Investor", "Vodcasts"],
+    tags: ["Launch Campaigns", "Recruitment Films", "Capability Films", "Investor Films", "Vodcasts"],
   },
   {
     id: "roadshow",
