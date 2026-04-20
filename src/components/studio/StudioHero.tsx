@@ -79,12 +79,6 @@ export default function StudioHero() {
             {/* Main headline block */}
             <div className="col-span-12 lg:col-span-8">
               <Reveal>
-                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-gold mb-6">
-                  The Creative Force Behind Western Capability
-                </div>
-              </Reveal>
-
-              <Reveal delay={0.1}>
                 <h1 className="font-display text-[clamp(60px,11vw,152px)] font-normal text-wd-text leading-[0.86] tracking-[-0.03em] uppercase">
                   Business.
                   <br />

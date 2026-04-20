@@ -58,9 +58,11 @@ export default function EssayPage({ params }: { params: { slug: string } }) {
 
             <div className="grid grid-cols-12 gap-6 items-end">
               <div className="col-span-12 lg:col-span-8">
-                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-ink/60 mb-5">
-                  {essay.kicker}
-                </div>
+                {essay.kicker && (
+                  <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-ink/60 mb-5">
+                    {essay.kicker}
+                  </div>
+                )}
                 <h1 className="font-display text-[clamp(40px,6.5vw,112px)] uppercase leading-[0.88] tracking-[-0.03em] text-wd-ink mb-6">
                   {essay.title}
                 </h1>
@@ -192,11 +194,9 @@ export default function EssayPage({ params }: { params: { slug: string } }) {
                 </div>
                 <p className="font-sans text-[14px] leading-[1.7] text-wd-ink/80 max-w-[520px]">
                   <strong className="text-wd-ink">{essay.author}</strong> is
-                  Co-Founder and Executive Producer of War Desk Studio, the
-                  creative arm of The War Desk \u2014 the national security
-                  advisory powered by four-star generals. War Desk Studio
-                  produces campaigns, films, roadshow experiences, and content
-                  for defense, aerospace, and hard tech companies.
+                  Co-Founder and Executive Producer of War Desk Studio.
+                  The Studio produces campaigns, films, roadshow experiences,
+                  and content for defense, aerospace, and hard tech companies.
                 </p>
                 <div className="mt-4 font-mono text-[11px] tracking-[0.08em] text-wd-ink/70">
                   <a

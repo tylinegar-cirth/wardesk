@@ -100,9 +100,11 @@ export default function EssaysIndexPage() {
 
                   {/* Title + summary */}
                   <div className="col-span-12 md:col-span-8">
-                    <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-ink/60 mb-3">
-                      {essay.kicker}
-                    </div>
+                    {essay.kicker && (
+                      <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-wd-ink/60 mb-3">
+                        {essay.kicker}
+                      </div>
+                    )}
                     <h2 className="font-display text-[clamp(32px,5vw,72px)] uppercase leading-[0.92] tracking-[-0.025em] text-wd-ink group-hover:text-wd-blaze transition-colors duration-500 mb-4">
                       {essay.title}
                     </h2>
