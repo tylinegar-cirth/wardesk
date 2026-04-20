@@ -100,9 +100,20 @@ export default function StudioBrands() {
 
       <Reveal>
         <section className="relative z-[2] py-[clamp(48px,6.5vw,80px)] px-[clamp(20px,5vw,72px)] max-w-[1240px] mx-auto text-center">
-          <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/85 mb-6">
+          <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/85 mb-4">
             Credits // Past Lives
           </div>
+          <h2
+            className="font-serif text-[clamp(22px,2.4vw,32px)] font-normal text-wd-text leading-[1.2] mb-8 max-w-[720px] mx-auto"
+            style={{
+              textShadow:
+                "0 2px 10px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.7)",
+            }}
+          >
+            Defense discipline.
+            <br />
+            <span className="italic text-wd-gold/90">Consumer craft.</span>
+          </h2>
           <div
             className="font-serif text-[clamp(17px,1.7vw,22px)] font-normal text-wd-text leading-[1.5] flex flex-wrap justify-center items-center gap-x-3 gap-y-1.5 max-w-[1080px] mx-auto"
             style={{
