@@ -117,7 +117,7 @@ export default function StudioHero() {
                   </a>
                   <a
                     href="#capabilities"
-                    className="font-mono text-[11px] tracking-[0.18em] uppercase py-4 px-9 bg-transparent text-wd-text border border-wd-gold/50 font-bold rounded-none transition-all duration-300 hover:border-wd-gold hover:bg-wd-gold/10"
+                    className="font-mono text-[11px] tracking-[0.18em] uppercase py-4 px-9 bg-transparent text-wd-bone border border-wd-gold/60 font-bold rounded-none transition-all duration-300 hover:border-wd-gold hover:bg-wd-gold/15"
                   >
                     Capabilities
                   </a>
