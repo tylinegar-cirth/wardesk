@@ -58,8 +58,11 @@ export default function StudioBrands() {
         />
       )}
 
-      {/* Overlays: dark + halftone */}
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-wd-bg/65" />
+      {/* Overlays: dark + halftone — hardcoded dark so video stays cinematic in both themes */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: "rgba(10,10,12,0.65)" }}
+      />
       <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-25" />
       <div
         className="absolute inset-0 z-[1] pointer-events-none"

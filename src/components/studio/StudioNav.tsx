@@ -87,7 +87,7 @@ export default function StudioNav() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-mono text-[10px] tracking-[0.16em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+                className="font-mono text-[10px] tracking-[0.18em] uppercase text-wd-text/85 hover:text-wd-gold transition-colors hidden md:block"
               >
                 {link.label}
               </a>
@@ -95,7 +95,7 @@ export default function StudioNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="font-mono text-[10px] tracking-[0.16em] uppercase text-wd-muted hover:text-wd-text transition-colors hidden md:block"
+                className="font-mono text-[10px] tracking-[0.18em] uppercase text-wd-text/85 hover:text-wd-gold transition-colors hidden md:block"
               >
                 {link.label}
               </Link>

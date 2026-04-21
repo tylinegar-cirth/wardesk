@@ -75,8 +75,8 @@ export default function StudioFooter() {
             </p>
           </div>
 
-          {/* Nav columns */}
-          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {/* Nav columns — desktop/tablet only. Mobile uses hamburger nav. */}
+          <div className="hidden md:grid md:col-span-7 md:grid-cols-3 gap-8">
             {studioCols.map((col) => (
               <div key={col.label}>
                 <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/70 mb-4 pb-2 border-b border-wd-gold/20">
@@ -106,6 +106,22 @@ export default function StudioFooter() {
                 </ul>
               </div>
             ))}
+          </div>
+
+          {/* Mobile-only compact link row */}
+          <div className="md:hidden flex flex-wrap gap-x-4 gap-y-2 pt-2 border-t border-wd-gold/20">
+            <Link href="/studio/essays" className="font-mono text-[10px] tracking-[0.15em] uppercase text-wd-gold/80 hover:text-wd-text transition-colors">
+              Essays
+            </Link>
+            <Link href="/studio/ecosystem" className="font-mono text-[10px] tracking-[0.15em] uppercase text-wd-gold/80 hover:text-wd-text transition-colors">
+              Ecosystem
+            </Link>
+            <a href="mailto:ty@thewardesk.com" className="font-mono text-[10px] tracking-[0.15em] uppercase text-wd-gold/80 hover:text-wd-text transition-colors">
+              ty@thewardesk.com
+            </a>
+            <Link href="/" className="font-mono text-[10px] tracking-[0.15em] uppercase text-wd-gold/80 hover:text-wd-text transition-colors">
+              The War Desk →
+            </Link>
           </div>
         </div>
       </div>

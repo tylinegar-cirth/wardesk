@@ -39,17 +39,10 @@ export default function EssaysIndexPage() {
           <div className="relative max-w-[1400px] mx-auto">
             {/* Top bar */}
             <div className="flex items-center justify-between mb-10 pb-4 border-b-2 border-wd-ink/40 flex-wrap gap-3">
-              <div className="flex items-center gap-4 flex-wrap">
-                <Bracket variant="ink" size="sm">
-                  WAR DESK STUDIO // WRITING
-                </Bracket>
-                <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-wd-ink/60">
-                  LONG-FORM ESSAYS BY TY LINEGAR
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <FlagStripes className="w-8 h-4 opacity-70" variant="ink" />
-              </div>
+              <Bracket variant="ink" size="sm">
+                WAR DESK STUDIO // WRITING
+              </Bracket>
+              <FlagStripes className="w-8 h-4 opacity-70" variant="ink" />
             </div>
 
             <div className="grid grid-cols-12 gap-6 items-end">

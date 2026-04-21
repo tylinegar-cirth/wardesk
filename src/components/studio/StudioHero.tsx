@@ -53,19 +53,19 @@ export default function StudioHero() {
             src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/Military_Proof_of_concept_i8axfn.mov"
           />
         )}
-        {/* Gradient: right-heavy darken so typography reads on left */}
+        {/* Video overlays hardcoded dark — video section stays cinematic in both themes */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(90deg, rgb(var(--wd-bg) / 0.88) 0%, rgb(var(--wd-bg) / 0.55) 42%, rgb(var(--wd-bg) / 0.35) 62%, rgb(var(--wd-bg) / 0.55) 100%)",
+              "linear-gradient(90deg, rgba(10,10,12,0.8) 0%, rgba(10,10,12,0.5) 42%, rgba(10,10,12,0.3) 62%, rgba(10,10,12,0.5) 100%)",
           }}
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, transparent 0%, transparent 55%, rgb(var(--wd-bg) / 0.65) 82%, rgb(var(--wd-bg)) 100%)",
+              "linear-gradient(180deg, transparent 0%, transparent 55%, rgba(10,10,12,0.65) 82%, rgb(var(--wd-bg)) 100%)",
           }}
         />
         {/* Halftone overlay to give the video document-print feel */}
@@ -79,7 +79,7 @@ export default function StudioHero() {
             {/* Main headline block */}
             <div className="col-span-12 lg:col-span-10">
               <Reveal>
-                <h1 className="font-display text-[clamp(60px,11vw,152px)] font-normal text-wd-text leading-[0.86] tracking-[-0.03em] uppercase">
+                <h1 className="font-display text-[clamp(60px,11vw,152px)] font-normal text-wd-bone leading-[0.86] tracking-[-0.03em] uppercase">
                   Business.
                   <br />
                   <span className="relative inline-block">
@@ -91,7 +91,7 @@ export default function StudioHero() {
 
               <Reveal delay={0.2}>
                 <div className="mt-6 mb-8 flex items-end gap-4 flex-wrap">
-                  <h2 className="font-serif italic text-[clamp(24px,3vw,38px)] font-normal text-wd-text/90 leading-[1.1] tracking-[-0.01em]">
+                  <h2 className="font-serif italic text-[clamp(24px,3vw,38px)] font-normal text-wd-bone/90 leading-[1.1] tracking-[-0.01em]">
                     We forge your legend.
                   </h2>
                   <div className="h-[1px] flex-1 bg-wd-gold/40 mb-3 min-w-[80px] hidden sm:block" />
@@ -99,7 +99,7 @@ export default function StudioHero() {
               </Reveal>
 
               <Reveal delay={0.28}>
-                <p className="font-sans text-[clamp(15px,1.5vw,18px)] font-light text-wd-text/75 leading-[1.65] max-w-[580px] mb-9">
+                <p className="font-sans text-[clamp(15px,1.5vw,18px)] font-light text-wd-bone/75 leading-[1.65] max-w-[580px] mb-9">
                   The creative force behind Western capability. Campaigns, films,
                   and experiences for the companies advancing hard tech, defense,
                   and aerospace.

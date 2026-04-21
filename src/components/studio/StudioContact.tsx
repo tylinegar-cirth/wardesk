@@ -222,9 +222,40 @@ export default function StudioContact() {
                     <br />
                     and approach.
                   </h3>
-                  <p className="font-sans text-[13px] text-wd-sub leading-[1.65]">
+                  <p className="font-serif italic text-[clamp(16px,1.8vw,22px)] text-wd-gold/90 leading-[1.3] mb-6">
                     Enter your email to download the deck.
                   </p>
+
+                  {/* What's inside — editorial TOC */}
+                  <div className="mt-6 border-t border-wd-gold/15 pt-5">
+                    <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/70 mb-4">
+                      Inside
+                    </div>
+                    <ul className="space-y-2">
+                      {[
+                        "The Manifesto",
+                        "Capabilities & Approach",
+                        "Selected Work",
+                        "Process & Engagements",
+                        "Pricing",
+                        "The Team",
+                      ].map((item, i) => (
+                        <li
+                          key={item}
+                          className="flex items-baseline gap-4 font-mono text-[11px] tracking-[0.08em] uppercase text-wd-text/90"
+                        >
+                          <span className="text-wd-gold/60 w-6 flex-shrink-0">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="flex-1">{item}</span>
+                          <span
+                            aria-hidden="true"
+                            className="h-px flex-1 bg-wd-gold/15 mb-1"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 {deckUnlocked ? (
