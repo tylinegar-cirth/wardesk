@@ -99,20 +99,48 @@ export default function StudioInterstitial() {
 
       {/* Central editorial pull-quote */}
       <div className="relative z-[3] h-full flex items-center justify-center px-[clamp(20px,5vw,72px)]">
-        <div className="max-w-[900px] text-center">
+        <div className="max-w-[900px] text-center flex flex-col items-center">
           <p className="font-serif italic text-[clamp(24px,3.6vw,48px)] leading-[1.15] tracking-[-0.01em] text-wd-bone">
             The substance is finally worthy of the craft.
           </p>
+
           <Link
             href="/studio/essays"
-            className="group mt-7 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase py-3.5 px-7 bg-wd-bone text-wd-ink border border-wd-bone font-bold hover:bg-wd-gold hover:border-wd-gold hover:text-wd-ink transition-colors duration-300"
+            className="group relative mt-8 inline-flex flex-col border-2 border-wd-bone hover:border-wd-gold transition-colors duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
           >
-            Read the Essays
+            {/* Corner registration ticks — extend outside the border */}
             <span
               aria-hidden="true"
-              className="text-[13px] group-hover:translate-x-1 transition-transform"
-            >
-              →
+              className="absolute -top-[6px] -left-[6px] w-[10px] h-[10px] border-t-[2px] border-l-[2px] border-wd-gold pointer-events-none"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute -top-[6px] -right-[6px] w-[10px] h-[10px] border-t-[2px] border-r-[2px] border-wd-gold pointer-events-none"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-[6px] -left-[6px] w-[10px] h-[10px] border-b-[2px] border-l-[2px] border-wd-gold pointer-events-none"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-[6px] -right-[6px] w-[10px] h-[10px] border-b-[2px] border-r-[2px] border-wd-gold pointer-events-none"
+            />
+
+            {/* Top ink band — document metadata */}
+            <span className="bg-wd-ink text-wd-bone font-mono text-[9px] tracking-[0.3em] uppercase px-5 py-1.5 flex items-center justify-between gap-8 min-w-[280px]">
+              <span>Essays</span>
+              <span className="text-wd-gold/90">By Ty Linegar</span>
+            </span>
+
+            {/* Main bone body — label + arrow */}
+            <span className="bg-wd-bone text-wd-ink px-7 py-4 font-display text-[13px] tracking-[0.18em] uppercase flex items-center justify-center gap-3 group-hover:bg-wd-gold transition-colors duration-300">
+              Read the Essays
+              <span
+                aria-hidden="true"
+                className="text-[15px] group-hover:translate-x-1 transition-transform"
+              >
+                →
+              </span>
             </span>
           </Link>
         </div>

@@ -7,8 +7,9 @@ import Logo from "@/components/ui/Logo";
 import { LiveClock } from "@/components/ui/TechReadout";
 
 const navLinks = [
-  { label: "Work", href: "#capabilities" },
-  { label: "Team", href: "#team" },
+  { label: "Work", href: "/studio#capabilities" },
+  { label: "Team", href: "/studio#team" },
+  { label: "Ecosystem", href: "/studio/ecosystem" },
   { label: "Essays", href: "/studio/essays" },
 ];
 

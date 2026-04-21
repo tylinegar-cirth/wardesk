@@ -8,19 +8,19 @@ const studioCols = [
   {
     label: "Studio",
     links: [
-      { name: "Capabilities", href: "#capabilities" },
-      { name: "Team", href: "#team" },
-      { name: "On Our Radar", href: "#ecosystem" },
+      { name: "Capabilities", href: "/studio#capabilities" },
+      { name: "Team", href: "/studio#team" },
+      { name: "Ecosystem", href: "/studio/ecosystem" },
       { name: "Essays", href: "/studio/essays" },
     ],
   },
   {
     label: "Capabilities",
     links: [
-      { name: "Narrative & Voice", href: "#capabilities" },
-      { name: "Embedded Creative", href: "#capabilities" },
-      { name: "Campaigns & Films", href: "#capabilities" },
-      { name: "Roadshow & Live Events", href: "#capabilities" },
+      { name: "Narrative & Voice", href: "/studio#capabilities" },
+      { name: "Embedded Creative", href: "/studio#capabilities" },
+      { name: "Campaigns & Films", href: "/studio#capabilities" },
+      { name: "Roadshow & Live Events", href: "/studio#capabilities" },
     ],
   },
   {
