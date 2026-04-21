@@ -19,8 +19,11 @@ const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+const INITIAL_COUNT = 6;
+
 export default function EcosystemPage() {
   const [activeSector, setActiveSector] = useState("All Companies");
+  const [expanded, setExpanded] = useState(false);
   const [companies, setCompanies] = useState<StudioCompany[]>(staticCompanies);
   const [showAddForm, setShowAddForm] = useState(false);
   const [addSubmitting, setAddSubmitting] = useState(false);
@@ -43,6 +46,9 @@ export default function EcosystemPage() {
     activeSector === "All Companies"
       ? companies
       : companies.filter((c) => c.sector === activeSector);
+
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
+  const hasMore = filtered.length > INITIAL_COUNT;
 
   return (
     <div className="wd-app">
@@ -125,7 +131,10 @@ export default function EcosystemPage() {
                   return (
                     <button
                       key={sector}
-                      onClick={() => setActiveSector(sector)}
+                      onClick={() => {
+                        setActiveSector(sector);
+                        setExpanded(false);
+                      }}
                       className={`font-mono text-[10px] tracking-[0.2em] uppercase py-2 px-3 border transition-all duration-300 flex items-center gap-2 ${
                         isActive
                           ? "border-wd-ink bg-wd-ink text-wd-bone"
@@ -148,7 +157,7 @@ export default function EcosystemPage() {
 
             {/* Company grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-              {filtered.map((company, i) => (
+              {visible.map((company, i) => (
                 <Reveal key={company.name} delay={0.02 * Math.min(i, 8)}>
                   <article className="group relative border border-wd-ink/25 hover:border-wd-ink/70 transition-all duration-500 bg-wd-bone h-full flex flex-col p-5">
                     <div className="flex items-center justify-between mb-4 pb-3 border-b border-wd-ink/20">
@@ -203,9 +212,26 @@ export default function EcosystemPage() {
               </p>
             )}
 
+            {/* Expand / collapse */}
+            {hasMore && (
+              <div className="mt-10 flex justify-center">
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  className="group font-mono text-[11px] tracking-[0.24em] uppercase py-3 px-8 border-2 border-wd-ink text-wd-ink hover:bg-wd-ink hover:text-wd-bone transition-all duration-300 flex items-center gap-3"
+                >
+                  {expanded
+                    ? "Show less"
+                    : `Show all ${filtered.length} companies`}
+                  <span className="text-[14px] group-hover:translate-y-0.5 transition-transform">
+                    {expanded ? "↑" : "↓"}
+                  </span>
+                </button>
+              </div>
+            )}
+
             {/* Add your company */}
             <Reveal delay={0.08}>
-              <div className="mt-20 pt-10 border-t-2 border-wd-ink/30">
+              <div className="mt-16 pt-10 border-t-2 border-wd-ink/30">
                 {addSubmitted ? (
                   <div className="py-6">
                     <h4 className="font-display text-[clamp(26px,3.5vw,40px)] uppercase leading-[0.95] tracking-[-0.02em] text-wd-ink mb-3">

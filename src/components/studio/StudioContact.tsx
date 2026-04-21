@@ -233,11 +233,11 @@ export default function StudioContact() {
                     </div>
                     <ul className="space-y-2">
                       {[
-                        "The Manifesto",
-                        "Capabilities & Approach",
-                        "Selected Work",
-                        "Process & Engagements",
-                        "Pricing",
+                        "The Problem",
+                        "War Desk Studio",
+                        "What We Do",
+                        "From the Pentagon to the Fortune 500",
+                        "Why War Desk Studio",
                         "The Team",
                       ].map((item, i) => (
                         <li
