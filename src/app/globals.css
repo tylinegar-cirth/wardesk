@@ -2,7 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap');
+/* Google Fonts — Instrument Serif (editorial italic) + Instrument Sans (body) */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500&display=swap');
+
+/* Fontshare — Clash Display (industrial display) */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+
+/* Monaspace Krypton — mechanical mono, self-hosted from GitHub Next release */
+@font-face {
+  font-family: 'Monaspace Krypton';
+  src: url('/fonts/MonaspaceKrypton-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Monaspace Krypton';
+  src: url('/fonts/MonaspaceKrypton-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Monaspace Krypton';
+  src: url('/fonts/MonaspaceKrypton-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ── Theme Variables ─────────────────────────────────────────── */
 
@@ -189,5 +216,5 @@ video::-webkit-media-controls-panel { display: none !important; }
 }
 
 /* Font utility shortcuts — these run alongside Tailwind's font- classes */
-.font-display { font-family: 'Archivo Black', 'Archivo', sans-serif; letter-spacing: -0.02em; }
-.font-tech { font-family: 'JetBrains Mono', 'Space Mono', monospace; }
+.font-display { font-family: 'Clash Display', 'Archivo Black', sans-serif; letter-spacing: -0.02em; }
+.font-tech { font-family: 'Monaspace Krypton', 'JetBrains Mono', monospace; }

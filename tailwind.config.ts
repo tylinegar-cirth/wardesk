@@ -30,9 +30,8 @@ const config: Config = {
       fontFamily: {
         serif: ["'Instrument Serif'", "Georgia", "serif"],
         sans: ["'Instrument Sans'", "sans-serif"],
-        mono: ["'JetBrains Mono'", "'Space Mono'", "monospace"],
-        display: ["'Archivo Black'", "'Archivo'", "sans-serif"],
-        archivo: ["'Archivo'", "sans-serif"],
+        mono: ["'Monaspace Krypton'", "'JetBrains Mono'", "monospace"],
+        display: ["'Clash Display'", "'Archivo Black'", "sans-serif"],
       },
       boxShadow: {
         "wd-card": "var(--wd-card-shadow)",
