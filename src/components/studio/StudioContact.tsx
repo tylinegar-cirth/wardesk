@@ -101,20 +101,10 @@ export default function StudioContact() {
             <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold mb-4">
               06 / Contact
             </div>
-            <div className="grid grid-cols-12 gap-6 items-end">
-              <div className="col-span-12 md:col-span-8">
-                <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text">
-                  Let&apos;s build something{" "}
-                  <span className="text-wd-gold">legendary</span>.
-                </h2>
-              </div>
-              <div className="col-span-12 md:col-span-4">
-                <p className="font-sans text-[14px] text-wd-sub leading-[1.65] max-w-[360px]">
-                  Preparing for a conference? Launching a campaign? Need a film
-                  that actually lands? Tell us what you&apos;re working on.
-                </p>
-              </div>
-            </div>
+            <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text max-w-[1100px]">
+              Let&apos;s build something{" "}
+              <span className="text-wd-gold">legendary</span>.
+            </h2>
           </div>
         </Reveal>
 

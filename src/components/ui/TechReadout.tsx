@@ -57,8 +57,8 @@ export function LiveClock({ className = "" }: { className?: string }) {
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
-    setTime(formatUTC(new Date()));
-    const i = setInterval(() => setTime(formatUTC(new Date())), 1000);
+    setTime(formatLA(new Date()));
+    const i = setInterval(() => setTime(formatLA(new Date())), 1000);
     return () => clearInterval(i);
   }, []);
 
@@ -69,9 +69,18 @@ export function LiveClock({ className = "" }: { className?: string }) {
   );
 }
 
-function formatUTC(d: Date) {
-  const hh = String(d.getUTCHours()).padStart(2, "0");
-  const mm = String(d.getUTCMinutes()).padStart(2, "0");
-  const ss = String(d.getUTCSeconds()).padStart(2, "0");
-  return `${hh}:${mm}:${ss} UTC`;
+function formatLA(d: Date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+  }).formatToParts(d);
+  const hh = parts.find((p) => p.type === "hour")?.value ?? "00";
+  const mm = parts.find((p) => p.type === "minute")?.value ?? "00";
+  const ss = parts.find((p) => p.type === "second")?.value ?? "00";
+  const tz = parts.find((p) => p.type === "timeZoneName")?.value ?? "PT";
+  return `${hh}:${mm}:${ss} ${tz}`;
 }

@@ -77,7 +77,7 @@ export default function StudioHero() {
         <div className="w-full px-[clamp(20px,5vw,72px)] pb-[clamp(48px,7vw,96px)] pt-16 max-w-[1600px] mx-auto">
           <div className="grid grid-cols-12 gap-6 items-end">
             {/* Main headline block */}
-            <div className="col-span-12 lg:col-span-8">
+            <div className="col-span-12 lg:col-span-10">
               <Reveal>
                 <h1 className="font-display text-[clamp(60px,11vw,152px)] font-normal text-wd-text leading-[0.86] tracking-[-0.03em] uppercase">
                   Business.
@@ -125,19 +125,6 @@ export default function StudioHero() {
               </Reveal>
             </div>
 
-            {/* Right rail — select clients, understated */}
-            <div className="hidden lg:flex col-span-4 flex-col items-end text-right">
-              <Reveal delay={0.46}>
-                <div className="font-mono text-[9px] tracking-[0.26em] uppercase text-wd-muted leading-[2] mb-6">
-                  <div className="text-wd-gold/80 mb-2">Select Clients</div>
-                  <div>Boeing</div>
-                  <div>Starlink</div>
-                  <div>Viasat</div>
-                  <div>Dept of War</div>
-                  <div className="text-wd-gold/70 mt-1.5">+ 12 more</div>
-                </div>
-              </Reveal>
-            </div>
           </div>
         </div>
       </div>

@@ -110,13 +110,6 @@ export default function StudioFooter() {
         </div>
       </div>
 
-      {/* Oversized wordmark at footer bottom */}
-      <div className="px-[clamp(16px,4vw,72px)] pb-6">
-        <div className="font-display text-[clamp(56px,16vw,220px)] text-wd-gold/20 uppercase leading-[0.86] tracking-[-0.04em] select-none" aria-hidden="true">
-          WAR DESK
-        </div>
-      </div>
-
       {/* Bottom legal strip */}
       <div className="px-[clamp(16px,4vw,72px)] py-5 border-t border-wd-gold/25 max-w-[1600px] mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4">

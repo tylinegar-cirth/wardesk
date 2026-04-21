@@ -105,10 +105,15 @@ export default function StudioInterstitial() {
           </p>
           <Link
             href="/studio/essays"
-            className="mt-5 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.24em] uppercase text-wd-gold hover:text-wd-bone transition-colors"
+            className="group mt-7 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase py-3.5 px-7 bg-wd-bone text-wd-ink border border-wd-bone font-bold hover:bg-wd-gold hover:border-wd-gold hover:text-wd-ink transition-colors duration-300"
           >
-            Read the essays
-            <span aria-hidden="true" className="text-[12px]">→</span>
+            Read the Essays
+            <span
+              aria-hidden="true"
+              className="text-[13px] group-hover:translate-x-1 transition-transform"
+            >
+              →
+            </span>
           </Link>
         </div>
       </div>

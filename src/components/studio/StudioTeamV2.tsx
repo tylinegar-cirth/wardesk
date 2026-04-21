@@ -4,19 +4,14 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import ArticleModal from "./ArticleModal";
 
-interface Spec {
-  label: string;
-  value: string;
-}
-
 interface TeamMemberData {
   name: string;
   surname: string;
   role: string;
   discipline: string;
+  location: string;
   image: string;
   bio: string;
-  specs: Spec[];
   hasArticle: boolean;
   linkedin: string;
 }
@@ -27,13 +22,9 @@ const team: TeamMemberData[] = [
     surname: "Linegar",
     role: "Co-Founder & Executive Producer",
     discipline: "Production",
+    location: "Los Angeles, CA",
     image: "/team-ty.jpg",
     bio: "A decade producing campaigns for the world\u2019s biggest brands. Good work, great clients, but Ty wanted to apply the craft to something with more weight. War Desk Studio exists to serve the companies actually pushing Western capability forward.",
-    specs: [
-      { label: "Based", value: "El Segundo, CA" },
-      { label: "Work", value: "National brand campaigns" },
-      { label: "Focus", value: "Executive production" },
-    ],
     hasArticle: true,
     linkedin: "#",
   },
@@ -42,13 +33,9 @@ const team: TeamMemberData[] = [
     surname: "Gilfillan",
     role: "Co-Founder & Partner",
     discipline: "Strategy",
+    location: "El Segundo, CA",
     image: "/team-sean.jpg",
     bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing and Viasat\u2019s $1B government division. Founded BaseFEST. 12 years Army, 15 months in Iraq. He\u2019s been on both sides, building campaigns for defense giants and buying what defense startups sell.",
-    specs: [
-      { label: "Based", value: "Washington, DC" },
-      { label: "Work", value: "Boeing, Viasat, Pentagon" },
-      { label: "Focus", value: "Narrative & go-to-market" },
-    ],
     hasArticle: false,
     linkedin: "https://www.linkedin.com/in/seangilfillan/",
   },
@@ -56,14 +43,10 @@ const team: TeamMemberData[] = [
     name: "Samuel Bennetts",
     surname: "Bennetts",
     role: "Creative Director",
-    discipline: "Direction",
+    discipline: "Creative",
+    location: "Manhattan Beach, CA",
     image: "/team-sam.jpg",
     bio: "20+ years directing and creative-directing across broadcast, live events, and immersive installations. Former creative leadership at ACNE and Toyota. Multi-disciplinary maker across directing, design, VFX, and emerging AI workflows.",
-    specs: [
-      { label: "Based", value: "Los Angeles, CA" },
-      { label: "Work", value: "ACNE, Toyota" },
-      { label: "Focus", value: "Film, design, VFX, AI" },
-    ],
     hasArticle: false,
     linkedin: "#",
   },
@@ -122,13 +105,13 @@ function TeamCard({
           </span>
         </div>
 
-        {/* Bottom overlay: discipline band */}
+        {/* Bottom overlay: discipline + location */}
         <div className="absolute bottom-0 left-0 right-0 h-7 bg-wd-ink/75 border-t border-wd-gold/40 flex items-center justify-between px-3 backdrop-blur-sm">
-          <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-bone/75">
+          <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-bone/80">
             {member.discipline}
           </span>
-          <span className="font-display text-[10px] tracking-[0.06em] uppercase text-wd-gold">
-            No.&nbsp;{String(index + 1).padStart(2, "0")}
+          <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-wd-gold/85">
+            {member.location}
           </span>
         </div>
       </div>
@@ -142,20 +125,6 @@ function TeamCard({
         <h3 className="font-display text-[clamp(24px,2.6vw,32px)] uppercase leading-[0.95] tracking-[-0.02em] text-wd-text mb-4">
           {member.name}
         </h3>
-
-        {/* Editorial spec rows */}
-        <div className="mb-5 border-t border-b border-wd-border/60 py-3 space-y-1.5">
-          {member.specs.map((spec) => (
-            <div key={spec.label} className="flex items-baseline gap-3">
-              <span className="font-mono text-[9px] tracking-[0.24em] uppercase text-wd-muted w-[56px] flex-shrink-0">
-                {spec.label}
-              </span>
-              <span className="font-sans text-[12.5px] text-wd-text/90 leading-[1.35]">
-                {spec.value}
-              </span>
-            </div>
-          ))}
-        </div>
 
         <p className="font-sans text-[13px] text-wd-sub leading-[1.7] mb-4">
           {member.bio}
