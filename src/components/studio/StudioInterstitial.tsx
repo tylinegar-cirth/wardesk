@@ -106,41 +106,29 @@ export default function StudioInterstitial() {
 
           <Link
             href="/studio/essays"
-            className="group relative mt-8 inline-flex flex-col border-2 border-wd-bone hover:border-wd-gold transition-colors duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+            className="group mt-9 inline-flex flex-col items-center gap-3"
           >
-            {/* Corner registration ticks — extend outside the border */}
-            <span
-              aria-hidden="true"
-              className="absolute -top-[6px] -left-[6px] w-[10px] h-[10px] border-t-[2px] border-l-[2px] border-wd-gold pointer-events-none"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute -top-[6px] -right-[6px] w-[10px] h-[10px] border-t-[2px] border-r-[2px] border-wd-gold pointer-events-none"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute -bottom-[6px] -left-[6px] w-[10px] h-[10px] border-b-[2px] border-l-[2px] border-wd-gold pointer-events-none"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute -bottom-[6px] -right-[6px] w-[10px] h-[10px] border-b-[2px] border-r-[2px] border-wd-gold pointer-events-none"
-            />
-
-            {/* Top ink band — document metadata */}
-            <span className="bg-wd-ink text-wd-bone font-mono text-[9px] tracking-[0.3em] uppercase px-5 py-1.5 flex items-center justify-between gap-8 min-w-[280px]">
-              <span>Essays</span>
-              <span className="text-wd-gold/90">By Ty Linegar</span>
+            <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold">
+              Essays by Ty Linegar
             </span>
-
-            {/* Main bone body — label + arrow */}
-            <span className="bg-wd-bone text-wd-ink px-7 py-4 font-display text-[13px] tracking-[0.18em] uppercase flex items-center justify-center gap-3 group-hover:bg-wd-gold transition-colors duration-300">
-              Read the Essays
+            <span className="inline-flex items-center gap-5">
               <span
                 aria-hidden="true"
-                className="text-[15px] group-hover:translate-x-1 transition-transform"
+                className="h-px w-10 bg-wd-bone/45 group-hover:w-16 group-hover:bg-wd-gold transition-all duration-500"
+              />
+              <span className="font-display text-[clamp(22px,3vw,38px)] uppercase tracking-[-0.012em] text-wd-bone group-hover:text-wd-gold transition-colors duration-300">
+                Read the Essays
+              </span>
+              <span
+                aria-hidden="true"
+                className="font-display text-[clamp(22px,3vw,38px)] text-wd-gold group-hover:translate-x-2 transition-transform duration-300"
               >
                 →
               </span>
+              <span
+                aria-hidden="true"
+                className="h-px w-10 bg-wd-bone/45 group-hover:w-16 group-hover:bg-wd-gold transition-all duration-500"
+              />
             </span>
           </Link>
         </div>
