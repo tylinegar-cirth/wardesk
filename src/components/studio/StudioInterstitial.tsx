@@ -106,29 +106,14 @@ export default function StudioInterstitial() {
 
           <Link
             href="/studio/essays"
-            className="group mt-9 inline-flex flex-col items-center gap-3"
+            className="group mt-7 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase py-4 px-8 bg-wd-bone text-wd-ink font-bold shadow-[0_4px_24px_rgba(0,0,0,0.45)] hover:bg-wd-gold hover:shadow-[0_8px_32px_rgba(212,168,67,0.35)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold">
-              Essays by Ty Linegar
-            </span>
-            <span className="inline-flex items-center gap-5">
-              <span
-                aria-hidden="true"
-                className="h-px w-10 bg-wd-bone/45 group-hover:w-16 group-hover:bg-wd-gold transition-all duration-500"
-              />
-              <span className="font-display text-[clamp(22px,3vw,38px)] uppercase tracking-[-0.012em] text-wd-bone group-hover:text-wd-gold transition-colors duration-300">
-                Read the Essays
-              </span>
-              <span
-                aria-hidden="true"
-                className="font-display text-[clamp(22px,3vw,38px)] text-wd-gold group-hover:translate-x-2 transition-transform duration-300"
-              >
-                →
-              </span>
-              <span
-                aria-hidden="true"
-                className="h-px w-10 bg-wd-bone/45 group-hover:w-16 group-hover:bg-wd-gold transition-all duration-500"
-              />
+            Read the Essays
+            <span
+              aria-hidden="true"
+              className="text-[13px] group-hover:translate-x-1 transition-transform"
+            >
+              →
             </span>
           </Link>
         </div>
