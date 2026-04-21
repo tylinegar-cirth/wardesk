@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import CornerBrackets from "@/components/ui/CornerBrackets";
 
-/* ─── Service data ─── */
 interface Service {
   id: string;
   label: string;
@@ -39,152 +37,115 @@ const services: Service[] = [
   },
 ];
 
-/* ─── Row ─── */
 function ServiceRow({ service, index }: { service: Service; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const inView = useInView(ref, { once: true, amount: 0.2 });
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      className="relative border-t border-wd-gold/25 cursor-default"
+      className="relative border-t border-wd-gold/25 cursor-default overflow-hidden"
       initial={{ opacity: 0, y: 44 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 44 }}
       transition={{
-        duration: 1.1,
-        delay: index * 0.09,
+        duration: 1.0,
+        delay: index * 0.07,
         ease: [0.16, 1, 0.3, 1],
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Hover gradient sweep — slides in from left */}
+      {/* Hover fill: ink-on-gold reversal */}
       <motion.div
-        className="absolute inset-0 pointer-events-none origin-left"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(212,168,67,0.07) 0%, rgba(212,168,67,0.02) 60%, transparent 100%)",
-        }}
+        className="absolute inset-0 pointer-events-none bg-wd-gold origin-left"
         animate={{ scaleX: hovered ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      <div className="relative grid grid-cols-[auto_1fr] items-baseline gap-4 md:gap-7 py-[clamp(14px,2vw,28px)]">
-        {/* Number column — smaller, more marginal */}
-        <motion.span
-          className="font-mono text-[clamp(10px,0.85vw,12px)] tracking-[0.35em] self-start pt-[clamp(10px,1.1vw,18px)]"
-          animate={{
-            color: hovered ? "rgb(212,168,67)" : "rgba(212,168,67,0.55)",
-          }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {service.label}
-        </motion.span>
-
-        {/* Title + tags column */}
-        <motion.div animate={{ x: hovered ? 14 : 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
-          <motion.h3
-            className="font-serif font-normal leading-[0.94] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(40px,5.6vw,76px)" }}
+      <div
+        className="relative grid grid-cols-12 gap-x-4 md:gap-x-8 gap-y-4 py-[clamp(22px,3vw,40px)] px-[clamp(16px,2vw,32px)]"
+        style={{ color: hovered ? "rgb(18,18,20)" : undefined }}
+      >
+        {/* Index column */}
+        <div className="col-span-2 md:col-span-1 pt-2">
+          <motion.div
+            className="font-mono text-[10px] tracking-[0.32em] uppercase"
             animate={{
-              color: hovered ? "rgb(212,168,67)" : "rgb(var(--wd-text))",
+              color: hovered ? "rgb(18,18,20)" : "rgba(212,168,67,0.7)",
             }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.45 }}
+          >
+            {service.label}
+          </motion.div>
+        </div>
+
+        {/* Title + tags column (stacked) */}
+        <div className="col-span-10 md:col-span-11">
+          <motion.h3
+            className="font-display uppercase leading-[0.95] tracking-[-0.025em]"
+            style={{ fontSize: "clamp(30px,4.5vw,64px)" }}
+            animate={{
+              color: hovered ? "rgb(18,18,20)" : "rgb(var(--wd-text))",
+            }}
+            transition={{ duration: 0.45 }}
           >
             {service.title}
           </motion.h3>
 
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-4 flex flex-wrap gap-2">
             {service.tags.map((tag, i) => (
-              <span
+              <motion.span
                 key={tag}
-                className="font-mono text-[9px] tracking-[0.2em] uppercase py-[4px] px-[9px] rounded border transition-all duration-500"
+                className="font-mono text-[10px] tracking-[0.24em] uppercase py-[6px] px-[13px] border transition-all duration-400"
                 style={{
-                  borderColor: hovered
-                    ? "rgba(212,168,67,0.5)"
-                    : "rgba(255,255,255,0.14)",
-                  color: hovered
-                    ? "rgb(212,168,67)"
-                    : "rgba(255,255,255,0.58)",
-                  background: hovered
-                    ? "rgba(212,168,67,0.06)"
-                    : "transparent",
+                  borderColor: hovered ? "rgba(18,18,20,0.6)" : "rgba(212,168,67,0.35)",
+                  color: hovered ? "rgb(18,18,20)" : "rgba(212,168,67,0.95)",
+                  background: hovered ? "rgba(18,18,20,0.08)" : "rgba(212,168,67,0.04)",
                   transitionDelay: `${i * 30}ms`,
                 }}
               >
                 {tag}
-              </span>
+              </motion.span>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );
 }
 
-/* ─── Main ─── */
 export default function StudioServicesV3() {
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
 
   return (
     <section
-      id="services"
-      className="relative pt-[clamp(72px,11vw,130px)] pb-[clamp(36px,5vw,64px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto overflow-hidden"
+      id="capabilities"
+      className="relative pt-[clamp(72px,10vw,120px)] pb-[clamp(56px,7vw,90px)] px-[clamp(16px,4vw,72px)] overflow-hidden"
     >
-      <CornerBrackets
-        size={24}
-        inset={12}
-        color="rgba(212,168,67,0.35)"
-        strokeWidth={1}
-      />
+      {/* Background document grid */}
+      <div className="absolute inset-0 wd-grid opacity-40 pointer-events-none" aria-hidden="true" />
 
-      {/* Header — tighter margin so it connects to the first row */}
-      <motion.div
-        ref={headerRef}
-        className="relative mb-8 md:mb-10 flex items-start justify-between gap-8"
-        initial={{ opacity: 0, y: 36 }}
-        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="relative flex-1 max-w-[680px]">
-          <div className="font-mono text-[10px] tracking-[0.35em] uppercase text-wd-gold mb-4">
-            Systems &amp; Services
-          </div>
-          <h2 className="font-serif text-[clamp(32px,5vw,56px)] font-normal text-wd-text leading-[1.02] tracking-[-0.01em]">
-            The creative company for
-            <br />
-            <span className="italic text-wd-gold/90">defense</span> and{" "}
-            <span className="italic text-wd-gold/90">hard tech</span>.
-          </h2>
-        </div>
-        <div className="hidden md:block pt-1 text-right">
-          <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-wd-muted leading-[1.8]">
-            Section // 02
-            <br />
-            <span className="text-wd-gold/80">Capabilities</span>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Service list with vertical left rail */}
-      <div className="relative">
-        {/* Left rail wordmark — desktop only, anchors the list */}
-        <div
-          className="absolute -left-2 top-0 bottom-0 hidden lg:flex items-center justify-center pointer-events-none"
-          aria-hidden="true"
+      <div className="relative max-w-[1600px] mx-auto">
+        <motion.div
+          ref={headerRef}
+          className="mb-8 md:mb-12"
+          initial={{ opacity: 0, y: 36 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div
-            className="font-mono text-[clamp(13px,1.05vw,15px)] tracking-[0.45em] uppercase font-bold text-wd-gold/55 whitespace-nowrap"
-            style={{ writingMode: "vertical-rl" }}
-          >
-            {"// 02 \u2014 Capabilities"}
+          <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold mb-4">
+            02 / Capabilities
           </div>
-        </div>
+          <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text max-w-[1100px]">
+            The creative company for <span className="text-wd-gold">defense</span> and{" "}
+            <span className="text-wd-gold">hard tech</span>.
+          </h2>
+        </motion.div>
 
-        {/* Rows — pushed right to make room for the rail on lg+ */}
-        <div className="lg:pl-14">
+        {/* Service rows */}
+        <div>
           {services.map((service, i) => (
             <ServiceRow key={service.id} service={service} index={i} />
           ))}
