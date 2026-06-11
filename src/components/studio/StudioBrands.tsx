@@ -40,7 +40,7 @@ export default function StudioBrands() {
   return (
     <section className="relative overflow-hidden bg-wd-bg">
       {/* ── Video background ── */}
-      {!videoFailed && (
+      {!videoFailed ? (
         <video
           ref={videoRef}
           autoPlay
@@ -49,12 +49,25 @@ export default function StudioBrands() {
           playsInline
           disablePictureInPicture
           aria-hidden="true"
+          poster="/brands-reel-poster.jpg"
           src="/brands-reel.mp4"
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-[0]"
           style={{
             filter: "contrast(1.02) brightness(0.96) saturate(1)",
           }}
           onError={() => setVideoFailed(true)}
+        />
+      ) : (
+        // Autoplay blocked (iOS Low Power Mode, data saver, etc) — show a strong still, never a tap-to-play button
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src="/brands-reel-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-[0]"
+          style={{
+            filter: "contrast(1.02) brightness(0.96) saturate(1)",
+          }}
         />
       )}
 
@@ -95,8 +108,16 @@ export default function StudioBrands() {
       <Reveal>
         <div className="relative z-[2] py-[clamp(72px,9vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto">
           <div className="mb-10">
-            <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold mb-4">
-              03 / Credits
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold">
+                03 / Credits
+              </div>
+              <div
+                className="font-serif italic text-[clamp(12px,1.3vw,15px)] text-wd-bone/75 text-right leading-tight"
+                style={{ textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}
+              >
+                Some of our past work
+              </div>
             </div>
             <h2
               className="font-display text-[clamp(34px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-bone"
