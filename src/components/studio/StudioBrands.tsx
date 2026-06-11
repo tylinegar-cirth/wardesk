@@ -50,25 +50,41 @@ export default function StudioBrands() {
           disablePictureInPicture
           aria-hidden="true"
           src="/brands-reel.mp4"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-[0]"
           style={{
-            filter: "contrast(1.08) brightness(0.58) saturate(0.72)",
+            filter: "contrast(1.02) brightness(0.96) saturate(1)",
           }}
           onError={() => setVideoFailed(true)}
         />
       )}
 
-      {/* Overlays: dark + halftone — hardcoded dark so video stays cinematic in both themes */}
+      {/* Overlays: kept light so the showreel reads — text stays legible via the directional scrim + text-shadow halos */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "rgba(10,10,12,0.65)" }}
+        style={{ background: "rgba(10,10,12,0.18)" }}
       />
-      <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-25" />
+      <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-[0.14]" />
+      {/* Readability scrim: anchors the headline (top-left) without darkening the whole reel */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 55% at center, rgba(0,0,0,0.4) 0%, transparent 75%)",
+            "linear-gradient(105deg, rgba(8,8,10,0.55) 0%, rgba(8,8,10,0.28) 34%, rgba(8,8,10,0.08) 60%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 72% 62% at center, transparent 58%, rgba(0,0,0,0.22) 100%)",
+        }}
+      />
+      {/* Bottom scrim: buries burned-in legal captions (always at frame bottom) + seats the last brand row + eases into the next section */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.7) 14%, rgba(8,8,10,0.28) 24%, transparent 38%)",
         }}
       />
 
@@ -85,7 +101,7 @@ export default function StudioBrands() {
             <h2
               className="font-display text-[clamp(34px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-bone"
               style={{
-                textShadow: "0 2px 18px rgba(0,0,0,0.8)",
+                textShadow: "0 2px 22px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.7)",
               }}
             >
               Defense discipline.
@@ -100,7 +116,7 @@ export default function StudioBrands() {
           <div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-5 border-t border-wd-gold/30 pt-10"
             style={{
-              textShadow: "0 2px 14px rgba(0,0,0,0.85)",
+              textShadow: "0 1px 16px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.78)",
             }}
           >
             {brands.map((brand, i) => (
