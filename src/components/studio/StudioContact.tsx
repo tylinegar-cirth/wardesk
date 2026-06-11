@@ -19,7 +19,7 @@ export default function StudioContact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [deckEmail, setDeckEmail] = useState("");
-  const [deckUnlocked, setDeckUnlocked] = useState(false);
+  const [deckRequested, setDeckRequested] = useState(false);
   const [deckSubmitting, setDeckSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -70,17 +70,17 @@ export default function StudioContact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          _subject: `Studio Deck download: ${deckEmail.trim()}`,
+          _subject: `Studio Deck request: ${deckEmail.trim()}`,
           _template: "table",
           _captcha: "false",
           _replyto: deckEmail.trim(),
           Email: deckEmail.trim(),
-          Source: "War Desk Studio — Deck download",
+          Source: "War Desk Studio — Deck request",
         }),
       }),
     ]);
     setDeckSubmitting(false);
-    setDeckUnlocked(true);
+    setDeckRequested(true);
   }
 
   const inputClass =
@@ -223,7 +223,7 @@ export default function StudioContact() {
                     and approach.
                   </h3>
                   <p className="font-serif italic text-[clamp(16px,1.8vw,22px)] text-wd-gold/90 leading-[1.3] mb-6">
-                    Enter your email to download the deck.
+                    Enter your email and we&apos;ll send the deck over.
                   </p>
 
                   {/* What's inside — editorial TOC */}
@@ -258,19 +258,14 @@ export default function StudioContact() {
                   </div>
                 </div>
 
-                {deckUnlocked ? (
+                {deckRequested ? (
                   <div>
-                    <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-wd-sub mb-5">
-                      Email confirmed.
+                    <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-wd-gold mb-3">
+                      Request received.
                     </p>
-                    <a
-                      href="/wardesk-studio-deck.pdf"
-                      download
-                      className="group inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase py-4 px-8 bg-wd-gold text-wd-ink border-none font-bold transition-all duration-300 hover:bg-wd-text"
-                    >
-                      Download PDF
-                      <span className="text-[14px] group-hover:translate-x-1 transition-transform">↓</span>
-                    </a>
+                    <p className="font-sans text-[14px] text-wd-sub leading-[1.6]">
+                      We&apos;ll send the deck to your inbox within 24 hours.
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleDeckSubmit} className="space-y-5">
