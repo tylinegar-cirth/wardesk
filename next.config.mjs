@@ -49,17 +49,6 @@ const nextConfig = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        // Shareable deep link. /credits stays in the URL bar and serves the
-        // studio page; the page scrolls to the credits section on mount
-        // (see app/studio/page.tsx — hash redirects drop the fragment).
-        source: "/credits",
-        destination: "/studio",
-      },
-    ];
-  },
 };
 
 export default nextConfig;
