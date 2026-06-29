@@ -24,8 +24,8 @@ export async function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL("/landing", request.url));
     }
 
-    // Allow studio routes through
-    if (pathname.startsWith("/studio")) {
+    // Allow studio routes (and the /credits deep link) through
+    if (pathname.startsWith("/studio") || pathname === "/credits") {
       return NextResponse.next();
     }
 

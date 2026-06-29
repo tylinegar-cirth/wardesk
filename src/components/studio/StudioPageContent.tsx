@@ -23,20 +23,21 @@ export default function StudioPageContent({
     const target =
       scrollTo || (window.location.hash ? window.location.hash.slice(1) : "");
     if (!target) return;
+    const NAV = 88; // clear the fixed nav (~80px)
+    // Stop the App Router from restoring scroll to top after we've positioned.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     let tries = 0;
     const id = setInterval(() => {
       const el = document.getElementById(target);
       if (el) {
-        const top = el.getBoundingClientRect().top;
-        // Landed: section top parked just below the ~80px fixed nav.
-        if (top > 50 && top < 150) {
-          clearInterval(id);
-          return;
-        }
-        el.scrollIntoView({ block: "start" });
+        const y = el.getBoundingClientRect().top + window.scrollY - NAV;
+        // Re-assert with an absolute, instant scroll (the page sets
+        // scroll-behavior: smooth globally, which we override here). Keep
+        // nudging while the hero/sections settle and shift the target.
+        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       }
-      if (++tries >= 15) clearInterval(id); // ~3s safety cap
-    }, 200);
+      if (++tries >= 25) clearInterval(id); // ~3.75s of re-asserts
+    }, 150);
     return () => clearInterval(id);
   }, [scrollTo]);
 
