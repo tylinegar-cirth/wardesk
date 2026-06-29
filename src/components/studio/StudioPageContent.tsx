@@ -24,21 +24,59 @@ export default function StudioPageContent({
       scrollTo || (window.location.hash ? window.location.hash.slice(1) : "");
     if (!target) return;
     const NAV = 88; // clear the fixed nav (~80px)
-    // Stop the App Router from restoring scroll to top after we've positioned.
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    let tries = 0;
-    const id = setInterval(() => {
+    const prevRestoration =
+      "scrollRestoration" in history ? history.scrollRestoration : null;
+    // Stop the App Router from restoring scroll to top while we position.
+    if (prevRestoration) history.scrollRestoration = "manual";
+
+    let id = 0;
+    let done = false;
+    const start = Date.now();
+
+    const stop = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(id);
+      window.removeEventListener("wheel", onIntent);
+      window.removeEventListener("touchstart", onIntent);
+      window.removeEventListener("keydown", onIntent);
+      window.removeEventListener("pointerdown", onIntent);
+      // Hand scroll behaviour back to the browser.
+      if (prevRestoration) history.scrollRestoration = prevRestoration;
+    };
+    // The moment the user tries to move, stop fighting them.
+    const onIntent = () => stop();
+
+    const tick = () => {
+      if (done) return;
       const el = document.getElementById(target);
       if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - NAV;
-        // Re-assert with an absolute, instant scroll (the page sets
-        // scroll-behavior: smooth globally, which we override here). Keep
-        // nudging while the hero/sections settle and shift the target.
-        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
+        const top = el.getBoundingClientRect().top;
+        // Close enough? Landed — let go immediately.
+        if (Math.abs(top - NAV) < 40) {
+          stop();
+          return;
+        }
+        window.scrollTo({
+          top: Math.max(0, top + window.scrollY - NAV),
+          behavior: "auto",
+        });
       }
-      if (++tries >= 25) clearInterval(id); // ~3.75s of re-asserts
-    }, 150);
-    return () => clearInterval(id);
+      // Only keep nudging briefly while the hero/sections settle.
+      if (Date.now() - start < 1500) {
+        id = window.setTimeout(tick, 120);
+      } else {
+        stop();
+      }
+    };
+
+    window.addEventListener("wheel", onIntent, { passive: true });
+    window.addEventListener("touchstart", onIntent, { passive: true });
+    window.addEventListener("keydown", onIntent);
+    window.addEventListener("pointerdown", onIntent);
+    id = window.setTimeout(tick, 60);
+
+    return stop;
   }, [scrollTo]);
 
   return (
