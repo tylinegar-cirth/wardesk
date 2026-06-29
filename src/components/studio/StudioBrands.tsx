@@ -38,7 +38,7 @@ export default function StudioBrands() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-wd-bg">
+    <section id="credits" className="relative overflow-hidden bg-wd-bg scroll-mt-[88px]">
       {/* ── Video background ── */}
       {!videoFailed ? (
         <video
