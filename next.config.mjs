@@ -49,6 +49,15 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        // Unlisted sales deck: static page in public/studiodeck
+        source: "/studiodeck",
+        destination: "/studiodeck/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

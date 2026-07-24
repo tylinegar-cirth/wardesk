@@ -37,3 +37,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# fable video-edit scratch (2GB of reel sources, never commit)
+.fable_tmp/
