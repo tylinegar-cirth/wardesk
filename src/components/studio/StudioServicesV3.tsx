@@ -15,7 +15,7 @@ const services: Service[] = [
     id: "narrative",
     label: "01",
     title: "Narrative & Voice",
-    tags: ["Defense Market Read", "Brand Narrative", "Voice Architecture", "Capture Themes", "Content Strategy"],
+    tags: ["Market Read", "Brand Narrative", "Voice Architecture", "Capture Themes", "Content Strategy"],
   },
   {
     id: "embedded",
