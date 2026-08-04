@@ -20,7 +20,7 @@ const team: TeamMemberData[] = [
   {
     name: "Ty Linegar",
     surname: "Linegar",
-    role: "Co-Founder & Executive Producer",
+    role: "Founder & Executive Producer",
     discipline: "Production",
     location: "Los Angeles, CA",
     image: "/team-ty.jpg",

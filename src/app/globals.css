@@ -172,6 +172,52 @@ video::-webkit-media-controls-panel { display: none !important; }
   background-size: 32px 32px;
 }
 
+/* Chromatic echo — house signature (style guide 07).
+   Two duplicate layers behind the glyph, never text-shadow. Blaze offsets
+   right, cool offsets left, keeping the guide's asymmetric 0.82 factor.
+   The separation ramps from zero at the left edge to full at the right. */
+.wd-echo {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  --wd-echo-offset: 0.025em;
+}
+.wd-echo::before,
+.wd-echo::after {
+  content: attr(data-echo);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* the ramp: nothing on the left, full separation by the right edge */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.28) 48%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.28) 48%,
+    #000 100%
+  );
+}
+.wd-echo::before {
+  color: rgba(255, 90, 31, 0.62); /* blaze */
+  transform: translateX(var(--wd-echo-offset));
+}
+.wd-echo::after {
+  color: rgba(96, 178, 255, 0.48); /* cool */
+  transform: translateX(calc(var(--wd-echo-offset) * -0.82));
+}
+@media (prefers-reduced-motion: reduce) {
+  .wd-echo::before,
+  .wd-echo::after {
+    transform: none;
+  }
+}
+
 /* Marquee animation — smooth horizontal crawl */
 @keyframes wd-marquee {
   from { transform: translateX(0); }

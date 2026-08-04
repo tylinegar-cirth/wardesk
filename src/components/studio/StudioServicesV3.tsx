@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import ChromaticEcho from "@/components/ui/ChromaticEcho";
 
 interface Service {
   id: string;
@@ -15,7 +16,7 @@ const services: Service[] = [
     id: "narrative",
     label: "01",
     title: "Narrative & Voice",
-    tags: ["Market Read", "Brand Narrative", "Voice Architecture", "Capture Themes", "Content Strategy"],
+    tags: ["Market Read", "Brand Narrative", "Voice Architecture", "Content Strategy"],
   },
   {
     id: "embedded",
@@ -139,8 +140,8 @@ export default function StudioServicesV3() {
             02 / Capabilities
           </div>
           <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text max-w-[1100px]">
-            The creative company for <span className="text-wd-gold">defense</span> and{" "}
-            <span className="text-wd-gold">hard tech</span>.
+            The creative company for <ChromaticEcho className="text-wd-gold">defense</ChromaticEcho> and{" "}
+            <ChromaticEcho className="text-wd-gold">hard tech</ChromaticEcho>.
           </h2>
         </motion.div>
 

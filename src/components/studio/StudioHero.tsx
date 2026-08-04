@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import ChromaticEcho from "@/components/ui/ChromaticEcho";
 
 export default function StudioHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -85,7 +86,7 @@ export default function StudioHero() {
                   <span className="relative inline-block">
                     Is.
                   </span>{" "}
-                  <span className="text-wd-gold">War.</span>
+                  <ChromaticEcho className="text-wd-gold">War.</ChromaticEcho>
                 </h1>
               </Reveal>
 

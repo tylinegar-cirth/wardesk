@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import ChromaticEcho from "@/components/ui/ChromaticEcho";
 import { createBrowserClient } from "@supabase/ssr";
 
 const supabase = createBrowserClient(
@@ -103,7 +104,7 @@ export default function StudioContact() {
             </div>
             <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text max-w-[1100px]">
               Let&apos;s build something{" "}
-              <span className="text-wd-gold">legendary</span>.
+              <ChromaticEcho className="text-wd-gold">legendary</ChromaticEcho>.
             </h2>
           </div>
         </Reveal>
