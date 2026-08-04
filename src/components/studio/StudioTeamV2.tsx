@@ -29,16 +29,6 @@ const team: TeamMemberData[] = [
     linkedin: "#",
   },
   {
-    name: "Sean Gilfillan",
-    surname: "Gilfillan",
-    role: "Co-Founder & Partner",
-    discipline: "Strategy",
-    location: "El Segundo, CA",
-    image: "/team-sean.jpg",
-    bio: "Ex-Pentagon strategist. US diplomat. Bronze Star veteran. Former CMO at Boeing and Viasat\u2019s $1B government division. Founded BaseFEST. 12 years Army, 15 months in Iraq. He\u2019s been on both sides, building campaigns for defense giants and buying what defense startups sell.",
-    linkedin:"https://www.linkedin.com/in/seangilfillan/",
-  },
-  {
     name: "Samuel Bennetts",
     surname: "Bennetts",
     role: "Creative Director",
@@ -165,7 +155,7 @@ export default function StudioTeamV2() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-[1200px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-[800px]">
           {team.map((member, i) => (
             <TeamCard key={member.name} member={member} index={i} />
           ))}

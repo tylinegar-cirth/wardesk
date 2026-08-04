@@ -4,10 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 
 const brands = [
-  "Dept of War",
-  "Boeing",
   "Starlink",
-  "Viasat",
   "Toyota",
   "Ferrari",
   "Audi",
@@ -19,7 +16,6 @@ const brands = [
   "Shell",
   "GE",
   "Universal",
-  "Warner Bros",
 ];
 
 export default function StudioBrands() {
