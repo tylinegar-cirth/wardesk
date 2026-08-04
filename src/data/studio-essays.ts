@@ -186,6 +186,63 @@ export const essays: Essay[] = [
       },
     ],
   },
+  {
+    slug: "propaganda-until-morale-is-immortal",
+    title: "The Propaganda Will Continue Until Morale Is Immortal",
+    author: "Ty Linegar",
+    date: "August 2026",
+    readingTime: "5 min read",
+    summary:
+      "Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you. We have been doing it badly since Vietnam, and the fix is to tell the truth in a way that invokes the patriotic spirit.",
+    pullQuote: "Propaganda is a moat that makes a country believe in you.",
+    bgWord: "PROPAGANDA",
+    blocks: [
+      {
+        type: "p",
+        text: "“Defense companies don’t need to advertise, they just need relationships at DoD.” Wrong. It is not advertising but propaganda. Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you: the engineer who NEEDS to work for you, the VC who underwrites you, and that thirteen year old, who sees your content, feels something in his spirit, and resolves to become an engineer so he can work at your company and serve his country doing it. Yesterday he was lost and depressed and wanting to bow out of the system. Now he has direction and purpose. Propaganda gave him that.",
+      },
+      {
+        type: "p",
+        text: "I use the word deliberately. We have been doing propaganda badly since Vietnam, dressing everything in a drummed up moral reason instead of a practical (and more broadly existentially moral) one. It fails to convince the people who dislike hard power, and it insults the people who have no problem with hard power and a very large problem with being lied to by their government. When your stated mission is morality, you have a long way to fall. Tell the truth in a way that invokes the patriotic spirit. That is the better propaganda, and it is the only version that survives a skeptical public.",
+      },
+      {
+        type: "p",
+        text: "There is of course a financial result of this as well. Few thirteen year olds have ever wanted to grow up and work at Raytheon. Plenty of them want to work at Anduril. Anduril understood the propaganda mission on day one and Palmer Luckey never pretended otherwise. Anduril’s last raise valued it at 28 times revenue. Lockheed trades under 2. Growth and margins explain a good deal of that gap. Story makes it hold. The two are synergistic.",
+      },
+      {
+        type: "p",
+        text: "That aside, it’s personal to me. I lived through Covid and the DEI decade in the creative industries, where a great deal of thought was not permitted to exist and where capital arrived with ideological conditions attached that had nothing to do with whether you could build. I was told more than once that I would not get funded unless I restructured my founding team to satisfy a diversity checklist. That is over, and people do not appreciate how recently or how narrowly. Young guys are just building stuff again. In the open, with their friends, under their real names, posting pro-Western and openly ideological things and getting backed for it instead of having to go on an apology tour. They have a North Star again. Ten years of that being impossible and then it simply was not. I cannot watch this slip back into the abyss. So the propaganda must continue, and this time we hold the line.",
+      },
+      {
+        type: "p",
+        text: "One company doing content well cannot carry a movement. We need venture media arms, and they are appearing. We need funds like Discipulus Ventures, where Jakob Diepen is as focused on perpetuating founders who are openly fighting the ideological war as he is on the building, because he understands that neither survives without the other. We need shows like TBPN and MTS, both excellent though, by design, mostly for insiders. Good to see it catch on in Europe last week with ETN raising their seed, where the hill seems steeper and the shackles are still not quite off. Luke Knight and Ronan Chambers are building the same infrastructure under worse conditions and it is important work.",
+      },
+      {
+        type: "p",
+        text: "Insiders are only half the battle. Making one company legible to VCs and engineers is not the same job as making the country want the whole movement to win because they feel like they share in it. That is what we are building at The War Desk, the Creative Studio for the first and the Live show for the second. The moat, and the turrets.",
+      },
+      {
+        type: "p",
+        text: "Anduril understands the broader half too. In June they title-sponsored a NASCAR Cup race on an active naval air station, which is a direct bid for the Everyman, and the Everyman is who decides whether any of this survives a change of government.",
+      },
+      {
+        type: "p",
+        text: "None of it happens on its own. Places are made by people who decide to make them. Gundo OG and others already mentioned have been doing that for El Segundo, pulling founders into a few square miles until the density itself is the argument. Augustus Doricko is doing the same, while inspiring new generations of young builders by terraforming the sky and proving that yes, you can just do things. And it is happening in new sub moats all around the country, I’m just bias towards El Segundo because it’s my backyard and I can feel the spiritual effects of this small but potent heart starting to change the broader LA for the better.",
+      },
+      {
+        type: "p",
+        text: "More young Americans are seeing this spirit of revitalization and wanting to join it. There are extraordinary companies run by young minds who broke out of the malaise that most corporate career paths have become, and every kid still choosing what to study or whether to even bother trying is starting to realize there may be a real life at the end of that tunnel worth striving toward, working on the things that actually matter.",
+      },
+      {
+        type: "p",
+        text: "We have a chance to strive toward this country’s destiny after I had believed it was lost. It is under threat, as always, but we have taken an island, it is well defended, and the next campaign is mental territory, taken via inspiration.",
+      },
+      {
+        type: "pull",
+        text: "The propaganda will continue until morale is immortal.",
+      },
+    ],
+  },
 ];
 
 export const essayBySlug = (slug: string) => essays.find((e) => e.slug === slug);
