@@ -10,11 +10,15 @@ export async function middleware(request: NextRequest) {
 
   // ── Production domain: landing + studio only ──
   if (LANDING_HOSTS.includes(hostname)) {
-    // Allow static assets, Next.js internals
+    // Allow static assets, Next.js internals, and the crawler files.
+    // robots.txt and sitemap.xml used to fall through to the redirect below, so
+    // Google was handed the studio page's HTML instead of either file.
     if (
       pathname.startsWith("/_next") ||
       pathname.startsWith("/landing") ||
-      pathname.match(/\.(ico|png|jpg|jpeg|svg|mp4|webp|gif|css|js|woff2?|ttf)$/)
+      pathname === "/robots.txt" ||
+      pathname === "/sitemap.xml" ||
+      pathname.match(/\.(ico|png|jpg|jpeg|svg|mp4|webp|gif|css|js|woff2?|ttf|txt|xml|webmanifest)$/)
     ) {
       return NextResponse.next();
     }

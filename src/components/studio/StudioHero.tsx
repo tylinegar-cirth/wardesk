@@ -5,6 +5,16 @@ import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 import ChromaticEcho from "@/components/ui/ChromaticEcho";
 
+// The AI military hero video is switched off: it reads as generic AI defense
+// footage, which is the opposite of what the studio sells. The hero runs static
+// (type over the emblem watermark) until there is real work to put here.
+// Set to true to bring the video back exactly as it was.
+const HERO_VIDEO = false;
+const HERO_VIDEO_SRC =
+  "https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/Military_Proof_of_concept_i8axfn.mov";
+const HERO_VIDEO_POSTER =
+  "https://res.cloudinary.com/dmj9mlo6o/video/upload/so_2,w_1920,q_80,f_auto/Military_Proof_of_concept_i8axfn.jpg";
+
 export default function StudioHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -34,10 +44,19 @@ export default function StudioHero() {
         className="absolute inset-0 z-0"
         style={{ transform: `scale(${1 + scrollY * 0.00015})` }}
       >
-        {videoFailed ? (
+        {!HERO_VIDEO ? (
+          // Static hero: the gold emblem as a faint watermark, right of the type
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src="https://res.cloudinary.com/dmj9mlo6o/video/upload/so_2,w_1920,q_80,f_auto/Military_Proof_of_concept_i8axfn.jpg"
+            src="/logo-gold.png"
+            alt=""
+            aria-hidden="true"
+            className="absolute right-[-10vw] top-1/2 -translate-y-1/2 w-[min(64vw,880px)] opacity-[0.07] pointer-events-none select-none"
+          />
+        ) : videoFailed ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={HERO_VIDEO_POSTER}
             alt=""
             className="w-full h-full object-cover pointer-events-none"
           />
@@ -49,9 +68,9 @@ export default function StudioHero() {
             loop
             playsInline
             disablePictureInPicture
-            poster="https://res.cloudinary.com/dmj9mlo6o/video/upload/so_2,w_1920,q_80,f_auto/Military_Proof_of_concept_i8axfn.jpg"
+            poster={HERO_VIDEO_POSTER}
             className="w-full h-full object-cover pointer-events-none"
-            src="https://res.cloudinary.com/dmj9mlo6o/video/upload/f_auto,q_90/Military_Proof_of_concept_i8axfn.mov"
+            src={HERO_VIDEO_SRC}
           />
         )}
         {/* Video overlays hardcoded dark — video section stays cinematic in both themes */}

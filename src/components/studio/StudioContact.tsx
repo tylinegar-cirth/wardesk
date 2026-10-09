@@ -100,7 +100,7 @@ export default function StudioContact() {
         <Reveal>
           <div className="mb-10">
             <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold mb-4">
-              06 / Contact
+              05 / Contact
             </div>
             <h2 className="font-display text-[clamp(36px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-text max-w-[1100px]">
               Let&apos;s build something{" "}
