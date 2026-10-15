@@ -21,67 +21,59 @@ export interface Essay {
 
 export const essays: Essay[] = [
   {
-    slug: "the-meaning-problem",
-    title: "The Meaning Problem",
-    kicker: "Why we built War Desk Studio",
+    slug: "propaganda-until-morale-is-immortal",
+    title: "The Propaganda Will Continue Until Morale Is Immortal",
     author: "Ty Linegar",
-    date: "April 2026",
-    readingTime: "6 min read",
+    date: "August 2026",
+    readingTime: "5 min read",
     summary:
-      "Consumer brands manufacture meaning from a void. Hard tech is the inverse. The feeling is earned. The story is already true.",
-    pullQuote: "The substance is finally worthy of the craft.",
-    bgWord: "MEANING",
+      "Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you. We have been doing it badly since Vietnam, and the fix is to tell the truth in a way that invokes the patriotic spirit.",
+    pullQuote: "Propaganda is a moat that makes a country believe in you.",
+    bgWord: "PROPAGANDA",
     blocks: [
       {
         type: "p",
-        text: "I\u2019ve spent years working on national brand campaigns. Big brands, real budgets, the kind of work that looks impressive in a portfolio. And the job was always the same: find the meaning.",
+        text: "“Defense companies don’t need to advertise, they just need relationships at DoD.” Wrong. It is not advertising but propaganda. Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you: the engineer who NEEDS to work for you, the VC who underwrites you, and that thirteen-year-old, who sees your content, feels something in his spirit, and resolves to become an engineer so he can work at your company and serve his country doing it. Yesterday he was lost and depressed and wanting to bow out of the system. Now he has direction and purpose. Propaganda gave him that.",
       },
       {
         type: "p",
-        text: "The problem is that for most consumer products, there isn\u2019t any. Hair product. Soda. Insurance. A thousand competitors doing the same thing for the same price. So the job is to manufacture meaning. Build mythology. Attach the product to identity, to aspiration, to belonging. Make people feel like buying this particular thing says something about who they are.",
+        text: "I use the word deliberately. We have been doing propaganda badly since Vietnam, dressing everything in a drummed-up moral reason instead of a practical (and more broadly existentially moral) one. It fails to convince the people who dislike hard power, and it insults the people who have no problem with hard power and a very large problem with being lied to by their government. When your stated mission is morality, you have a long way to fall. Tell the truth in a way that invokes the patriotic spirit. That is the better propaganda, and it is the only version that survives a skeptical public.",
       },
       {
         type: "p",
-        text: "That\u2019s the craft, it sells, and there is real skill in it. But there\u2019s a hollow center to the whole enterprise that was always hard to tune out. You\u2019re building on nothing. The brand is the product because there\u2019s no other differentiation. The story you\u2019re telling isn\u2019t a story about anything real. I don\u2019t think this is inherently evil. It\u2019s just the logic of consumer markets. When the thing itself doesn\u2019t matter much, the narrative has to do all the work. And after enough years, you start to wonder what it would feel like to tell a story that was already true.",
-      },
-      { type: "divider" },
-      {
-        type: "p",
-        text: "There\u2019s a different economy emerging, and a lot of it runs through El Segundo. Defense tech startups. Companies building satellites, autonomous platforms, power systems, infrastructure that matters. Hard tech. These founders are a different species. They\u2019re building things because they believe those things need to exist. For national security. For energy independence. For the kind of future where humanity becomes more capable rather than just more connected.",
+        text: "There is of course a financial result of this as well. Few thirteen-year-olds have ever wanted to grow up and work at Raytheon. Plenty of them want to work at Anduril. Anduril understood the propaganda mission on day one and Palmer Luckey never pretended otherwise. Anduril’s last raise valued it at 28 times revenue. Lockheed trades under 2. Growth and margins explain a good deal of that gap. Story makes it hold. The two feed each other.",
       },
       {
         type: "p",
-        text: "The stakes are different. The buyers are different. A defense procurement officer evaluates on substance. Whether your system works, whether your team can deliver, whether you understand their constraints. They\u2019re also human. They chose their career for a reason. They believe in something. Campaigns should make them feel the weight of what a founder has built and connect them to the mission.",
+        text: "That aside, it’s personal to me. I lived through Covid and the DEI decade in the creative industries, where a great deal of thought was not permitted to exist and where capital arrived with ideological conditions attached that had nothing to do with whether you could build. I was told more than once that I would not get funded unless I restructured my founding team to satisfy a diversity checklist. That is over, and people do not appreciate how recently or how narrowly. Young guys are just building stuff again. In the open, with their friends, under their real names, posting pro-Western and openly ideological things and getting backed for it instead of having to go on an apology tour. They have a North Star again. Ten years of that being impossible and then it simply was not. I cannot watch this slip back into the abyss. So the propaganda must continue, and this time we hold the line.",
       },
       {
         type: "p",
-        text: "And the founders themselves are serious. Many are Faustian idealists who have dedicated their souls to advancing civilization. Many of them left comfortable careers because they thought something important wasn\u2019t getting built. There\u2019s an inherent mismatch between these companies and the agencies that should serve them.",
-      },
-      { type: "divider" },
-      {
-        type: "p",
-        text: "Traditional agencies are optimized for consumer brands. Their playbooks, their instincts, their talent pipelines are built for a world where the job is manufacturing meaning. Creating desire. Making people feel something about products that are interchangeable. Bring that machinery to hard tech and it actively damages. The slick campaign that would crush it for a DTC brand reads as unserious to a defense buyer. The brand voice that sounds \u201cauthentic\u201d in consumer markets sounds performative and cringe to engineers. The agency\u2019s instinct to lead with emotion over substance is exactly backwards for an audience that needs to trust the specs before they\u2019ll trust the story.",
+        text: "One company doing content well cannot carry a movement. We need venture media arms, and they are appearing. We need funds like Discipulus Ventures, where Jakob Diepen is as focused on perpetuating founders who are openly fighting the ideological war as he is on the building, because he understands that neither survives without the other. We need shows like TBPN and MTS, both excellent though, by design, mostly for insiders. Good to see it catch on in Europe last week with ETN raising their seed, where the hill seems steeper and the shackles are still not quite off. Luke Knight and Ronan Chambers are building the same infrastructure under worse conditions and it is important work.",
       },
       {
         type: "p",
-        text: "When a founder solving nuclear waste storage or building better missile defense encounters an agency that wants to spend weeks deconstructing \u201cbrand purpose,\u201d there\u2019s a disconnect that can\u2019t be bridged by a better pitch deck. What\u2019s driving me though isn\u2019t just an opportunity to correct what agencies get wrong. It\u2019s the sense of the divine possible when you get it right. Amplifying an undeniable force through story and content is an incredibly fulfilling promise.",
-      },
-      { type: "divider" },
-      {
-        type: "p",
-        text: "When I look at this industry, I see a company cloud seeding to transform barren desert wastelands into thriving green landscapes. Teams building the infrastructure for humanity to reach other worlds. Startups engineering power systems that could reshape civilization. Defense technology with otherworldly capability protecting the people and values that make any of this possible. This is as beautiful on a deep level as it is technically impressive. There\u2019s genuine cinematic weight to what\u2019s being built. The raw material is better than anything a consumer brand could dream of.",
+        text: "Insiders are only half the battle. Making one company legible to VCs and engineers is not the same job as making the country want the whole movement to win because they feel like they share in it. That is what we are building at The War Desk, the Creative Studio for the first and the Live show for the second. The moat, and the turrets.",
       },
       {
         type: "p",
-        text: "The issue with traditional agencies isn\u2019t the absence of craft. The craft is there. It\u2019s that the craft is in service of nothing. When you\u2019re selling shampoo, you have to manufacture feeling from a void. Hard tech is the inverse. The feeling is earned. The story is already true. The creative work is finally worthy of itself \u2014 genuine meaning given form. This is a new frontier, and we are watching the early innings of something civilizationally significant. A generation of builders focused on energy, defense, space, infrastructure, doing the kind of work that actually moves the needle on what humanity is capable of.",
+        text: "Anduril understands the broader half too. In June they title-sponsored a NASCAR Cup race on an active naval air station, which is a direct bid for the Everyman, and the Everyman is who decides whether any of this survives a change of government.",
       },
       {
         type: "p",
-        text: "This movement deserves storytelling that takes it seriously. Something that matches the ambition of what\u2019s being built. That captures the weight of it. That makes people feel what\u2019s true.",
+        text: "None of it happens on its own. Places are made by people who decide to make them. Gundo OG and others already mentioned have been doing that for El Segundo, pulling founders into a few square miles until the density itself is the argument. Augustus Doricko is doing the same, while inspiring new generations of young builders by terraforming the sky and proving that yes, you can just do things. And it is happening in new sub moats all around the country, I’m just biased toward El Segundo because it’s my backyard and I can feel the spiritual effects of this small but potent heart starting to change the broader LA for the better.",
+      },
+      {
+        type: "p",
+        text: "More young Americans are seeing this spirit of revitalization and wanting to join it. There are extraordinary companies run by young minds who broke out of the malaise that most corporate career paths have become, and every kid still choosing what to study or whether to even bother trying is starting to realize there may be a real life at the end of that tunnel worth striving toward, working on the things that actually matter.",
+      },
+      {
+        type: "p",
+        text: "We have a chance to strive toward this country’s destiny after I had believed it was lost. It is under threat, as always, but we have taken an island, it is well defended, and the next campaign is mental territory, taken via inspiration.",
       },
       {
         type: "pull",
-        text: "The substance is finally worthy of the craft. That\u2019s what War Desk Studio is built for. Because Business Is War.",
+        text: "The propaganda will continue until morale is immortal.",
       },
     ],
   },
@@ -94,7 +86,7 @@ export const essays: Essay[] = [
     summary:
       "1,500 drone startups later, when every company\u2019s content is interchangeable, nobody\u2019s content works.",
     pullQuote:
-      "The gap in defense tech content isn\u2019t really about production quality. The gap is storytelling.",
+      "The gap in defense tech content is storytelling, not production quality.",
     bgWord: "NARRATIVE",
     blocks: [
       {
@@ -136,7 +128,7 @@ export const essays: Essay[] = [
       },
       {
         type: "pull",
-        text: "The gap in defense tech content isn\u2019t really about production quality. The gap is storytelling.",
+        text: "The gap in defense tech content is storytelling, not production quality.",
       },
       {
         type: "p",
@@ -157,7 +149,7 @@ export const essays: Essay[] = [
       },
       {
         type: "p",
-        text: "OpenAI just acquired TBPN, a daily tech talk show that launched in late 2024 and generated $5 million in advertising revenue in its first year. It\u2019s on track to exceed $30 million this year. OpenAI paid hundreds of millions of dollars for the narrative engine \u2014 the ability to shape, every single day, how the most influential audience in technology thinks about AI. Sam Altman bought it because in a world where public perception shapes regulation, talent flows, and partnership dynamics, controlling the conversation is the strategic advantage. Everyone watching that acquisition felt the ground shift.",
+        text: "OpenAI just acquired TBPN, a daily tech talk show that launched in late 2024 and generated $5 million in advertising revenue in its first year. It\u2019s on track to exceed $30 million this year. OpenAI paid hundreds of millions of dollars for the narrative engine: the ability to shape, every single day, how the most influential audience in technology thinks about AI. Sam Altman bought it because in a world where public perception shapes regulation, talent flows, and partnership dynamics, controlling the conversation is the strategic advantage. Everyone watching that acquisition felt the ground shift.",
       },
       {
         type: "p",
@@ -174,7 +166,7 @@ export const essays: Essay[] = [
       },
       {
         type: "p",
-        text: "The window is narrower than most founders think, because narrative done right, snowballs. The company that establishes itself as the defining voice in its category today will be exponentially harder to displace three years from now. Every month you wait, the gap widens between you and the company that started building.",
+        text: "The window is narrower than most founders think, because narrative done right snowballs. The company that establishes itself as the defining voice in its category today will be exponentially harder to displace three years from now. Every month you wait, the gap widens between you and the company that started building.",
       },
       {
         type: "p",
@@ -187,59 +179,71 @@ export const essays: Essay[] = [
     ],
   },
   {
-    slug: "propaganda-until-morale-is-immortal",
-    title: "The Propaganda Will Continue Until Morale Is Immortal",
+    slug: "the-meaning-problem",
+    title: "The Meaning Problem",
+    kicker: "Why we built War Desk Studio",
     author: "Ty Linegar",
-    date: "August 2026",
-    readingTime: "5 min read",
+    date: "April 2026",
+    readingTime: "4 min read",
     summary:
-      "Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you. We have been doing it badly since Vietnam, and the fix is to tell the truth in a way that invokes the patriotic spirit.",
-    pullQuote: "Propaganda is a moat that makes a country believe in you.",
-    bgWord: "PROPAGANDA",
+      "I spent years manufacturing meaning for products that had none. Hard tech is the inverse: the feeling is earned and the story is already true.",
+    pullQuote: "The substance is finally worthy of the craft.",
+    bgWord: "MEANING",
     blocks: [
       {
         type: "p",
-        text: "“Defense companies don’t need to advertise, they just need relationships at DoD.” Wrong. It is not advertising but propaganda. Advertising sells a product to a buyer. Propaganda is a moat that makes a country believe in you: the engineer who NEEDS to work for you, the VC who underwrites you, and that thirteen year old, who sees your content, feels something in his spirit, and resolves to become an engineer so he can work at your company and serve his country doing it. Yesterday he was lost and depressed and wanting to bow out of the system. Now he has direction and purpose. Propaganda gave him that.",
+        text: "For most of my working life, my job was to find meaning in things that had none.",
       },
       {
         type: "p",
-        text: "I use the word deliberately. We have been doing propaganda badly since Vietnam, dressing everything in a drummed up moral reason instead of a practical (and more broadly existentially moral) one. It fails to convince the people who dislike hard power, and it insults the people who have no problem with hard power and a very large problem with being lied to by their government. When your stated mission is morality, you have a long way to fall. Tell the truth in a way that invokes the patriotic spirit. That is the better propaganda, and it is the only version that survives a skeptical public.",
+        text: "I spent years on national brand campaigns. Big brands, real budgets, the kind of work that looks impressive in a portfolio. Hair product. Soda. Insurance. A thousand competitors selling the same thing at the same price, and the same instruction underneath every brief: make people feel something about it.",
       },
       {
         type: "p",
-        text: "There is of course a financial result of this as well. Few thirteen year olds have ever wanted to grow up and work at Raytheon. Plenty of them want to work at Anduril. Anduril understood the propaganda mission on day one and Palmer Luckey never pretended otherwise. Anduril’s last raise valued it at 28 times revenue. Lockheed trades under 2. Growth and margins explain a good deal of that gap. Story makes it hold. The two are synergistic.",
+        text: "So you manufacture it. You build a mythology around a bottle of shampoo. You attach a can of soda to identity, to aspiration, to belonging, until buying it says something about who you are. That is the craft, it sells, and there is real skill in it. It is simply the logic of a market where the thing itself barely matters and the story has to carry all of the weight, and I have never thought of it as evil.",
       },
       {
         type: "p",
-        text: "That aside, it’s personal to me. I lived through Covid and the DEI decade in the creative industries, where a great deal of thought was not permitted to exist and where capital arrived with ideological conditions attached that had nothing to do with whether you could build. I was told more than once that I would not get funded unless I restructured my founding team to satisfy a diversity checklist. That is over, and people do not appreciate how recently or how narrowly. Young guys are just building stuff again. In the open, with their friends, under their real names, posting pro-Western and openly ideological things and getting backed for it instead of having to go on an apology tour. They have a North Star again. Ten years of that being impossible and then it simply was not. I cannot watch this slip back into the abyss. So the propaganda must continue, and this time we hold the line.",
+        text: "But there was a hollow at the center of it that I could never tune out. You are building on nothing. The brand is the product because there is no other difference to sell, and the story, however beautifully you tell it, is about nothing real. You can do that for years. I did. Somewhere in those years I started to wonder what it would feel like to tell a story that was already true.",
+      },
+      { type: "divider" },
+      {
+        type: "p",
+        text: "There is another economy rising now, and much of it runs through El Segundo. Satellites, autonomous platforms, power systems, missile defense, the infrastructure everything else stands on. The founders building it are a different species. Many of them walked away from comfortable careers because they saw something important going unbuilt. Many are Faustian idealists who have devoted their lives to the advancement of civilization.",
       },
       {
         type: "p",
-        text: "One company doing content well cannot carry a movement. We need venture media arms, and they are appearing. We need funds like Discipulus Ventures, where Jakob Diepen is as focused on perpetuating founders who are openly fighting the ideological war as he is on the building, because he understands that neither survives without the other. We need shows like TBPN and MTS, both excellent though, by design, mostly for insiders. Good to see it catch on in Europe last week with ETN raising their seed, where the hill seems steeper and the shackles are still not quite off. Luke Knight and Ronan Chambers are building the same infrastructure under worse conditions and it is important work.",
+        text: "Their buyers judge on substance, as they should, and they are human too. The officer working through a spec sheet chose that life for a reason. Somewhere beneath the evaluation criteria is a person who believes in something, and the work should reach that person: make them feel the weight of what a founder has built and the mission it serves.",
+      },
+      { type: "divider" },
+      {
+        type: "p",
+        text: "This is where the old machinery breaks. Traditional agencies were built for the consumer world, their playbooks, their instincts and their talent pipelines all tuned to the manufacture of desire around interchangeable things. Bring that machine into hard tech and it does damage. The slick campaign that would crush it for a DTC brand reads as unserious to a defense buyer. The brand voice that passes for authentic in consumer markets sounds performative and cringe to engineers. And the agency reflex to lead with emotion gets the order exactly backwards for an audience that has to trust the specs before it will trust the story.",
       },
       {
         type: "p",
-        text: "Insiders are only half the battle. Making one company legible to VCs and engineers is not the same job as making the country want the whole movement to win because they feel like they share in it. That is what we are building at The War Desk, the Creative Studio for the first and the Live show for the second. The moat, and the turrets.",
+        text: "Put a founder solving nuclear waste storage in a room with an agency that wants to spend weeks deconstructing his brand purpose, and no pitch deck in the world will close the distance between them. His purpose is the most obvious thing about him.",
       },
       {
         type: "p",
-        text: "Anduril understands the broader half too. In June they title-sponsored a NASCAR Cup race on an active naval air station, which is a direct bid for the Everyman, and the Everyman is who decides whether any of this survives a change of government.",
+        text: "Correcting what the agencies get wrong would be reason enough to build something. What drives me is larger than that. It is the sense of the divine possible when the work is done right, when an undeniable force meets a story equal to it and the two become one thing.",
+      },
+      { type: "divider" },
+      {
+        type: "p",
+        text: "When I look at this industry I see a company seeding clouds to turn desert wasteland green. I see teams laying down the road by which humanity will reach other worlds. I see power systems that could remake the civilization running on them, and defense technology of almost otherworldly capability standing guard over the people and the values that make any of it possible. It is as beautiful as it is impressive, and it carries a cinematic weight that no shampoo has ever had, whatever was spent pretending otherwise.",
       },
       {
         type: "p",
-        text: "None of it happens on its own. Places are made by people who decide to make them. Gundo OG and others already mentioned have been doing that for El Segundo, pulling founders into a few square miles until the density itself is the argument. Augustus Doricko is doing the same, while inspiring new generations of young builders by terraforming the sky and proving that yes, you can just do things. And it is happening in new sub moats all around the country, I’m just bias towards El Segundo because it’s my backyard and I can feel the spiritual effects of this small but potent heart starting to change the broader LA for the better.",
+        text: "The agencies have the craft. They have always had the craft. What they have lacked is a subject worthy of it. In consumer work you manufacture feeling out of a void. Hard tech is the inverse. The feeling has already been earned and the story is already true, and the storyteller\u2019s whole job is to give it form. We are watching the opening of something civilizationally significant, a generation of builders turning their lives toward energy, defense, space and the infrastructure beneath all of it, the kind of work that decides what humanity will be capable of.",
       },
       {
         type: "p",
-        text: "More young Americans are seeing this spirit of revitalization and wanting to join it. There are extraordinary companies run by young minds who broke out of the malaise that most corporate career paths have become, and every kid still choosing what to study or whether to even bother trying is starting to realize there may be a real life at the end of that tunnel worth striving toward, working on the things that actually matter.",
-      },
-      {
-        type: "p",
-        text: "We have a chance to strive toward this country’s destiny after I had believed it was lost. It is under threat, as always, but we have taken an island, it is well defended, and the next campaign is mental territory, taken via inspiration.",
+        text: "This movement deserves storytelling that takes it as seriously as it takes itself, that rises to the ambition of what is being built, carries the full weight of it, and makes people feel what is true. That is what War Desk Studio is built for.",
       },
       {
         type: "pull",
-        text: "The propaganda will continue until morale is immortal.",
+        text: "The substance is finally worthy of the craft.",
       },
     ],
   },
