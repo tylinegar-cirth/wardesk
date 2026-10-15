@@ -5,14 +5,15 @@ import StudioNav from "@/components/studio/StudioNav";
 import StudioHero from "@/components/studio/StudioHero";
 import StudioOffer from "@/components/studio/StudioOffer";
 import StudioBrands from "@/components/studio/StudioBrands";
-import StudioCrew from "@/components/studio/StudioCrew";
 import StudioContact from "@/components/studio/StudioContact";
 import StudioFooter from "@/components/studio/StudioFooter";
 
 // The page runs like a film: a cold open that is the reel, what the studio does, the end
-// credits, the crew, then a person to call. (Direction from the Oct 2026 research
-// report "Bespoke studio website design".) The roll call of films (StudioWork) is off the
-// page: it replayed the reel's own films straight after the reel. It stays in the repo.
+// credits, then a person to call. (Direction from the Oct 2026 research report "Bespoke
+// studio website design".) The roll call of films (StudioWork) is off the page: it replayed
+// the reel's own films straight after the reel. It stays in the repo. The crew (StudioCrew)
+// is off the page for now (Ty, 15 Oct 2026); it stays in the repo and goes back between
+// StudioBrands and StudioContact.
 // The reel player is mounted by the nav, so "Work" opens it on every page that has the nav.
 
 // Shared studio page body. `scrollTo` is the section id to land on at mount
@@ -91,7 +92,6 @@ export default function StudioPageContent({
         <StudioHero />
         <StudioOffer />
         <StudioBrands />
-        <StudioCrew />
         <StudioContact />
       </main>
       <StudioFooter />
