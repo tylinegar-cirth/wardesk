@@ -34,16 +34,11 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Inline script to prevent flash of wrong theme on page load
+// The brand is dark by design and the light/dark toggle is gone from the nav,
+// so always render dark (ignoring any light preference saved by the old toggle).
 const themeScript = `
   (function() {
-    try {
-      var theme = localStorage.getItem('wd-theme');
-      if (theme === 'light') return;
-      document.documentElement.classList.add('dark');
-    } catch(e) {
-      document.documentElement.classList.add('dark');
-    }
+    document.documentElement.classList.add('dark');
   })();
 `;
 
@@ -56,6 +51,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* The two faces every page paints first */}
+        <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/InstrumentSans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body>{children}</body>
     </html>

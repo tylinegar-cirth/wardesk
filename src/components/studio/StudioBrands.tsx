@@ -1,157 +1,115 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Reveal from "@/components/ui/Reveal";
+import ChromaticEcho from "@/components/ui/ChromaticEcho";
+import ShockStations from "@/components/transonic/ShockStations";
 
+// End credits. The brands run as a billing block over the credits reel, centred,
+// with the studio line as the title card above it (Searchlight, Blink, Neon).
 const brands = [
   "Starlink",
-  "Toyota",
   "Ferrari",
+  "Corvette",
+  "Porsche",
+  "Toyota",
   "Audi",
-  "Sony Pictures",
+  "Silverado",
   "Mercedes-Benz",
   "Netflix",
-  "McDonald's",
+  "Sony Pictures",
+  "Spotify",
   "Coca-Cola",
-  "Shell",
-  "GE",
-  "Universal",
 ];
 
 export default function StudioBrands() {
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoFailed, setVideoFailed] = useState(false);
+  const [near, setNear] = useState(false);
+
+  // The loop is 7.7MB, so it waits until the section is close
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) setNear(true);
+    }, { rootMargin: "400px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
-    v.play().catch(() => setVideoFailed(true));
-    const handleVis = () => {
+    if (!near || !v) return;
+    v.play().catch(() => {});
+    const onVis = () => {
       if (!document.hidden) v.play().catch(() => {});
     };
-    document.addEventListener("visibilitychange", handleVis);
-    return () => document.removeEventListener("visibilitychange", handleVis);
-  }, []);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [near]);
 
   return (
-    <section id="credits" className="relative overflow-hidden bg-wd-bg scroll-mt-[88px]">
-      {/* ── Video background ── */}
-      {!videoFailed ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          aria-hidden="true"
-          poster="/brands-reel-poster.jpg"
-          src="/brands-reel.mp4"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-[0]"
-          style={{
-            filter: "contrast(1.02) brightness(0.96) saturate(1)",
-          }}
-          onError={() => setVideoFailed(true)}
-        />
-      ) : (
-        // Autoplay blocked (iOS Low Power Mode, data saver, etc) — show a strong still, never a tap-to-play button
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src="/brands-reel-poster.jpg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-[0]"
-          style={{
-            filter: "contrast(1.02) brightness(0.96) saturate(1)",
-          }}
-        />
-      )}
-
-      {/* Overlays: kept light so the showreel reads — text stays legible via the directional scrim + text-shadow halos */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "rgba(10,10,12,0.18)" }}
-      />
-      <div className="absolute inset-0 z-[1] pointer-events-none wd-halftone opacity-[0.14]" />
-      {/* Readability scrim: anchors the headline (top-left) without darkening the whole reel */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(105deg, rgba(8,8,10,0.55) 0%, rgba(8,8,10,0.28) 34%, rgba(8,8,10,0.08) 60%, transparent 100%)",
-        }}
+    <section
+      id="credits"
+      data-transonic-band
+      ref={sectionRef}
+      aria-label="Credits"
+      className="relative overflow-hidden bg-wd-bg scroll-mt-16"
+    >
+      <video
+        ref={videoRef}
+        src={near ? "/brands-reel.mp4" : undefined}
+        poster="/brands-reel-poster.jpg"
+        muted
+        loop
+        playsInline
+        preload="none"
+        disablePictureInPicture
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
       <div
-        className="absolute inset-0 z-[1] pointer-events-none"
+        aria-hidden="true"
+        data-transonic-scrim
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 72% 62% at center, transparent 58%, rgba(0,0,0,0.22) 100%)",
-        }}
-      />
-      {/* Bottom scrim: buries burned-in legal captions (always at frame bottom) + seats the last brand row + eases into the next section */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(8,8,10,0.92) 0%, rgba(8,8,10,0.7) 14%, rgba(8,8,10,0.28) 24%, transparent 38%)",
+            "radial-gradient(ellipse 70% 62% at center, rgba(10,10,12,0.62) 0%, rgba(10,10,12,0.42) 55%, rgba(10,10,12,0.7) 100%), linear-gradient(to bottom, rgb(10,10,12) 0%, transparent 16%, transparent 84%, rgb(10,10,12) 100%)",
         }}
       />
 
-      {/* Top + bottom hairlines */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-wd-gold/40 z-[2]" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-wd-gold/40 z-[2]" />
-
-      <Reveal>
-        <div className="relative z-[2] py-[clamp(72px,9vw,120px)] px-[clamp(20px,5vw,72px)] max-w-[1400px] mx-auto">
-          <div className="mb-10">
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div className="font-mono text-[10px] tracking-[0.32em] uppercase text-wd-gold">
-                03 / Credits
-              </div>
-              <div
-                className="font-serif italic text-[clamp(12px,1.3vw,15px)] text-wd-bone/75 text-right leading-tight"
-                style={{ textShadow: "0 1px 10px rgba(0,0,0,0.85)" }}
-              >
-                Some of our past work
-              </div>
-            </div>
-            <h2
-              className="font-display text-[clamp(34px,5.5vw,76px)] uppercase leading-[0.95] tracking-[-0.025em] text-wd-bone"
-              style={{
-                textShadow: "0 2px 22px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.7)",
-              }}
-            >
-              Defense discipline.
-              <br />
-              <span className="text-wd-gold italic font-serif normal-case tracking-[-0.01em]">
-                Consumer craft.
-              </span>
-            </h2>
-          </div>
-
-          {/* Brand list — numbered editorial grid */}
-          <div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-5 border-t border-wd-gold/30 pt-10"
-            style={{
-              textShadow: "0 1px 16px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.78)",
-            }}
+      <div className="relative min-h-[100svh] flex flex-col items-center justify-center text-center px-[clamp(20px,5vw,72px)] py-[clamp(96px,12vw,180px)]">
+        {/* The title's shocks bend the reel behind it (its poster, until the reel is playing) */}
+        <ShockStations trigger="view" field="title" firstMs={120} params={{ seams: 4 }}>
+          <h2
+            className="font-display uppercase leading-[0.92] tracking-[-0.03em] text-[clamp(36px,5.6vw,92px)] text-wd-bone"
+            style={{ textShadow: "0 2px 30px rgba(0,0,0,0.6)" }}
           >
-            {brands.map((brand, i) => (
-              <div
-                key={brand}
-                className="group flex items-start gap-3"
-              >
-                <span className="font-mono text-[9px] tracking-[0.26em] uppercase text-wd-gold/60 mt-2 w-6 flex-shrink-0">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-display text-[clamp(18px,1.8vw,26px)] uppercase tracking-[-0.01em] leading-[1.1] text-wd-bone group-hover:text-wd-gold transition-colors cursor-default">
-                  {brand}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+            <span data-word>Defense discipline.</span>
+            <br />
+            <span data-word="payoff">
+              <ChromaticEcho className="text-wd-gold">Consumer craft.</ChromaticEcho>
+            </span>
+          </h2>
+        </ShockStations>
+
+        <p className="font-sans text-[14px] md:text-[15px] text-wd-bone/70 mt-[clamp(40px,6vw,80px)] mb-6">
+          Our team has shipped for
+        </p>
+        <ul
+          className="max-w-[1100px] flex flex-wrap justify-center gap-x-[clamp(18px,2.4vw,40px)] gap-y-1"
+          style={{ textShadow: "0 1px 18px rgba(0,0,0,0.75)" }}
+        >
+          {brands.map((b) => (
+            <li
+              key={b}
+              className="font-display uppercase text-wd-bone leading-[1.15] tracking-[-0.02em] text-[clamp(22px,3vw,46px)]"
+            >
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
