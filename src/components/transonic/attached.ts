@@ -872,20 +872,18 @@ export function attachShocks(run: AttachedRun): (() => void) | null {
       ctx.clearRect(box[0], box[1], box[2], box[3]);
       ctx.textBaseline = "alphabetic";
       ctx.textAlign = "left";
+      // No text shadow in the drawn copy. iPhone Safari draws a canvas text shadow under this
+      // transform as a sharp black second copy of the title, a line or two below it and cut off
+      // by the canvas (16 Oct, the credits title). The page's own shadow still shows whenever
+      // the engine isn't drawing the title.
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
       for (const g of glyphs) {
         if (echoOnly && !g.echo) continue;
         ctx.font = g.font;
         ctx.fillStyle = echoOnly ? "#fff" : cut && isLetter(g.ch) ? cutFill(ctx, g) : g.color;
-        const s = echoOnly ? null : parseShadow(g.shadow);
-        if (s) {
-          ctx.shadowColor = s.color;
-          ctx.shadowOffsetX = s.x * dpr;
-          ctx.shadowOffsetY = s.y * dpr;
-          ctx.shadowBlur = s.blur * dpr;
-        } else {
-          ctx.shadowColor = "transparent";
-          ctx.shadowBlur = 0;
-        }
         ctx.fillText(g.ch, g.x, g.base);
       }
     };
