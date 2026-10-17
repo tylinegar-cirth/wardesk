@@ -1,20 +1,37 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import ChromaticEcho from "@/components/ui/ChromaticEcho";
 import ShockStations from "@/components/transonic/ShockStations";
 import { openReel, REEL_LENGTH } from "@/components/studio/ReelModal";
 
-// Cold open. One still of defense hardware fades up in a 2.39:1 band, so the page itself is the
-// letterbox. Then the title lands a word at a time, and its shocks bend the picture behind it
-// (TRANSONIC, cut). The consumer work lives inside the reel, where its captions say whose it is,
-// so the front page of a defense studio doesn't open on car brands nobody has explained yet.
-// The one action is the reel, and after the title it is the biggest thing on the screen.
-const STILL = "/hero-still.jpg";
-// Phones show a tall crop of the still; this keeps the aircraft in it. The shock engine reads
-// the same object-position, so the bent picture stays registered with the one on the page.
-const PICTURE = "absolute inset-0 w-full h-full object-cover object-[88%_50%] md:object-center";
+// Cold open. Sam's defense film (aircraft, drones, robots, launchers, ships) fades up in a
+// 2.39:1 band, so the page itself is the letterbox. Then the title lands a word at a time, and
+// its shocks bend the picture behind it (TRANSONIC, cut). The consumer work lives inside the
+// reel, where its captions say whose it is, so the front page of a defense studio opens on
+// defense. The one action is the reel, and after the title it is the biggest thing on the screen.
+const VIDEO = "/hero-defense.mp4";
+const POSTER = "/hero-defense.jpg";
+const ROLL_AT_MS = 700;
 
 export default function StudioHero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    // The picture holds on its first frame while it fades up, then rolls.
+    const roll = window.setTimeout(() => v.play().catch(() => {}), ROLL_AT_MS);
+    const onVis = () => {
+      if (!document.hidden && v.paused && performance.now() > ROLL_AT_MS) v.play().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      window.clearTimeout(roll);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+
   return (
     <section
       aria-label="War Desk Studio"
@@ -22,23 +39,21 @@ export default function StudioHero() {
     >
       {/* The picture: scope on desktop, a taller crop on phones */}
       <div data-transonic-band className="relative w-full h-[62svh] md:h-auto md:aspect-[2.39/1] md:max-h-[calc(100svh-150px)]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={STILL} alt="" aria-hidden="true" decoding="async" className={`wd-cold-picture ${PICTURE}`} />
-        {/* The shock engine takes its picture from a video element (or its poster while the video
-            loads). This one never loads, plays or shows: it carries the still as its poster and
-            the same fade, so the shocks bend exactly what is on the page. */}
         <video
-          poster={STILL}
-          preload="none"
+          ref={videoRef}
+          src={VIDEO}
+          poster={POSTER}
+          preload="auto"
           muted
+          loop
           playsInline
           disablePictureInPicture
           aria-hidden="true"
           tabIndex={-1}
-          className={`wd-cold-picture invisible ${PICTURE}`}
+          className="wd-cold-picture absolute inset-0 w-full h-full object-cover"
         />
         {/* Grade the corner the title sits in, nothing else. It runs 1px past the picture's
-            bottom edge: at fractional band heights the picture is drawn through the last device
+            bottom edge: at fractional band heights the video is drawn through the last device
             pixel row and the grade stops short of it, which left a bright hairline. */}
         <div
           aria-hidden="true"
