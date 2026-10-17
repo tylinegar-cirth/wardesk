@@ -1249,7 +1249,16 @@ export function attachShocks(run: AttachedRun): (() => void) | null {
           lastSrc = live ? "video" : "poster";
         }
         const s = Math.max(bandW / pw, bandH / ph);
-        gl.uniform4f(u("uCover"), (bandW - pw * s) / 2, (bandH - ph * s) / 2, pw * s, ph * s);
+        // object-fit: cover at the picture's own object-position (centre unless the page says
+        // otherwise, as the cold open does on phones), so the bend stays registered with it
+        const op = (getComputedStyle(video).objectPosition || "").split(" ");
+        const pct = (v: string | undefined) => {
+          const n = v && v.endsWith("%") ? parseFloat(v) / 100 : NaN;
+          return Number.isFinite(n) ? n : 0.5;
+        };
+        const ax = pct(op[0]);
+        const ay = pct(op[1]);
+        gl.uniform4f(u("uCover"), (bandW - pw * s) * ax, (bandH - ph * s) * ay, pw * s, ph * s);
         gl.uniform1f(u("uVidA"), parseFloat(getComputedStyle(video).opacity) || 0);
         gl.uniform1f(u("uSmearM"), 10 * m);
         gl.uniform1f(u("uFlow"), 0.5);

@@ -1,59 +1,44 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import ChromaticEcho from "@/components/ui/ChromaticEcho";
 import ShockStations from "@/components/transonic/ShockStations";
-import BoomUnderline from "@/components/transonic/BoomUnderline";
 import { openReel, REEL_LENGTH } from "@/components/studio/ReelModal";
 
-// Cold open. The picture fades up in a 2.39:1 band, so the page itself is the letterbox.
-// Then the title lands a word at a time, and as each word lands the shocks on its full stop
-// snap out of the dot and bend the picture behind it (TRANSONIC: shocks stand on the full
-// stop). They hold while the title is on screen and grow when the page moves fast. The echo
-// on WAR. comes alive as it lands. Sound is one plain action, and its underline carries
-// the boom.
-const ROLL_AT_MS = 700;
+// Cold open. One still of defense hardware fades up in a 2.39:1 band, so the page itself is the
+// letterbox. Then the title lands a word at a time, and its shocks bend the picture behind it
+// (TRANSONIC, cut). The consumer work lives inside the reel, where its captions say whose it is,
+// so the front page of a defense studio doesn't open on car brands nobody has explained yet.
+// The one action is the reel, and after the title it is the biggest thing on the screen.
+const STILL = "/hero-still.jpg";
+// Phones show a tall crop of the still; this keeps the aircraft in it. The shock engine reads
+// the same object-position, so the bent picture stays registered with the one on the page.
+const PICTURE = "absolute inset-0 w-full h-full object-cover object-[88%_50%] md:object-center";
 
 export default function StudioHero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    // The picture holds on its first frame while it fades up, then rolls, so the truck's grille
-    // fills the frame just as WAR. lands and its shocks have something to bend.
-    const roll = window.setTimeout(() => v.play().catch(() => {}), ROLL_AT_MS);
-    const onVis = () => {
-      if (!document.hidden && v.paused && performance.now() > ROLL_AT_MS) v.play().catch(() => {});
-    };
-    document.addEventListener("visibilitychange", onVis);
-    return () => {
-      window.clearTimeout(roll);
-      document.removeEventListener("visibilitychange", onVis);
-    };
-  }, []);
-
   return (
     <section
       aria-label="War Desk Studio"
       className="relative h-[100svh] min-h-[560px] bg-wd-bg flex flex-col justify-center overflow-hidden"
     >
       {/* The picture: scope on desktop, a taller crop on phones */}
-      <div data-transonic-band className="relative w-full h-[68svh] md:h-auto md:aspect-[2.39/1] md:max-h-[calc(100svh-150px)]">
+      <div data-transonic-band className="relative w-full h-[62svh] md:h-auto md:aspect-[2.39/1] md:max-h-[calc(100svh-150px)]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={STILL} alt="" aria-hidden="true" decoding="async" className={`wd-cold-picture ${PICTURE}`} />
+        {/* The shock engine takes its picture from a video element (or its poster while the video
+            loads). This one never loads, plays or shows: it carries the still as its poster and
+            the same fade, so the shocks bend exactly what is on the page. */}
         <video
-          ref={videoRef}
-          src="/hero-scope.mp4"
-          poster="/hero-scope.jpg"
-          preload="auto"
+          poster={STILL}
+          preload="none"
           muted
-          loop
           playsInline
           disablePictureInPicture
           aria-hidden="true"
-          className="wd-cold-picture absolute inset-0 w-full h-full object-cover"
+          tabIndex={-1}
+          className={`wd-cold-picture invisible ${PICTURE}`}
         />
         {/* Grade the corner the title sits in, nothing else. It runs 1px past the picture's
-            bottom edge: at fractional band heights the video is drawn through the last device
+            bottom edge: at fractional band heights the picture is drawn through the last device
             pixel row and the grade stops short of it, which left a bright hairline. */}
         <div
           aria-hidden="true"
@@ -76,29 +61,40 @@ export default function StudioHero() {
               </span>
             </h1>
           </ShockStations>
-          <button
-            type="button"
-            onClick={openReel}
-            className="wd-cold-after hidden md:inline-block shrink-0 mb-3 font-sans text-[15px] text-wd-bone/85 hover:text-wd-bone transition-colors"
-          >
-            <BoomUnderline variant="n">Watch with sound, {REEL_LENGTH}</BoomUnderline>
-          </button>
+          <ReelButton className="hidden md:inline-flex mb-2" />
         </div>
       </div>
 
-      {/* Lower letterbox: what the studio is, in one line */}
-      <div className="wd-cold-after absolute inset-x-[clamp(20px,5vw,72px)] bottom-[clamp(16px,3.2vh,34px)] flex items-baseline justify-between gap-6">
+      {/* Lower letterbox: the reel on phones, then what the studio is, in one line */}
+      <div className="wd-cold-after absolute inset-x-[clamp(20px,5vw,72px)] bottom-[clamp(16px,3.2vh,34px)] flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-6">
+        <ReelButton className="flex md:hidden w-full justify-center" />
         <p className="font-sans text-[14px] md:text-[15px] text-wd-bone/60 max-w-[760px]">
           Films and content for defense, aerospace, and hard tech. El Segundo, California.
         </p>
-        <button
-          type="button"
-          onClick={openReel}
-          className="md:hidden shrink-0 font-sans text-[14px] text-wd-bone/85"
-        >
-          <BoomUnderline variant="n">Watch, {REEL_LENGTH}</BoomUnderline>
-        </button>
       </div>
     </section>
+  );
+}
+
+// The one action on the cold open: the reel, with sound. Big, plain and unmissable.
+function ReelButton({ className = "" }: { className?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={openReel}
+      aria-label={`Watch the reel, ${REEL_LENGTH}, with sound`}
+      className={`wd-cold-after group shrink-0 items-center gap-4 h-[56px] md:h-[60px] pl-[9px] pr-6 border border-wd-bone/60 bg-[rgba(10,10,12,0.4)] backdrop-blur-[6px] text-wd-bone transition-colors duration-200 hover:bg-wd-bone hover:border-wd-bone hover:text-wd-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wd-gold ${className}`}
+    >
+      <span
+        aria-hidden="true"
+        className="grid place-items-center w-[38px] h-[38px] md:w-[42px] md:h-[42px] rounded-full bg-wd-gold text-wd-bg"
+      >
+        <svg viewBox="0 0 12 12" className="w-[13px] h-[13px] translate-x-[1px]">
+          <path d="M2.5 1.3v9.4L10.6 6z" fill="currentColor" />
+        </svg>
+      </span>
+      <span className="font-mono font-medium uppercase tracking-[0.18em] text-[13px] md:text-[14px]">Watch the reel</span>
+      <span className="font-mono tracking-[0.08em] text-[13px] md:text-[14px] opacity-60">{REEL_LENGTH}</span>
+    </button>
   );
 }
